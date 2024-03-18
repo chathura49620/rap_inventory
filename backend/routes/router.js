@@ -12,4 +12,5 @@ route.get('/api/v1/vendor-product',contoller.vendorProduct.find);
 // route.delete('/api/v1/vendor-product/',contoller.vendorProduct.delete);
 
 
+
 module.exports = route;

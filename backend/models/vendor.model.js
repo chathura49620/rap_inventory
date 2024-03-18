@@ -2,7 +2,7 @@ const { DataTypes, sequelize } = require('sequelize');
 
 // This function will automatically receive as parameter the Sequelize connection object.
 module.exports = (sequelize) => {
-	sequelize.define('vendors', {
+	const Vendor =  sequelize.define('vendors', {
 		id: {
 			allowNull: false,
 			autoIncrement: true,
@@ -26,4 +26,5 @@ module.exports = (sequelize) => {
 	}, {
 		tableName: 'vendors'
 	});
+	return Vendor;
 };
