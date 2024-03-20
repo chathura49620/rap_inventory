@@ -10,8 +10,8 @@ class Dashboard extends Component {
         this.state = {
             superAdmin: false
         }
-        this.renderSideNavigation = this.renderSideNavigation.bind(this);
-        this.renderDashboard = this.renderDashboard.bind(this);
+        // this.renderSideNavigation = this.renderSideNavigation.bind(this);
+        // this.renderDashboard = this.renderDashboard.bind(this);
     }
 
     // renderSideNavigation(){
@@ -94,7 +94,7 @@ class Dashboard extends Component {
     render(){
        return(
            <div>
-            Dashboard Renderd
+            <h1>Dashboard Renderd</h1>
                  {/* {this.renderSideNavigation()}
                  {this.renderDashboard()} */}
            </div> 
