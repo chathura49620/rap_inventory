@@ -1,0 +1,57 @@
+import * as React from 'react';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton } from '@mui/material';
+import PreviewIcon from '@mui/icons-material/Preview';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import './common.css';
+
+
+const BasicTable = (props) => {
+  const { headers, rows, preview, edit, deleteFunc } = props;
+  return (
+    <TableContainer class="table1" component={Paper}>
+      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            {headers.map(header => (
+              <TableCell align="center">{header}</TableCell>
+            ))}
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {rows.map((row) => (
+            <TableRow
+              key={row.name}
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+            >
+              {/* <TableCell component="th" scope="row">
+                {row.name}
+              </TableCell> */}
+              <TableCell align="center">{row.id}</TableCell>
+              <TableCell align="center">{row.name}</TableCell>
+              <TableCell align="center">{row.brand}</TableCell>
+              <TableCell align="center">{row.color}</TableCell>
+              <TableCell align="center">{row.type}</TableCell>
+              <TableCell align="center">{row.quantity}</TableCell>
+              <TableCell align="center">{row.price}</TableCell>
+              <TableCell align="center">{row.supplier_id}</TableCell>
+              <TableCell align="center">
+                <IconButton onClick={preview} aria-label="preview">
+                  <PreviewIcon />
+                </IconButton>
+                <IconButton onClick={edit} aria-label="edit">
+                  <EditIcon />
+                </IconButton>
+                <IconButton onClick={deleteFunc} aria-label="delete">
+                  <DeleteIcon />
+                </IconButton>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
+}
+
+export default BasicTable;

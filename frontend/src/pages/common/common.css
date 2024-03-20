@@ -1,0 +1,34 @@
+.table1 {
+    width: 70%;
+    border: solid #1976d2;
+    margin: 25px;
+}
+
+.stock-body {
+    display: flex;
+}
+
+.notify-body {
+    margin-top: 25px;
+    border: solid #1976d2;
+}
+
+.notify-card { 
+    margin: 10px
+}
+
+.notify-header {
+    display: flex;
+    height: 46px;
+    align-items: center;
+    justify-content: center;
+}
+
+.css-1086bdv-MuiPaper-root-MuiAccordion-root.Mui-expanded {
+    margin: 10px !important;
+}
+
+.css-1f773le-MuiButtonBase-root-MuiAccordionSummary-root {
+    background-color: #1976d2 !important;
+    color: white !important;
+}
