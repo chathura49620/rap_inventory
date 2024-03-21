@@ -94,7 +94,7 @@ class Dashboard extends Component {
     render(){
        return(
            <div>
-            Dashboard Renderd
+            <h1>Dashboard Renderd</h1>
                  {/* {this.renderSideNavigation()}
                  {this.renderDashboard()} */}
            </div> 
