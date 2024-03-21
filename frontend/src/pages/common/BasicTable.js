@@ -14,7 +14,7 @@ const BasicTable = (props) => {
         <TableHead>
           <TableRow>
             {headers.map(header => (
-              <TableCell align="center">{header}</TableCell>
+              <TableCell align="center"><b>{header}</b></TableCell>
             ))}
           </TableRow>
         </TableHead>
@@ -36,13 +36,13 @@ const BasicTable = (props) => {
               <TableCell align="center">{row.price}</TableCell>
               <TableCell align="center">{row.supplier_id}</TableCell>
               <TableCell align="center">
-                <IconButton onClick={preview} aria-label="preview">
+                <IconButton onClick={() => preview(row)} aria-label="preview">
                   <PreviewIcon />
                 </IconButton>
-                <IconButton onClick={edit} aria-label="edit">
+                <IconButton onClick={() => edit(row)} aria-label="edit">
                   <EditIcon />
                 </IconButton>
-                <IconButton onClick={deleteFunc} aria-label="delete">
+                <IconButton onClick={() => deleteFunc(row.id)} aria-label="delete">
                   <DeleteIcon />
                 </IconButton>
               </TableCell>

@@ -1,22 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import { AppBar, Toolbar, Typography } from '@mui/material';
+import { AppBar, Button, Toolbar, Typography } from '@mui/material';
 import BasicTable from '../common/BasicTable';
 import Notifications from './Notifications';
+import axios from 'axios';
+import AddEditPreview from './AddEditPreview';
+import ConfirmDelete from './ConfirmDelete';
 
 const Stock = () => {
     const [stocks, setStocks] = useState([]);
     const [headers, setHeaders] = useState([]);
     const [notifyList, setNotifyList] = useState([]);
+    const [previewType, setPreviewType] = useState([]);
+    const [openPreview, setOpenPreview] = useState(false);
+    const [previewData, setPreviewData] = useState([]);
+    const [refreshTable, setRefreshTable] = useState(false);
+    const [deleteOpen, setDeleteOpen] = useState(false);
+    const [delId, setDelId] = useState();
 
     useEffect(() => {
         setHeaders(["ID", "Name", "Brand", "Color", "Type", "Quantity", "Price", "Supplier ID", ""]);
-        setStocks([
-            createData(1, 'Chooty', 'Atlas', 'Red', 'Pen', 500, 50.0, 1234),
-            createData(2, 'Chooty', 'Atlas', 'Blue', 'Pen', 500, 50.0, 1234),
-            createData(3, 'Chooty', 'Atlas', 'Black', 'Pen', 500, 50.0, 1234),
-            createData(4, 'Chooty', 'Atlas', 'Grey', 'Pen', 500, 50.0, 1234),
-            createData(5, 'Chooty', 'Atlas', 'Green', 'Pen', 500, 50.0, 1234),
-        ]);
 
         setNotifyList([
             createData2(1, 'Item #2 requires more stock!', 'Item #2 requires more stock!', true),
@@ -27,25 +29,75 @@ const Stock = () => {
         ]);
     }, []);
 
-    function createData(id, name, brand, color, type, quantity, price, supplier_id) {
-        return { id, name, brand, color, type, quantity, price, supplier_id };
-    }
+    useEffect(() => {
+        axios.get('http://localhost:8080/api/v1/stock').then((res) => {
+            console.log(res.data);
+            setStocks(res.data.data);
+        }).catch(err => {
+            console.error(err);
+        });
+
+        setDelId();
+    }, [refreshTable]);
+
+    // function createData(id, name, brand, color, type, quantity, price, supplier_id) {
+    //     return { id, name, brand, color, type, quantity, price, supplier_id };
+    // }
 
     function createData2(id, header, details, request) {
         return { id, header, details, request };
     }
 
-    const handlePreview = () => {
-        console.log('Preview action');
+    const handleAdd = () => {
+        setPreviewType('add')
+        setOpenPreview(true);
+        // setPreviewData({});
     };
 
-    const handleEdit = () => {
-        console.log('Edit action');
+    const handlePreview = (data) => {
+        setPreviewType('preview')
+        setOpenPreview(true);
+        setPreviewData(data);
     };
 
-    const handleDelete = () => {
-        console.log('Delete action');
+    const handleEdit = (data) => {
+        setPreviewType('edit')
+        setOpenPreview(true);
+        setPreviewData(data);
     };
+
+    const handleDelete = (id) => {
+        setDelId(id);
+        setDeleteOpen(true);
+    };
+
+    const handleAddOrEdit = (type, data) => {
+        if (type === 'add') {
+            axios.post('http://localhost:8080/api/v1/stock', data).then((res) => {
+                console.log(res.data);
+                setRefreshTable(prev => !prev);
+            }).catch(err => {
+                console.error(err);
+            });
+        } else {
+            axios.put('http://localhost:8080/api/v1/stock', data).then((res) => {
+                console.log(res.data);
+                setRefreshTable(prev => !prev);
+            }).catch(err => {
+                console.error(err);
+            });
+        }
+    }
+
+    const deleteProduct = () => {
+        console.log(delId)
+        axios.delete(`http://localhost:8080/api/v1/stock/${delId}`).then((res) => {
+            console.log(res.data);
+            setRefreshTable(prev => !prev);
+        }).catch(err => {
+            console.error(err);
+        });
+    }
 
     return (
         <div>
@@ -57,10 +109,32 @@ const Stock = () => {
                 </Toolbar>
             </AppBar>
 
+            <Button style={{ margin: 25, marginBottom: 0 }} onClick={handleAdd}>+ Add New Product</Button>
+
             <div className='stock-body'>
-                <BasicTable headers={headers} rows={stocks} preview={handlePreview} edit={handleEdit} deleteFunc={handleDelete} />
+                <BasicTable
+                    headers={headers}
+                    rows={stocks}
+                    preview={handlePreview}
+                    edit={handleEdit}
+                    deleteFunc={handleDelete}
+                />
 
                 <Notifications list={notifyList} />
+
+                <AddEditPreview
+                    type={previewType}
+                    open={openPreview}
+                    setOpen={setOpenPreview}
+                    data={previewData}
+                    handleAddOrEdit={handleAddOrEdit}
+                />
+
+                <ConfirmDelete
+                    open={deleteOpen}
+                    setOpen={setDeleteOpen}
+                    delete1={deleteProduct}
+                />
             </div>
         </div>
     )

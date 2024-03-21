@@ -11,7 +11,7 @@ const Notifications = (props) => {
     const { list } = props;
 
     return (
-        <div className='notify-body'>
+        <div className='notify-body' style={{ width: '30%' }}>
             <div className='notify-header'>Notifications</div>
             {list.map((data) => (
                 <Accordion className='notify-card'>
