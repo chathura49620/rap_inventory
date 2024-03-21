@@ -13,6 +13,7 @@ const Stock = () => {
     const [previewType, setPreviewType] = useState([]);
     const [openPreview, setOpenPreview] = useState(false);
     const [previewData, setPreviewData] = useState([]);
+    const [deleteData, setDeleteData] = useState([]);
     const [refreshTable, setRefreshTable] = useState(false);
     const [deleteOpen, setDeleteOpen] = useState(false);
     const [delId, setDelId] = useState();
@@ -22,10 +23,10 @@ const Stock = () => {
 
         setNotifyList([
             createData2(1, 'Item #2 requires more stock!', 'Item #2 requires more stock!', true),
-            createData2(2, 'Lorem Ipsum', ' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.', false),
-            createData2(2, 'Lorem Ipsum', ' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.', false),
-            createData2(2, 'Lorem Ipsum', ' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.', false),
-            createData2(2, 'Lorem Ipsum', ' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.', false),
+            createData2(2, 'Message from vendor Maliban', ' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.', false),
+            createData2(2, 'New order received #345', ' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.', false),
+            createData2(2, 'Vendor accpted the invitation', ' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.', false),
+            createData2(2, 'Receipt for the purchase order #115515', ' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.', false),
         ]);
     }, []);
 
@@ -51,7 +52,7 @@ const Stock = () => {
     const handleAdd = () => {
         setPreviewType('add')
         setOpenPreview(true);
-        // setPreviewData({});
+        setPreviewData();
     };
 
     const handlePreview = (data) => {
@@ -66,9 +67,10 @@ const Stock = () => {
         setPreviewData(data);
     };
 
-    const handleDelete = (id) => {
-        setDelId(id);
+    const handleDelete = (row) => {
+        setDelId(row.id);
         setDeleteOpen(true);
+        setDeleteData(row);
     };
 
     const handleAddOrEdit = (type, data) => {
@@ -134,6 +136,7 @@ const Stock = () => {
                     open={deleteOpen}
                     setOpen={setDeleteOpen}
                     delete1={deleteProduct}
+                    data={deleteData}
                 />
             </div>
         </div>

@@ -42,7 +42,7 @@ const BasicTable = (props) => {
                 <IconButton onClick={() => edit(row)} aria-label="edit">
                   <EditIcon />
                 </IconButton>
-                <IconButton onClick={() => deleteFunc(row.id)} aria-label="delete">
+                <IconButton onClick={() => deleteFunc(row)} aria-label="delete">
                   <DeleteIcon />
                 </IconButton>
               </TableCell>

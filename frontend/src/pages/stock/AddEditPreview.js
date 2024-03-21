@@ -27,6 +27,14 @@ const AddEditPreview = (props) => {
             setQty(data.quantity);
             setPrice(data.price);
             setSupId(data.supplier_id);
+        } else {
+            setName('');
+            setBrand('');
+            setColor('');
+            setType1('');
+            setQty('');
+            setPrice('');
+            setSupId('');
         }
     }, [data]);
 
@@ -55,6 +63,11 @@ const AddEditPreview = (props) => {
             <Dialog
                 open={open}
                 onClose={handleClose}
+                PaperProps={{
+                    style: {
+                        width: '40%'
+                    }
+                }}
             >
                 <DialogTitle>{type === 'add' ? 'Add New Product' : type === 'edit' ? 'Edit Product' : 'Preview Product'}</DialogTitle>
                 <DialogContent style={{ display: 'flex', flexDirection: 'column' }}>

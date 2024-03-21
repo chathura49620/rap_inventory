@@ -10,10 +10,11 @@
 
 .notify-body {
     margin-top: 25px;
+    margin-right: 5px;
     border: solid #1976d2;
 }
 
-.notify-card { 
+.notify-card {
     margin: 10px
 }
 

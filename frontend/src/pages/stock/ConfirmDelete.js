@@ -8,7 +8,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 const ConfirmDelete = (props) => {
 
-    const { open, setOpen, delete1 } = props;
+    const { open, setOpen, delete1, data } = props;
 
     const handleYes = () => {
         delete1();
@@ -32,7 +32,11 @@ const ConfirmDelete = (props) => {
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        Are you sure you want to delete this product?
+                        <p>Are you sure you want to delete this product?<br />
+                            <ul>
+                                <li>{`${data.id} - ${data.brand} ${data.name} ${data.type} [${data.color} color]`}</li>
+                            </ul>
+                        </p>
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
