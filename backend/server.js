@@ -6,10 +6,13 @@ const {dbConfig} = require("./models/index");
 
 const app = express();
 // app.use(dbConfig)
-var corsOptons = {
-	origin: "http://localhost:8080/"
-		};
-app.use (cors(corsOptons));
+// var corsOptons = {
+// 	origin: "http://localhost:3000/"
+// 		};
+// app.use (cors(corsOptons));
+app.use(cors({
+    origin: 'http://localhost:3000'
+  }));
 
 // parse requests of content-type - application/json
 app.use (Sequelize);
