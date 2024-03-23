@@ -70,6 +70,7 @@ const Cart = () => {
         setCartItems([])
     }
     const checkout = () => {
+        localStorage.setItem('cart-items', JSON.stringify(cartItems))
         navigate("/billing-info")
     }
     return (
@@ -98,7 +99,7 @@ const Cart = () => {
                                 <TableCell component="th" scope="row">{cartItem.name}</TableCell>
                                 <TableCell align="right">{cartItem.price}</TableCell>
                                 <TableCell align="right">
-                                    <div style={{width: 150}}>
+                                    <div style={{ width: 150 }}>
                                         <NumberInput item={cartItem} value={cartItem.qty} onUpdate={changeQty} min={1} />
                                     </div>
                                 </TableCell>
@@ -112,24 +113,26 @@ const Cart = () => {
                                 </TableCell>
                             </TableRow>
                         ))}
-                            <TableRow>
-                                 <TableCell component="th" scope="row"></TableCell>
-                                <TableCell align="right"></TableCell>
-                                <TableCell align="right"></TableCell>
-                                <TableCell align="right"></TableCell>
-                                <TableCell align="right"><Typography variant="h6" gutterBottom>
-                                  Sub Total &nbsp;&nbsp;{subtotal}
-                                 </Typography></TableCell>
-                                <TableCell align="right"></TableCell>
-                                {/* <TableCell align="right">{(cartItem.price * cartItem.qty)}</TableCell> */}
-                            </TableRow>
-                            <TableRow>
-                                 <TableCell component="th" scope="row"></TableCell>
-                                <TableCell align="right"></TableCell>
-                                <TableCell align="right"></TableCell>
-                                <TableCell align="right"></TableCell>
-                                <TableCell align="right"><Button variant="contained" size="medium" disabled={cartItems.length === 0} onClick={checkout}>Checkout</Button></TableCell>
-                            </TableRow>
+                        <TableRow>
+                            <TableCell component="th" scope="row"></TableCell>
+                            <TableCell align="right"></TableCell>
+                            <TableCell align="right"></TableCell>
+                            <TableCell align="right"></TableCell>
+                            <TableCell align="right"><Typography variant="h6" gutterBottom>
+                                Sub Total &nbsp;&nbsp;{subtotal}
+                            </Typography></TableCell>
+                            <TableCell align="right"></TableCell>
+                            {/* <TableCell align="right">{(cartItem.price * cartItem.qty)}</TableCell> */}
+                        </TableRow>
+                        <TableRow>
+                            <TableCell component="th" scope="row"></TableCell>
+                            <TableCell align="right"></TableCell>
+                            <TableCell align="right"></TableCell>
+                            <TableCell align="right"></TableCell>
+                            <TableCell align="right">
+                                <Button variant="contained" size="medium" disabled={cartItems.length === 0} onClick={checkout}>Checkout</Button>
+                            </TableCell>
+                        </TableRow>
                     </TableBody>
                 </Table>
             </TableContainer>

@@ -7,6 +7,14 @@ const ViewStock = () => {
   const { data, fetchData } = useGet();
   const [stocks, setStocks] = useState(null);
   const [stocksWithQty, setStocksWithQty] = useState([]);
+  const [cartItemCount, setCartItemCount] = useState(0);
+
+  useEffect(() => {
+    const lsCartItemsJson = localStorage.getItem('cart-items')
+    const lsCartItems = JSON.parse(lsCartItemsJson) || []
+    const subtotal = lsCartItems.reduce((total, item) => total + item.qty, 0)
+    setCartItemCount(subtotal)
+  }, [stocksWithQty])
 
   useEffect(() => {
     if (!stocks) {
@@ -80,9 +88,9 @@ const ViewStock = () => {
         <Typography gutterBottom variant="h5" style={{ margin: 0, marginRight: 16 }}>
           Products
         </Typography>
-        {stocks?.length > 0 && <Button variant="contained" href="cart" size="small" color="success" endIcon={
-          <Badge badgeContent={stocks.length} color="error">
-            <ShoppingCart color="action" />
+        {cartItemCount > 0 && <Button variant="contained" href="cart" size="small" color="success" endIcon={
+          <Badge badgeContent={cartItemCount} color="error">
+            <ShoppingCart color="white" />
           </Badge>}>
           View cart
         </Button>}

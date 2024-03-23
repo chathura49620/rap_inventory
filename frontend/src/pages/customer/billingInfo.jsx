@@ -11,20 +11,15 @@
 
 import * as React from 'react';
 import { useState } from "react";
-import ListSubheader from '@mui/material/ListSubheader';
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
+import { Box, Grid, TextField, Paper, Avatar } from '@mui/material';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
 import { useEffect } from 'react';
 import { useGet } from "./../../hooks/useFetch";
-import EditIcon from '@mui/icons-material/Edit';
-import TextField from '@mui/material/TextField';
+import MinHeightTextarea from "./../../components/customer/TextareaInput"
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { useNavigate } from "react-router-dom";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -45,6 +40,7 @@ const bull = (
 );
 
 const BillingInfo = () => {
+  const navigate = useNavigate()
   const { data: currentUserData, fetchData } = useGet();
   const currentUserId = 1
   useEffect(() => {
@@ -58,71 +54,81 @@ const BillingInfo = () => {
     }
   }, [currentUserData])
 
-  // const billingInfo = fetchData(data.data);
+  const lsCartItems = localStorage.getItem('cart-items')
+  const [cartItems, setCartItems] = useState([])
+  useEffect(() => {
+    if (lsCartItems) {
+      setCartItems(JSON.parse(lsCartItems))
+    }
+  }, [])
+  const subtotal = cartItems.reduce((total, item) => total + (item.price * item.qty), 0)
+
   return (
     <>
-      {/* <h1 style={{ textAlign: 'left', marginLeft: '5px' }}>Order Confirmation</h1> */}
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <ListSubheader component="div" id="nested-list-subheader">
-          <h1>Order Confirmation</h1>
-        </ListSubheader>
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <p>Order Total:&nbsp;<b>400(LKR)&nbsp;&nbsp;</b></p>
-          <Button variant="contained" size="small">Place Order</Button>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 32, marginTop: 32 }}>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <Avatar sx={{ width: 24, height: 24, marginRight: 1 }} onClick={() => navigate("/cart")}>
+            <ArrowBackIcon />
+          </Avatar>
+          <Typography gutterBottom variant="h5" style={{ display: 'flex', alignContent: 'center', margin: 0, marginRight: 16 }}>
+            Order Confirmation
+          </Typography>
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Typography gutterBottom variant="p" style={{ margin: 0, marginRight: 16 }}>
+            Order Total
+          </Typography>
+          <Typography gutterBottom variant="h6" style={{ margin: 0, marginRight: 16 }}>
+            <b>{subtotal} LKR</b>
+          </Typography>
+          <Button variant="contained" color="success" size="small">Place Order</Button>
         </div>
       </div>
-      {/* <Card sx={{ minWidth: 275, maxWidth: 400, marginLeft: '20px'}}> */}
-      <Box sx={{ minWidth: 275, maxWidth: 1000, marginLeft: '20px' }}>
-        {/* {billings.map(billing => ( */}
-          <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-            {/* {(customers || []).map((customer) => {
-          return (
-          <Grid item xs={6}>
-            <Item><p>Your Informationssssssssssssssssssssss</p></Item>
+
+      <Paper style={{ padding: 16 }}>
+        <Grid container>
+          <Grid xs={6}>
+            <Box component="section" sx={{ padding: 1 }}>
+              <Typography gutterBottom variant="h6">
+                Your information
+              </Typography>
+
+              <div style={{ display: 'flex' }}>
+                <TextField style={{ marginRight: 16 }} label="First name" variant="standard" InputLabelProps={{ shrink: true }} value={currentUser.first_name} />
+                <TextField style={{ marginRight: 16 }} label="Last name" variant="standard" InputLabelProps={{ shrink: true }} value={currentUser.last_name} />
+                <TextField style={{ marginRight: 16 }} label="Email" variant="standard" InputLabelProps={{ shrink: true }} value={currentUser.email} />
+              </div>
+            </Box>
+            <Box component="section" sx={{ padding: 1 }}>
+              <Typography gutterBottom variant="h6">
+                Payment
+              </Typography>
+              <Button variant="outlined" size="small">
+                VISA
+              </Button>
+              <p style={{ margin: 0 }}>
+                <small>Visa card ending is **** 1234</small>
+              </p>
+            </Box>
           </Grid>
-          <Grid item xs={6}>
-            <Item>Shipping Address</Item>
+          <Grid xs={6}>
+            <Box component="section" sx={{ padding: 1 }}>
+              <Typography gutterBottom variant="h6">
+                Shipping address
+              </Typography>
+
+              <MinHeightTextarea defaultValue={currentUser.shipping_address} />
+            </Box>
+            <Box component="section" sx={{ padding: 1 }}>
+              <Typography gutterBottom variant="h6">
+                Billing address
+              </Typography>
+
+              <MinHeightTextarea defaultValue={currentUser.billing_address} />
+            </Box>
           </Grid>
-          <Grid item xs={6}>
-            <Item>Payment</Item>
-          </Grid>
-          <Grid item xs={6}>
-            <Item>Billing Address</Item>
-          </Grid>
-         })} </Grid> */}
-            <Grid item xs={6}>
-              <Item><p>Your Information</p>
-                <h6>{currentUser.first_name}&nbsp;{currentUser.last_name}</h6>
-                <h6>{currentUser.email}</h6>
-              </Item>
-            </Grid>
-            <Grid item xs={6}>
-              <Item>Shipping Address
-              <h6>              
-                <TextField
-                  required
-                  id="outlined-required"
-                  value={currentUser.shipping_address}
-                /></h6>
-              </Item>
-            </Grid>
-            <Grid item xs={6}>
-              <Item>Payment
-              <h6></h6>
-              </Item>
-            </Grid>
-            <Grid item xs={6}>
-              <Item>Billing Address
-              <h6><TextField
-                required
-                id="outlined-required"
-                value={currentUser.billing_address}
-              /></h6>
-              </Item>
-            </Grid>
-          </Grid>
-        {/* ))} */}
-      </Box>
+        </Grid>
+      </Paper>
     </>
   );
 }

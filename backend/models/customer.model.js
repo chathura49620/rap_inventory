@@ -31,7 +31,7 @@ module.exports = (sequelize) => {
 		},
 		email: {
 			allowNull: false,
-			type: DataTypes.BOOLEAN
+			type: DataTypes.STRING(200),
 		},
 	}, {
 		tableName: 'customers'
