@@ -10,8 +10,7 @@ module.exports = (sequelize) => {
 			type: DataTypes.INTEGER
 		},
 		first_name: {
-			type: DataTypes.UUID,
-			defaultValue: sequelize.UUIDV4, // Or Sequelize.UUIDV1
+			type: DataTypes.STRING(200),
 			unique: true
 		},
 		description: {
@@ -21,7 +20,7 @@ module.exports = (sequelize) => {
 		},
 		email: {
 			allowNull: false,
-			type: DataTypes.BOOLEAN
+			type: DataTypes.STRING(200)
 		},
 	}, {
 		tableName: 'vendors'

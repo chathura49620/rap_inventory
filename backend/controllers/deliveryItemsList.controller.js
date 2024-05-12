@@ -1,26 +1,11 @@
 var db = require("../models/index");
 
-// create and save new vendorProduct
-exports.create = async (req, res) => {
-  // validate request
-  if (!req.body) {
-    res.status(400).send({ message: req.body });
-    return;
-  }
-  const data = req.body;
-  try {
-    const book = await db.vendorProduct.create(data);
-    res.send(book);
-  } catch (err) {
-    res.send(err);
-  }
-};
 
 //retrive and return all vendorProducts/retive a single vendorProduct'
 exports.find = async function (req, res) {
   try {
     console.log("athule");
-    const userData = await db.vendorProduct.findAll();
+    const userData = await db.requestedItems.findAll();
 
     if (userData.length > 0) {
       res
@@ -46,7 +31,7 @@ exports.update = (req, res) => {
   const id = req.body.id;
 
   // Assuming 'id' and the fields to be updated are in 'req.body'
-    db.vendorProduct.update(req.body, {
+    db.requestedItems.update(req.body, {
       where: { id: id }
     })
       .then(num => {
@@ -66,26 +51,4 @@ exports.update = (req, res) => {
           message: "Error updating stock item with id=" + id
         });
       });
-}
-
-//Delete a vendorProduct with specified vendorProduct id in the request
-exports.delete = (req, res) => {
-  const id = req.params.id;
-
-  db.vendorProduct.destroy({
-    where: {
-      id: id // Replace 'yourIdVariable' with the actual ID you want to delete
-    }
-  })
-    .then(data => {
-      if (!data) {
-        res.status(400).send({ message: `cannot Delete product code with $(id). Maybe product code not found` });
-      }
-      else {
-        res.send({ message: "product code was deleted" });
-      }
-    })
-    .catch(err => {
-      res.status(500).send({ message: err })
-    })
 }

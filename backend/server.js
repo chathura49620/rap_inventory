@@ -6,10 +6,9 @@ const {dbConfig} = require("./models/index");
 
 const app = express();
 // app.use(dbConfig)
-var corsOptons = {
-	origin: "http://localhost:8080/"
-		};
-app.use (cors(corsOptons));
+app.use(cors({
+	origin: 'http://localhost:3000'
+  }));
 
 // parse requests of content-type - application/json
 app.use (Sequelize);
@@ -26,7 +25,7 @@ res.json({message: "Welcome to easyInventory.com"});
 });
 
 // set port, listen for requests
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 9000;
 app.listen(PORT, () => {
 console.log ('Server is running on port $(PORT).' );
 });

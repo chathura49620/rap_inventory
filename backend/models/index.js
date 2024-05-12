@@ -21,6 +21,7 @@ db.Sequelize = Sequelize;
 
 db.vendor = require("./vendor.model.js")(Sequelize, Sequelize);
 db.vendorProduct = require("./vendorProduct.model.js")(Sequelize, Sequelize);
+db.requestedItems = require("./requestedItem.model.js")(Sequelize, Sequelize);
 
 
 //relationships
@@ -30,6 +31,6 @@ db.vendorProduct.belongsTo(db.vendor, { foreignKey: 'vendor_id', as: 'vendor', o
 module.exports = db;
 
 
-db.Sequelize.sync({ force: true }).then(() => {
+db.Sequelize.sync({ force: false }).then(() => {
   console.log("Drop and resync db.");
 });
