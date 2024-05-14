@@ -21,6 +21,7 @@ db.Sequelize = Sequelize;
 
 db.vendor = require("./vendor.model.js")(Sequelize, Sequelize);
 db.vendorProduct = require("./vendorProduct.model.js")(Sequelize, Sequelize);
+db.requestedItems = require("./requestedItem.model.js")(Sequelize, Sequelize);
 
 
 db.stock = require("./stock.model.js")(Sequelize, Sequelize);

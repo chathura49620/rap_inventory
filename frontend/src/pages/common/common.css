@@ -4,6 +4,11 @@
     margin: 25px;
 }
 
+.add-new-stock {
+    padding-left: 25px !important;
+    margin-bottom: 0;
+}
+
 .stock-body {
     display: flex;
 }

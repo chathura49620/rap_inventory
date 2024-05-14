@@ -5,6 +5,7 @@ import Notifications from './Notifications';
 import axios from 'axios';
 import AddEditPreview from './AddEditPreview';
 import ConfirmDelete from './ConfirmDelete';
+// import Sidebar from '../common/Sidebar';
 
 const Stock = () => {
     const [stocks, setStocks] = useState([]);
@@ -103,15 +104,18 @@ const Stock = () => {
 
     return (
         <div>
-            <AppBar position="static">
+            {/* <Sidebar /> */}
+            {/* <AppBar position="static">
                 <Toolbar>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         Stock Management
                     </Typography>
                 </Toolbar>
-            </AppBar>
+            </AppBar> */}
 
-            <Button style={{ margin: 25, marginBottom: 0 }} onClick={handleAdd}>+ Add New Product</Button>
+            <div className='add-new-stock'>
+                <Button onClick={handleAdd}>+ Add New Product</Button>
+            </div>
 
             <div className='stock-body'>
                 <BasicTable

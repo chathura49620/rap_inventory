@@ -40,7 +40,7 @@ const AddEditPreview = (props) => {
 
     const handleSubmit = () => {
         let data1 = {
-            id: data.id,
+            id: (type !== 'add') ? data.id : undefined,
             name: name,
             brand: brand,
             type: type1,

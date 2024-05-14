@@ -1,0 +1,40 @@
+.table-container {
+    margin: 15px;
+    border-collapse: collapse;
+    width: 98%;
+}
+
+.table-container th,
+.table-container td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.table-container th {
+    background-color: #f2f2f2;
+    cursor: pointer;
+}
+
+.table-container th.sortable:after {
+    content: ' ▼';
+    font-size: 0.8em;
+    color: #ccc;
+    margin-left: 5px;
+}
+
+.table-container th.sortable.sorted-asc:after {
+    content: ' ▲';
+}
+
+.table-container th.sortable.sorted-desc:after {
+    content: ' ▼';
+}
+
+.table-container tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.table-container tr:hover {
+    background-color: #f1f1f1;
+}
