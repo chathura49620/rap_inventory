@@ -9,6 +9,15 @@ module.exports = (sequelize) => {
 			primaryKey: true,
 			type: DataTypes.INTEGER
 		},
+		customer_id: {
+			allowNull: false,
+			type: DataTypes.INTEGER
+		},
+		order_status: {
+			allowNull: true,
+			type: DataTypes.INTEGER,
+			defaultValue: 1
+		},
 		timestamp: {
 			allowNull: true,
 			type: DataTypes.DATE,

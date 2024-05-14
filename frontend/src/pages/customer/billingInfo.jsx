@@ -16,7 +16,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 import { useEffect } from 'react';
-import { useGet } from "./../../hooks/useFetch";
+import { useGet, usePost } from "./../../hooks/useFetch";
 import MinHeightTextarea from "./../../components/customer/TextareaInput"
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useNavigate } from "react-router-dom";
@@ -41,13 +41,15 @@ const bull = (
 
 const BillingInfo = () => {
   const navigate = useNavigate()
-  const { data: currentUserData, fetchData } = useGet();
+  const { data: currentUserData, fetchData: fetchCustomer } = useGet();
+  const { postData } = usePost();
   const currentUserId = 1
   useEffect(() => {
-    fetchData(`customer?id=${currentUserId}`)
+    fetchCustomer(`customer?id=${currentUserId}`)
   }, [])
 
   const [currentUser, setCurrentUser] = useState([]);
+
   useEffect(() => {
     if (currentUserData) {
       setCurrentUser(currentUserData.data)
@@ -62,6 +64,19 @@ const BillingInfo = () => {
     }
   }, [])
   const subtotal = cartItems.reduce((total, item) => total + (item.price * item.qty), 0)
+
+  const orderObject = {
+    items: cartItems.map(item => {
+      return {
+        stock_id: item.id,
+        quantity: item.qty,
+      }
+    }),
+    customer_id: currentUserId
+  }
+  const onPlaceOrder = () => {
+    postData('customer-order', orderObject)
+  }
 
   return (
     <>
@@ -81,7 +96,7 @@ const BillingInfo = () => {
           <Typography gutterBottom variant="h6" style={{ margin: 0, marginRight: 16 }}>
             <b>{subtotal} LKR</b>
           </Typography>
-          <Button variant="contained" color="success" size="small">Place Order</Button>
+          <Button variant="contained" color="success" size="small" onClick={() => onPlaceOrder()}>Place Order</Button>
         </div>
       </div>
 

@@ -54,3 +54,20 @@ export const usePost = () => {
     };
     return { data, isPending, postData };
 };
+
+export const usePatch = () => {
+    const [data, setData] = useState(null);
+    const [isPending, setIsPending] = useState(false);
+    const postData = async (url, reqBody) => {
+        setIsPending(true);
+        try {
+            const data = await axios.patch(`http://localhost:8080/api/v1/${url}`, reqBody);
+            setIsPending(false);
+            setData(data.data);
+        } catch (error) {
+            console.error('error', error);
+            setIsPending(false);
+        }
+    };
+    return { data, isPending, postData };
+};

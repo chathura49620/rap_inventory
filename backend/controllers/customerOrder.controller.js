@@ -9,8 +9,17 @@ exports.create = async (req, res) => {
   }
   const data = req.body;
   try {
-    const book = await db.customerOrder.create(data);
-    res.send(book);
+    const successOrder = await db.customerOrder.create(data);
+    const orderArr = await data.items.map(item => {
+      return {
+        order_id: successOrder.id,
+        stock_id: item.stock_id,
+        quantity: item.quantity,
+        customer_id: data.customer_id
+      }
+    })
+    const successOrderItems = await db.orderItem.bulkCreate(orderArr);
+    await res.send(successOrderItems);
   } catch (err) {
     res.send(err);
   }
@@ -28,6 +37,34 @@ exports.find = async function (req, res) {
     } else {
       res.status(200).json({ message: "No Data to Retrive", data: [] });
     }
+  } catch (error) {
+    res.status(500).json({ message: error });
+  }
+};
+
+exports.trackOrder = async function (req, res) {
+  try {
+    const id = req.query.id
+    const userData = await db.customerOrder.findAll({ where: { id } });
+
+    if (userData.length > 0) {
+      res
+        .status(200)
+        .json({ message: "Successful", data: userData[0] });
+    } else {
+      res.status(200).json({ message: "No Data to Retrive", data: [] });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error });
+  }
+};
+
+exports.updateOrderStatus = async function (req, res) {
+  try {
+    await db.customerOrder.update({ order_status: 3 }, { where: { id: req.query.id } });
+    res
+      .status(200)
+      .json({ message: "Successfully updated" });
   } catch (error) {
     res.status(500).json({ message: error });
   }
