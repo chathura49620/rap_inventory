@@ -24,6 +24,11 @@ module.exports = (sequelize) => {
 			type: DataTypes.STRING(200),
 			unique: false
 		},
+		price: {
+			allowNull: false,
+			type: DataTypes.STRING(200),
+			unique: false
+		},
 	}, {
 		tableName: 'vendor_product'
 	});

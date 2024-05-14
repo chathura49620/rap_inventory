@@ -7,6 +7,7 @@ import RequestedItems from './pages/vendor/RequestedItems/RequestedItems';
 import TrackDelivery from './pages/vendor/TrackDelivery/TrackDelivery';
 import Invoice from './pages/vendor/Invoice/Invoice';
 import SalesReports from './pages/vendor/Reports/SalesReports';
+import DeliveryReport from './pages/vendor/Reports/DeliveryReport';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/track-inventory" element={<TrackDelivery />} />
           <Route path="/invoice" element={<Invoice />} />
           <Route path="/sales-reports" element={<SalesReports />} />
+          <Route path="/delivery-reports" element={<DeliveryReport />} />
         </Routes>
       </div>
   </Router>

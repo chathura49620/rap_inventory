@@ -5,7 +5,9 @@ var db = require("../models/index");
 exports.find = async function (req, res) {
   try {
     console.log("athule");
-    const userData = await db.requestedItems.findAll();
+    const userData = await db.requestedItems.findAll(
+      { where: { request_status: 'APPROVED' , id : req.param("id") } }
+    );
 
     if (userData.length > 0) {
       res

@@ -19,6 +19,25 @@ exports.find = async function (req, res) {
   }
 };
 
+exports.findOne = async function (req, res) {
+  try {
+    console.log("athule");
+    const userData = await db.requestedItems.findAll(
+      { where: { request_status: 'APPROVED' , id : req.param("id") } }
+    );
+
+    if (userData.length > 0) {
+      res
+        .status(200)
+        .json({ message: "Connection successful", data: userData });
+    } else {
+      res.status(200).json({ message: "No Data to Retrive", data: [] });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error });
+  }
+};
+
 
 //update a new identify vendorProduct by vendorProduct id
 exports.update = (req, res) => {

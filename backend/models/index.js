@@ -22,10 +22,11 @@ db.Sequelize = Sequelize;
 db.vendor = require("./vendor.model.js")(Sequelize, Sequelize);
 db.vendorProduct = require("./vendorProduct.model.js")(Sequelize, Sequelize);
 db.requestedItems = require("./requestedItem.model.js")(Sequelize, Sequelize);
+db.vendorInvoice = require("./vendorInvoice.model.js")(Sequelize, Sequelize);
 
 
 //relationships
-db.vendor.hasMany(db.vendorProduct, { foreignKey: 'vendor_id', as: 'vendorProduct', onDelete: 'RESTRICT' });
+db.vendor.hasMany(db.vendorProduct, { foreignKey: 'id', as: 'vendorProduct', onDelete: 'RESTRICT' });
 db.vendorProduct.belongsTo(db.vendor, { foreignKey: 'vendor_id', as: 'vendor', onDelete: 'RESTRICT' });
 
 module.exports = db;

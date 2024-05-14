@@ -47,9 +47,26 @@ export const SidebarData = [
     icon: <FaIcons.FaCartPlus />
   },
   {
-    title: 'Sales Report',
-    path: '/sales-reports',
-    icon: <FaIcons.FaEnvelopeOpenText />,
+    title: 'Reports',
+    icon: <IoIcons.IoIosPaper />,
+
+    iconClosed: <RiIcons.RiArrowDownSFill />,
+    iconOpened: <RiIcons.RiArrowUpSFill />,
+
+    subNav: [
+      {
+        title: 'Sales Report',
+        path: '/sales-reports',
+        icon: <IoIcons.IoIosPaper />,
+        cName: 'sub-nav'
+      },
+      {
+        title: 'Delivery Report',
+        path: '/delivery-reports',
+        icon: <IoIcons.IoIosPaper />,
+        cName: 'sub-nav'
+      },
+    ]
   },
   {
     title: 'My Profile',
