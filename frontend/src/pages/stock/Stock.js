@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { AppBar, Button, Toolbar, Typography } from '@mui/material';
+import { Button} from '@mui/material';
 import BasicTable from '../common/BasicTable';
 import Notifications from './Notifications';
 import axios from 'axios';
 import AddEditPreview from './AddEditPreview';
 import ConfirmDelete from './ConfirmDelete';
-// import Sidebar from '../common/Sidebar';
 
 const Stock = () => {
     const [stocks, setStocks] = useState([]);
@@ -21,14 +20,6 @@ const Stock = () => {
 
     useEffect(() => {
         setHeaders(["ID", "Name", "Brand", "Color", "Type", "Quantity", "Price", "Supplier ID", ""]);
-
-        setNotifyList([
-            createData2(1, 'Item #2 requires more stock!', 'Item #2 requires more stock!', true),
-            createData2(2, 'Message from vendor Maliban', ' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.', false),
-            createData2(2, 'New order received #345', ' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.', false),
-            createData2(2, 'Vendor accpted the invitation', ' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.', false),
-            createData2(2, 'Receipt for the purchase order #115515', ' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.', false),
-        ]);
     }, []);
 
     useEffect(() => {
@@ -41,14 +32,6 @@ const Stock = () => {
 
         setDelId();
     }, [refreshTable]);
-
-    // function createData(id, name, brand, color, type, quantity, price, supplier_id) {
-    //     return { id, name, brand, color, type, quantity, price, supplier_id };
-    // }
-
-    function createData2(id, header, details, request) {
-        return { id, header, details, request };
-    }
 
     const handleAdd = () => {
         setPreviewType('add')
@@ -102,17 +85,40 @@ const Stock = () => {
         });
     }
 
+    const createData2 = (id, header, details, request) => {
+        return { id, header, details, request };
+    }
+
+    const refreshNotifications = async () => {
+        try {
+            let tempStocks = [];
+            let tempRequests = [];
+
+            const stockResponse = await axios.get('http://localhost:8080/api/v1/stock');
+            tempStocks = stockResponse.data.data;
+            tempStocks = tempStocks.filter(stock => stock.quantity < 100);
+
+            const requestsResponse = await axios.get('http://localhost:8080/api/v1/requested-items');
+            tempRequests = requestsResponse.data.data;
+            tempRequests = tempRequests.filter(req => req.request_status.toLowerCase() !== 'requested');
+
+            let tempList = [];
+            tempStocks.forEach(stock => {
+                tempList.push(createData2(stock.id, `Item #${stock.id} (${stock.name}) requires more stock!`, `Item #${stock.id} (${stock.brand} ${stock.name} ${stock.type}) currently have only ${stock.quantity} stocks.`, true));
+            });
+
+            tempRequests.forEach(req => {
+                tempList.push(createData2(req.product_id, `Request status of #${req.id}`, `Request for item #${req.product_id} has been ${req.request_status}!`, false));
+            });
+
+            setNotifyList(tempList);
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
     return (
         <div>
-            {/* <Sidebar /> */}
-            {/* <AppBar position="static">
-                <Toolbar>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        Stock Management
-                    </Typography>
-                </Toolbar>
-            </AppBar> */}
-
             <div className='add-new-stock'>
                 <Button onClick={handleAdd}>+ Add New Product</Button>
             </div>
@@ -126,7 +132,7 @@ const Stock = () => {
                     deleteFunc={handleDelete}
                 />
 
-                <Notifications list={notifyList} />
+                <Notifications list={notifyList} refresh={refreshNotifications} />
 
                 <AddEditPreview
                     type={previewType}

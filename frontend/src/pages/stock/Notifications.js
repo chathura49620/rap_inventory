@@ -5,14 +5,18 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Button } from '@mui/material';
+import RefreshIcon from '@mui/icons-material/Refresh';
 import '../common/common.css';
 
 const Notifications = (props) => {
-    const { list } = props;
+    const { list, refresh } = props;
 
     return (
         <div className='notify-body' style={{ width: '30%' }}>
-            <div className='notify-header'>Notifications</div>
+            <div className='notify-header'>Notifications&nbsp;&nbsp;
+                <Button variant='outlined' onClick={refresh}><RefreshIcon fontSize="small" /></Button>
+            </div>
+
             {list.map((data) => (
                 <Accordion className='notify-card'>
                     <AccordionSummary
@@ -26,7 +30,9 @@ const Notifications = (props) => {
                         <Typography>
                             {data.details}
                         </Typography>
-                        <Button>Request More</Button>
+                        {data.request &&
+                            <Button variant='outlined' onClick={() => window.location.href = `/request-products?id=${data.id}`}>Request More</Button>
+                        }
                     </AccordionDetails>
                 </Accordion>
             ))}

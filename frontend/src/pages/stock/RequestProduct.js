@@ -6,8 +6,16 @@ import Select from '@mui/material/Select';
 import { TextField } from '@mui/material';
 import Button from '@mui/material/Button';
 import axios from 'axios';
+import { useLocation } from 'react-router-dom';
+
+function useQuery() {
+    return new URLSearchParams(useLocation().search);
+}
 
 const RequestProduct = () => {
+    const query = useQuery();
+    const id = query.get('id');
+
     const [selectedVendor, setSelectedVendor] = useState(null);
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [quantity, setQuantity] = useState(0);
@@ -31,6 +39,13 @@ const RequestProduct = () => {
             console.error(err);
         });
     }, []);
+
+    useEffect(() => {
+        if (vendorProducts?.length > 0 && id) {
+            setSelectedVendor(vendorProducts.find((product) => product.id === parseInt(id)).vendor_id);
+            setTimeout(() => { setSelectedProduct(id); }, 250);
+        }
+    }, [vendorProducts]);
 
     const handleVendor = (event) => {
         setSelectedVendor(event.target.value);
