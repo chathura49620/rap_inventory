@@ -5,6 +5,7 @@ import Notifications from './Notifications';
 import axios from 'axios';
 import AddEditPreview from './AddEditPreview';
 import ConfirmDelete from './ConfirmDelete';
+import '../common/common.css';
 
 const Stock = () => {
     const [stocks, setStocks] = useState([]);

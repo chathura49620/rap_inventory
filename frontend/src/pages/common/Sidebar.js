@@ -81,7 +81,7 @@ const Sidebar = () => {
   };
 
   return (
-    <>
+    <div id='sidebar-common'>
       <IconContext.Provider value={{ color: "#fff" }}>
         <Nav>
           <NavIcon to="#">
@@ -100,7 +100,7 @@ const Sidebar = () => {
           </SidebarWrap>
         </SidebarNav>
       </IconContext.Provider>
-    </>
+    </div>
   );
 };
 

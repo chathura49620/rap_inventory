@@ -9,6 +9,10 @@
     padding-bottom: 0 !important;
 }
 
+.stk-btn {
+    margin-left: 10px !important;
+}
+
 .stock-body {
     display: flex;
 }

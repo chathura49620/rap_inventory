@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './report.css';
+import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
+import { Button } from '@mui/material';
 
 const StockReport = () => {
     const [data, setData] = useState([]);
@@ -51,7 +53,11 @@ const StockReport = () => {
 
     return (
         <div>
-            <h2>Inventory Report</h2>
+            <div style={{ display: 'flex', alignItems: 'center', marginLeft: 15 }}>
+                <h2>Stock Report</h2>&nbsp;&nbsp;
+                <Button className='print-btn' onClick={() => window.print()}><PictureAsPdfIcon /></Button>
+            </div>
+
             <table className="table-container">
                 <thead>
                     <tr>

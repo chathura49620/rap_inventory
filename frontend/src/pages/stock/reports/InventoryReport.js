@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './report.css';
+import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
+import { Button } from '@mui/material';
 
 const InventoryReport = () => {
     const [data, setData] = useState([]);
@@ -11,7 +13,7 @@ const InventoryReport = () => {
             const response = await axios.get("http://localhost:8080/api/v1/requested-items");
             // console.log(response.data)
             const result = await response.data.data;
-        
+
             setData(result);
         };
         fetchData();
@@ -49,7 +51,11 @@ const InventoryReport = () => {
 
     return (
         <div>
-            <h2>Inventory Report</h2>
+            <div style={{ display: 'flex', alignItems: 'center', marginLeft: 15 }}>
+                <h2>Inventory Report</h2>&nbsp;&nbsp;
+                <Button className='print-btn' onClick={() => window.print()}><PictureAsPdfIcon /></Button>
+            </div>
+
             <table className="table-container">
                 <thead>
                     <tr>
