@@ -112,8 +112,9 @@ const User = () => {
                     </Typography>
                 </Toolbar>
             </AppBar> */}
-                <Button style={{ margin: 25, marginBottom: 0 }} onClick={handleAdd}>+ Add New User</Button> 
-        <div className='stock-body'>   
+                
+        <div className='stock-body' style={{display:"block"}}>   
+        <Button  style={{ margin: 25, marginBottom: 0 }} onClick={handleAdd}>+ Add New User</Button> 
                 <BasicTable
                     headers={headers}
                     rows={stocks}

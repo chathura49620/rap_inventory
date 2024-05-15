@@ -1,7 +1,7 @@
 import React, { useState , useEffect } from 'react';
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { Card, Row, Col, Container, Image } from "react-bootstrap";
+import { Card, Row, Col, Container, Image, Button } from "react-bootstrap";
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
 import { SidebarData } from "./SidebarData";
@@ -87,13 +87,28 @@ const Sidebar = () => {
   return (
     <>
       <IconContext.Provider value={{ color: "#fff" }}>
-        <Nav>
+        {/* <Nav>
           <NavIcon to="#">
             <FaIcons.FaBars onClick={showSidebar} />
           </NavIcon>
           <span id="portal_title" style={{ color: "#fff" , marginLeft: "15px" }}>User Management</span>
-          <div>Login</div>
-          <div>Signup</div>
+          <div>
+            <Button>Login</Button>
+            <Button>Signup</Button>
+          </div>
+        </Nav> */}
+
+        <Nav style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <NavIcon to="#">
+              <FaIcons.FaBars onClick={showSidebar} />
+            </NavIcon>
+            <span id="portal_title" style={{ color: "#fff", marginLeft: "15px" }}>User Management</span>
+          </div>
+          <div id="button_wrapper" style={{ display: "flex", justifyContent: "flex-end" , marginRight: "15px" }}>
+            <Button>Login</Button>
+            <Button>Signup</Button>
+          </div>
         </Nav>
 
 
