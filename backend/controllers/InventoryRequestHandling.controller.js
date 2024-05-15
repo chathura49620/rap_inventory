@@ -38,7 +38,7 @@ exports.findOne = async function (req, res) {
   try {
     console.log("athule");
     const userData = await db.requestedItems.findAll(
-      { where: { request_status: 'APPROVED' , id : req.param("id") } }
+      { where: { request_status: 'APPROVED', id: req.param("id") } }
     );
 
     if (userData.length > 0) {
@@ -55,34 +55,61 @@ exports.findOne = async function (req, res) {
 
 
 //update a new identify vendorProduct by vendorProduct id
-exports.update = (req, res) => {
+exports.update = async (req, res) => {
   if (!req.body) {
-    return res
-      .status(400)
-      .send({ message: "Data to update can not be empty" })
+    return res.status(400).send({ message: "Data to update can not be empty" });
   }
 
   const id = req.body.id;
 
-  // Assuming 'id' and the fields to be updated are in 'req.body'
-    db.requestedItems.update(req.body, {
-      where: { id: id }
-    })
-      .then(num => {
-        // 'num' is the number of affected rows
-        if (num == 1) {
-          res.send({
-            message: "Stock item was updated successfully."
-          });
+  try {
+    const num = await db.requestedItems.update(req.body, { where: { id: id } });
+
+    if (num == 1) {
+      let tempMsg = "Requested item APPROVED successfully.";
+      if (req.body.request_status === "APPROVED") {
+        let stockItem = await db.stock.findOne({ where: { id: req.body.product_id } });
+
+        if (stockItem) {
+          let data = { quantity: parseInt(stockItem.quantity) + parseInt(req.body.quantity) }
+          const updatedNum = await db.stock.update(data, { where: { id: req.body.product_id } });
+
+          if (updatedNum == 1) {
+            tempMsg += " | Exiting stock item count was updated successfully.";
+          } else {
+            tempMsg += ` | Cannot update stock item with id=${req.body.product_id}. Maybe stock item was not found or req.body is empty.`
+          }
         } else {
-          res.status(404).send({
-            message: `Cannot update stock item with id=${id}. Maybe stock item was not found or req.body is empty.`
-          });
+          let stockItem = await db.vendorProduct.findOne({ where: { product_id: req.body.product_id } });
+          if (stockItem) {
+            let newStockItem = {
+              id: stockItem.product_id,
+              name: stockItem.product_name,
+              brand: stockItem.brand,
+              type: stockItem.type,
+              color: stockItem.color,
+              quantity: req.body.quantity,
+              price: stockItem.price,
+              vendor_id: stockItem.vendor_id
+            };
+
+            await db.stock.create(newStockItem);
+            tempMsg += " | Stock item was added successfully.";
+          }
         }
-      })
-      .catch(err => {
-        res.status(500).send({
-          message: "Error updating stock item with id=" + id
-        });
+      }
+
+      return res.status(200).send({
+        message: tempMsg
       });
+    } else {
+      return res.status(404).send({
+        message: `Cannot update request item with id=${id}. Maybe request item was not found or req.body is empty.`
+      });
+    }
+  } catch (err) {
+    return res.status(500).send({
+      message: "Error updating request item with id=" + id
+    });
+  }
 }

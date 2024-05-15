@@ -8,7 +8,7 @@ const RequestedItems = () => {
     const [headers, setHeaders] = useState([]);
    
     useEffect(() => {
-        setHeaders(["ID", "Product Id", "Product Name", "Quntity", "Request Status" , "Action"]);
+        setHeaders(["ID", "Product Id", "Product Name", "Quantity", "Request Status" , "Action"]);
     }, []);
 
     useEffect(() => {
@@ -18,8 +18,6 @@ const RequestedItems = () => {
         }).catch(err => {
             console.error(err);
         });
-
-       
     }, []);
 
 

@@ -2,7 +2,7 @@ const { DataTypes, Sequelize } = require('sequelize');
 
 // This function will automatically receive as parameter the Sequelize connection object.
 module.exports = (sequelize) => {
-    const requestedItems =  sequelize.define('requestedItems', {
+	const requestedItems = sequelize.define('requestedItems', {
 		id: {
 			allowNull: false,
 			autoIncrement: true,
@@ -19,7 +19,7 @@ module.exports = (sequelize) => {
 			type: DataTypes.STRING(200),
 			unique: false
 		},
-		quntity: {
+		quantity: {
 			allowNull: false,
 			type: DataTypes.STRING(200),
 			unique: false
@@ -34,7 +34,7 @@ module.exports = (sequelize) => {
 			type: DataTypes.STRING(200),
 			unique: false
 		},
-        delivery_date: {
+		delivery_date: {
 			allowNull: false,
 			type: DataTypes.STRING(200),
 			unique: false

@@ -5,19 +5,16 @@ import './common.css';
 import axios from 'axios';
 
 const BasicTableRequestedItems = (props) => {
-  const { headers, rows} = props;
+  const { headers, rows } = props;
 
-  const handleApprove = (id) => {
-        let data = {
-          id: id,
-          request_status: "APPROVED"
-        }
-        axios.put('http://localhost:8080/api/v1/requested-items', data).then((res) => {
-            console.log(res.data);
-            window.location.reload();
-        }).catch(err => {
-            console.error(err);
-        });
+  const handleApprove = (data) => {
+    data.request_status = "APPROVED";
+    axios.put('http://localhost:8080/api/v1/requested-items', data).then((res) => {
+      console.log(res.data);
+      window.location.reload();
+    }).catch(err => {
+      console.error(err);
+    });
   }
 
   const handleReject = (id) => {
@@ -26,12 +23,12 @@ const BasicTableRequestedItems = (props) => {
       request_status: "REJECTED"
     }
     axios.put('http://localhost:8080/api/v1/requested-items', data).then((res) => {
-        console.log(res.data);
-        window.location.reload();
+      console.log(res.data);
+      window.location.reload();
     }).catch(err => {
-        console.error(err);
+      console.error(err);
     });
-}
+  }
 
 
   return (
@@ -56,10 +53,10 @@ const BasicTableRequestedItems = (props) => {
               <TableCell align="center">{row.id}</TableCell>
               <TableCell align="center">{row.product_id}</TableCell>
               <TableCell align="center">{row.product_name}</TableCell>
-              <TableCell align="center">{row.quntity}</TableCell>
+              <TableCell align="center">{row.quantity}</TableCell>
               <TableCell align="center">{row.request_status}</TableCell>
               <TableCell align="center">
-                <Button variant="success" onClick={() => handleApprove(row.id)}>Approve</Button>
+                <Button variant="success" onClick={() => handleApprove(row)}>Approve</Button>
                 <Button variant="danger" onClick={() => handleReject(row.id)}>Reject</Button>
               </TableCell>
             </TableRow>

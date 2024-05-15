@@ -21,7 +21,7 @@ const AddEditPreviewInvoice = (props) => {
     const [productId, setProductId] = React.useState('');
     const [productName, setProductName] = React.useState('');
     const [description, setProductDescription] = React.useState('');
-    const [quntity, setQuntity] = React.useState('');
+    const [quantity, setQuantity] = React.useState('');
     const [total, seTtotal] = React.useState('');
     const [type1, setType1] = React.useState('');
     const [date, setDate] = React.useState(dayjs('2022-04-17'));
@@ -29,7 +29,7 @@ const AddEditPreviewInvoice = (props) => {
     const [requestItems, setRequestItems] = useState([]);
 
 
-    
+
     React.useEffect(() => {
         if (type !== 'add') {
             setProductId(data.product_id);
@@ -79,22 +79,21 @@ const AddEditPreviewInvoice = (props) => {
             console.error(err);
         });
 
-       
+
     }, []);
 
     useEffect(() => {
         axios.get(`http://localhost:8080/api/v1/requested-items/${requestItemId}`).then((res) => {
-            console.log(res.data);
-            setQuntity(res.data.data[0].quntity);
-            seTtotal(res.data.data[0].quntity * 100);
+            setQuantity(res.data.data[0].quantity);
+            seTtotal(res.data.data[0].quantity * 100);
         }).catch(err => {
             console.error(err);
         });
 
-       
+
     }, [requestItemId]);
 
-    
+
 
     return (
         <React.Fragment>
@@ -109,21 +108,21 @@ const AddEditPreviewInvoice = (props) => {
             >
                 <DialogTitle>{type === 'add' ? 'Add New Vendor Catalog' : type === 'edit' ? 'Edit Vendor Catalog' : 'Preview Vendor Catalog'}</DialogTitle>
                 <DialogContent style={{ display: 'flex', flexDirection: 'column' }}>
-                
-                <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={requestItemId}
-                    label="Age"
-                    onChange={(e) => setRequestItemId(e.target.value)}
-                >
-                    {requestItems.map((row) => (
-                        <MenuItem value={row.id}>REQ- {row.id}</MenuItem>
-                    ))}
-                </Select>
 
-                    <TextField id="quntity" label="Quntity" variant="outlined" value={quntity}  disabled={true}  style={{marginBottom:"10px", marginTop:"10px" , borderRadius: "10px"}}/> <br />
-                    <TextField id="total" label="Invoice Total" variant="outlined" value={total}  disabled={true} style={{marginBottom:"10px"}}/> <br />
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={requestItemId}
+                        label="Age"
+                        onChange={(e) => setRequestItemId(e.target.value)}
+                    >
+                        {requestItems.map((row) => (
+                            <MenuItem value={row.id}>REQ- {row.id}</MenuItem>
+                        ))}
+                    </Select>
+
+                    <TextField id="quantity" label="quantity" variant="outlined" value={quantity} disabled={true} style={{ marginBottom: "10px", marginTop: "10px", borderRadius: "10px" }} /> <br />
+                    <TextField id="total" label="Invoice Total" variant="outlined" value={total} disabled={true} style={{ marginBottom: "10px" }} /> <br />
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DemoContainer components={['DatePicker']}>
                             {/* <DatePicker label="Basic date picker" onChange={(e) => setDate(e.target.value)}/> */}
@@ -132,7 +131,7 @@ const AddEditPreviewInvoice = (props) => {
                                 label="Controlled picker"
                                 value={date}
                                 onChange={(newValue) => setDate(newValue)}
-                                />
+                            />
                         </DemoContainer>
                     </LocalizationProvider>
                     {/* <TextField id="Type" label="Type" variant="outlined" value={type1} onChange={(e) => setType1(e.target.value)} disabled={type === 'preview'} /> <br />

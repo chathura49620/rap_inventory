@@ -43,7 +43,7 @@ const RequestProduct = () => {
 
     useEffect(() => {
         if (vendorProducts?.length > 0 && id) {
-            const product = vendorProducts.find((product) => product.id === parseInt(id));
+            const product = vendorProducts.find((product) => product.product_id === id);
             if (product) {
                 setSelectedVendor(product.vendor_id);
                 setProductList(vendorProducts.filter((p) => p.vendor_id === product.vendor_id));
@@ -63,6 +63,14 @@ const RequestProduct = () => {
     }
 
     const requestProduct = () => {
+        if (!selectedVendor) {
+            toast.error('Please select a vendor');
+            return;
+        }
+        if (!selectedProduct) {
+            toast.error('Please select a product');
+            return;
+        }
         if (quantity <= 0) {
             toast.error('Quantity should be greater than 0');
             return;
@@ -71,7 +79,7 @@ const RequestProduct = () => {
         let obj = {
             "product_id": selectedProduct,
             "vendor_id": selectedVendor,
-            "quntity": quantity,
+            "quantity": quantity,
             "request_status": "REQUESTED",
             "delivery_status": "PENDING",
             "delivery_date": ""
@@ -86,44 +94,44 @@ const RequestProduct = () => {
 
     return (
         <>
-        <Sidebar />
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-            <ToastContainer />
-            <FormControl style={{ width: 250, margin: 10 }}>
-                <InputLabel shrink id="vendor-label">Vendor</InputLabel>
-                <Select
-                    labelId="vendor-label"
-                    id="vendor-select"
-                    value={selectedVendor}
-                    label="Select Vendor"
-                    onChange={handleVendor}
-                >
-                    {vendorList.map((vendor) => (
-                        <MenuItem key={vendor.id} value={vendor.id}>{vendor.first_name}</MenuItem>
-                    ))}
-                </Select>
-            </FormControl>
+            <Sidebar />
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+                <ToastContainer />
+                <FormControl style={{ width: 250, margin: 10 }}>
+                    <InputLabel shrink id="vendor-label">Vendor</InputLabel>
+                    <Select
+                        labelId="vendor-label"
+                        id="vendor-select"
+                        value={selectedVendor}
+                        label="Select Vendor"
+                        onChange={handleVendor}
+                    >
+                        {vendorList.map((vendor) => (
+                            <MenuItem key={vendor.id} value={vendor.id}>{vendor.first_name}</MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
 
-            <FormControl style={{ width: 250, margin: 10 }}>
-                <InputLabel shrink id="product-label">Product</InputLabel>
-                <Select
-                    labelId="product-label"
-                    id="product-select"
-                    value={selectedProduct}
-                    label="Select Product"
-                    onChange={handleProduct}
-                    disabled={!selectedVendor} // Disable until a vendor is selected
-                >
-                    {productList.map((product) => (
-                        <MenuItem key={product.id} value={product.id}>{product.product_name}</MenuItem>
-                    ))}
-                </Select>
-            </FormControl>
+                <FormControl style={{ width: 250, margin: 10 }}>
+                    <InputLabel shrink id="product-label">Product</InputLabel>
+                    <Select
+                        labelId="product-label"
+                        id="product-select"
+                        value={selectedProduct}
+                        label="Select Product"
+                        onChange={handleProduct}
+                        disabled={!selectedVendor} // Disable until a vendor is selected
+                    >
+                        {productList.map((product) => (
+                            <MenuItem key={product.product_id} value={product.product_id}>{product.product_name}</MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
 
-            <TextField style={{ width: 250, margin: 10 }} id="qty" type='number' label="Quantity" variant="outlined" value={quantity} onChange={(e) => setQuantity(e.target.value)} />
+                <TextField style={{ width: 250, margin: 10 }} id="qty" type='number' label="Quantity" variant="outlined" value={quantity} onChange={(e) => setQuantity(e.target.value)} />
 
-            <Button style={{ margin: 10 }} variant="contained" color="primary" onClick={requestProduct}>Request</Button>
-        </div>
+                <Button style={{ margin: 10 }} variant="contained" color="primary" onClick={requestProduct}>Request</Button>
+            </div>
         </>
     );
 }
