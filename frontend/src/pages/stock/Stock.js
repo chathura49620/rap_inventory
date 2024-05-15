@@ -21,7 +21,7 @@ const Stock = () => {
     const [delId, setDelId] = useState();
 
     useEffect(() => {
-        setHeaders(["ID", "Name", "Brand", "Color", "Type", "Quantity", "Price", "Supplier ID", ""]);
+        setHeaders(["ID", "Name", "Brand", "Color", "Type", "Quantity", "Price", "Vendor ID", ""]);
         refreshNotifications();
     }, []);
 

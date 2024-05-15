@@ -2,7 +2,7 @@ const { DataTypes, sequelize } = require('sequelize');
 
 // This function will automatically receive as parameter the Sequelize connection object.
 module.exports = (sequelize) => {
-	const Stock =  sequelize.define('stock', {
+	const Stock = sequelize.define('stock', {
 		id: {
 			allowNull: false,
 			autoIncrement: true,
@@ -24,22 +24,22 @@ module.exports = (sequelize) => {
 			type: DataTypes.STRING(200),
 			unique: false
 		},
-        color: {
+		color: {
 			allowNull: true,
 			type: DataTypes.STRING(200),
 			unique: false
 		},
-        quantity: {
+		quantity: {
 			allowNull: true,
 			type: DataTypes.INTEGER,
 			unique: false
 		},
-        price: {
+		price: {
 			allowNull: true,
 			type: DataTypes.DOUBLE,
 			unique: false
 		},
-        supplier_id: {
+		vendor_id: {
 			allowNull: true,
 			type: DataTypes.INTEGER,
 			unique: false

@@ -24,17 +24,13 @@ const BasicTable = (props) => {
               key={row.name}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              {/* <TableCell component="th" scope="row">
-                {row.name}
-              </TableCell> */}
               <TableCell align="center">{row.id}</TableCell>
               <TableCell align="center">{row.product_id}</TableCell>
               <TableCell align="center">{row.product_name}</TableCell>
-              <TableCell align="center">{row.description}</TableCell>
-              {/* <TableCell align="center">{row.type}</TableCell>
-              <TableCell align="center">{row.quantity}</TableCell>
-              <TableCell align="center">{row.price}</TableCell>
-              <TableCell align="center">{row.supplier_id}</TableCell> */}
+              <TableCell align="center">{row.brand}</TableCell>
+              <TableCell align="center">{row.color}</TableCell>
+              <TableCell align="center">{row.type}</TableCell>
+              <TableCell align="center">{row.vendor_id}</TableCell>
               <TableCell align="center">
                 <IconButton onClick={() => preview(row)} aria-label="preview">
                   <PreviewIcon />

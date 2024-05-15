@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { AppBar, Button, Toolbar, Typography } from '@mui/material';
+import { Button } from '@mui/material';
 import BasicTable from '../../components/vendor/BasicTable';
-// import Notifications from './Notifications';
 import axios from 'axios';
 import AddEditPreview from './AddEditPreview';
 import ConfirmDelete from './ConfirmDelete';
@@ -10,7 +9,6 @@ import SideNav from '../../components/vendor/sideNav/Sidebar'
 const VendorProduct = () => {
     const [stocks, setStocks] = useState([]);
     const [headers, setHeaders] = useState([]);
-    // const [notifyList, setNotifyList] = useState([]);
     const [previewType, setPreviewType] = useState([]);
     const [openPreview, setOpenPreview] = useState(false);
     const [previewData, setPreviewData] = useState([]);
@@ -18,17 +16,16 @@ const VendorProduct = () => {
     const [refreshTable, setRefreshTable] = useState(false);
     const [deleteOpen, setDeleteOpen] = useState(false);
     const [delId, setDelId] = useState();
+    const [vendorList, setVendorList] = useState([]);
 
     useEffect(() => {
-        setHeaders(["ID", "Product Id", "Product Name", "Description", "Action"]);
+        setHeaders(["ID", "Product Id", "Product Name", "Brand", "Color", "Type", "Vendor", "Action"]);
 
-        // setNotifyList([
-        //     createData2(1, 'Item #2 requires more stock!', 'Item #2 requires more stock!', true),
-        //     createData2(2, 'Message from vendor Maliban', ' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.', false),
-        //     createData2(2, 'New order received #345', ' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.', false),
-        //     createData2(2, 'Vendor accpted the invitation', ' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.', false),
-        //     createData2(2, 'Receipt for the purchase order #115515', ' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.', false),
-        // ]);
+        axios.get('http://localhost:8080/api/v1/vendor').then((res) => {
+            setVendorList(res.data.data);
+        }).catch(err => {
+            console.error(err);
+        });
     }, []);
 
     useEffect(() => {
@@ -41,14 +38,6 @@ const VendorProduct = () => {
 
         setDelId();
     }, [refreshTable]);
-
-    // function createData(id, name, brand, color, type, quantity, price, supplier_id) {
-    //     return { id, name, brand, color, type, quantity, price, supplier_id };
-    // }
-
-    function createData2(id, header, details, request) {
-        return { id, header, details, request };
-    }
 
     const handleAdd = () => {
         setPreviewType('add')
@@ -105,18 +94,11 @@ const VendorProduct = () => {
     return (
         <div>
             <SideNav />
-            {/* <AppBar position="static">
-                <Toolbar>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        Vendor Management
-                    </Typography>
-                </Toolbar>
-            </AppBar> */}
 
             <Button id="add_product_button" style={{ margin: 25, marginBottom: 0 }} onClick={handleAdd}>+ Add New Vendor Catalog</Button>
 
             <div className='stock-body'>
-                
+
                 <BasicTable
                     headers={headers}
                     rows={stocks}
@@ -125,14 +107,13 @@ const VendorProduct = () => {
                     deleteFunc={handleDelete}
                 />
 
-                {/* <Notifications list={notifyList} /> */}
-
                 <AddEditPreview
                     type={previewType}
                     open={openPreview}
                     setOpen={setOpenPreview}
                     data={previewData}
                     handleAddOrEdit={handleAddOrEdit}
+                    vendors={vendorList}
                 />
 
                 <ConfirmDelete

@@ -26,7 +26,7 @@ const AddEditPreview = (props) => {
             setType1(data.type);
             setQty(data.quantity);
             setPrice(data.price);
-            setSupId(data.supplier_id);
+            setSupId(data.vendor_id);
         } else {
             setName('');
             setBrand('');
@@ -47,7 +47,7 @@ const AddEditPreview = (props) => {
             color: color,
             quantity: parseInt(qty),
             price: parseFloat(price),
-            supplier_id: parseInt(supId)
+            vendor_id: parseInt(supId)
         }
 
         handleAddOrEdit(type, data1);

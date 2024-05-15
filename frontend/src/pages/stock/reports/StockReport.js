@@ -68,7 +68,7 @@ const StockReport = () => {
                         <th onClick={() => sortData('color')} className={getClassNamesFor('color')}>Color</th>
                         <th onClick={() => sortData('quantity')} className={getClassNamesFor('quantity')}>Quantity</th>
                         <th onClick={() => sortData('price')} className={getClassNamesFor('price')}>Price</th>
-                        <th onClick={() => sortData('supplier_id')} className={getClassNamesFor('supplier_id')}>Supplier ID</th>
+                        <th onClick={() => sortData('vendor_id')} className={getClassNamesFor('vendor_id')}>Vendor ID</th>
                         <th onClick={() => sortData('updatedAt')} className={getClassNamesFor('updatedAt')}>Updated At</th>
                         <th onClick={() => sortData('createdAt')} className={getClassNamesFor('createdAt')}>Created At</th>
                     </tr>
@@ -83,7 +83,7 @@ const StockReport = () => {
                             <td>{item.color}</td>
                             <td>{item.quantity}</td>
                             <td>{item.price}</td>
-                            <td>{item.supplier_id}</td>
+                            <td>{item.vendor_id}</td>
                             <td>{new Date(item.updatedAt).toLocaleString()}</td>
                             <td>{new Date(item.createdAt).toLocaleString()}</td>
                         </tr>
