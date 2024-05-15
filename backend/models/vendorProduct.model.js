@@ -10,9 +10,8 @@ module.exports = (sequelize) => {
 			type: DataTypes.INTEGER
 		},
 		product_id: {
-			type: DataTypes.UUID,
-			defaultValue: Sequelize.UUIDV4, // Or Sequelize.UUIDV1
-			unique: true
+			type: DataTypes.STRING(200),
+			
 		},
 		product_name: {
 			allowNull: true,
@@ -29,6 +28,9 @@ module.exports = (sequelize) => {
 			type: DataTypes.STRING(200),
 			unique: false
 		},
+		vendor_id:{
+			type: DataTypes.STRING(200),
+		}
 	}, {
 		tableName: 'vendor_product'
 	});

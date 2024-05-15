@@ -19,14 +19,24 @@ import Invoice from './pages/vendor/Invoice/Invoice';
 import SalesReports from './pages/vendor/Reports/SalesReports';
 import DeliveryReport from './pages/vendor/Reports/DeliveryReport';
 
+import Customer from './pages/customer';
+import Cart from './pages/customer/cart';
+import BillingInfo from './pages/customer/billingInfo';
+import ViewStock from './pages/customer/viewStock';
+import Notifications from './pages/customer/NotificationsPg';
+import Tracking from './pages/customer/Tracking';
+import CustomerReports from './pages/customer/CustomerReports';
+
+
 function App() {
   return (
     <Router>
       <div>
         {/* Sidebar */}
         {/* <Sidebar /> */}
-
+        {/* <Header /> */}
         {/* Main Content */}
+        
         <div className="main-content">
           <Routes>
             <Route path="/" element={<Dashboard />} />
@@ -44,8 +54,18 @@ function App() {
             <Route path="/users" element={<Users />} />
             <Route path="/userprofile" element={<UserProfile />} />
             <Route path="/userinvitations" element={<Invitations />} />
+            
+              <Route path="/customer" element={<Customer />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/billing-info" element={<BillingInfo />} />
+              <Route path="/view-Stock" element={<ViewStock />} />
+              <Route path="notifications" element={<Notifications />} />
+              <Route path="/tracking" element={<Tracking />} />
+              <Route path="/customer-reports" element={<CustomerReports />} />
+              
           </Routes>
         </div>
+     
       </div>
     </Router>
   );
