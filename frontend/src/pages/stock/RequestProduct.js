@@ -9,6 +9,7 @@ import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Sidebar from '../common/Sidebar';
 
 function useQuery() {
     return new URLSearchParams(useLocation().search);
@@ -72,8 +73,8 @@ const RequestProduct = () => {
             "vendor_id": selectedVendor,
             "quntity": quantity,
             "request_status": "REQUESTED",
-            "delivery_status": "NULL",
-            "delivery_date": "NULL"
+            "delivery_status": "PENDING",
+            "delivery_date": ""
         }
 
         axios.post('http://localhost:8080/api/v1/requested-items', obj).then((res) => {
@@ -84,6 +85,8 @@ const RequestProduct = () => {
     }
 
     return (
+        <>
+        <Sidebar />
         <div style={{ display: 'flex', alignItems: 'center' }}>
             <ToastContainer />
             <FormControl style={{ width: 250, margin: 10 }}>
@@ -121,6 +124,7 @@ const RequestProduct = () => {
 
             <Button style={{ margin: 10 }} variant="contained" color="primary" onClick={requestProduct}>Request</Button>
         </div>
+        </>
     );
 }
 

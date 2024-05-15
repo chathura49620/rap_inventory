@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import StockReport from './reports/StockReport';
 import InventoryReport from './reports/InventoryReport';
+import Sidebar from '../common/Sidebar';
 
 function CustomTabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -48,6 +49,8 @@ const ProductReport = () => {
     };
 
     return (
+        <>
+        <Sidebar />
         <Box sx={{ width: '100%' }}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
@@ -62,6 +65,7 @@ const ProductReport = () => {
                 <InventoryReport />
             </CustomTabPanel>
         </Box>
+        </>
     );
 }
 

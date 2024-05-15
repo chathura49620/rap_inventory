@@ -1,6 +1,7 @@
 var db = require("../models/index");
+var nodemailer = require('nodemailer');
 
-// create and save new vendorProduct
+// create and save new vendorInvoice
 exports.create = async (req, res) => {
   // validate request
   if (!req.body) {
@@ -9,18 +10,42 @@ exports.create = async (req, res) => {
   }
   const data = req.body;
   try {
-    const book = await db.vendorProduct.create(data);
+    const book = await db.vendorInvoice.create(data);
+
+    var transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'chapra902@gmail.com',
+        pass: 'Cha0703091504*'
+      }
+    });
+    
+    var mailOptions = {
+      from: 'chapra902@gmail.com',
+      to: 'chathuraprabath49620@gmail.com',
+      subject: 'Sending Email using Node.js',
+      text: 'That was easy!'
+    };
+    
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+    }); 
+
     res.send(book);
   } catch (err) {
     res.send(err);
   }
 };
 
-//retrive and return all vendorProducts/retive a single vendorProduct'
+//retrive and return all vendorInvoices/retive a single vendorInvoice'
 exports.find = async function (req, res) {
   try {
     console.log("athule");
-    const userData = await db.vendorProduct.findAll();
+    const userData = await db.vendorInvoice.findAll();
 
     if (userData.length > 0) {
       res
@@ -35,7 +60,7 @@ exports.find = async function (req, res) {
 };
 
 
-//update a new identify vendorProduct by vendorProduct id
+//update a new identify vendorInvoice by vendorInvoice id
 exports.update = (req, res) => {
   if (!req.body) {
     return res
@@ -46,7 +71,7 @@ exports.update = (req, res) => {
   const id = req.body.id;
 
   // Assuming 'id' and the fields to be updated are in 'req.body'
-    db.vendorProduct.update(req.body, {
+    db.vendorInvoice.update(req.body, {
       where: { id: id }
     })
       .then(num => {
@@ -68,11 +93,11 @@ exports.update = (req, res) => {
       });
 }
 
-//Delete a vendorProduct with specified vendorProduct id in the request
+//Delete a vendorInvoice with specified vendorInvoice id in the request
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  db.vendorProduct.destroy({
+  db.vendorInvoice.destroy({
     where: {
       id: id // Replace 'yourIdVariable' with the actual ID you want to delete
     }
