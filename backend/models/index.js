@@ -22,6 +22,9 @@ db.Sequelize = Sequelize;
 db.vendor = require("./vendor.model.js")(Sequelize, Sequelize);
 db.vendorProduct = require("./vendorProduct.model.js")(Sequelize, Sequelize);
 
+//user
+db.user = require("./user.model.js")(Sequelize, Sequelize);
+db.invitation = require("./user.model.js")(Sequelize, Sequelize);
 
 //relationships
 db.vendor.hasMany(db.vendorProduct, { foreignKey: 'vendor_id', as: 'vendorProduct', onDelete: 'RESTRICT' });
@@ -29,7 +32,6 @@ db.vendorProduct.belongsTo(db.vendor, { foreignKey: 'vendor_id', as: 'vendor', o
 
 module.exports = db;
 
-
-db.Sequelize.sync({ force: true }).then(() => {
+db.Sequelize.sync({ force: false }).then(() => {
   console.log("Drop and resync db.");
 });
