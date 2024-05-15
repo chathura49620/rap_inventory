@@ -1,25 +1,18 @@
-const { DataTypes, Sequelize } = require('sequelize');
+const { DataTypes } = require('sequelize')
 
 // This function will automatically receive as parameter the Sequelize connection object.
 module.exports = (sequelize) => {
-	const vendorProduct = sequelize.define('vendorProduct', {
+	const stock =  sequelize.define('stock', {
 		id: {
 			allowNull: false,
-			autoIncrement: true,
 			primaryKey: true,
 			type: DataTypes.INTEGER
 		},
-		product_id: {
-			type: DataTypes.STRING(200),
-			
-		},
-		product_name: {
-			allowNull: true,
+		name: {
 			type: DataTypes.STRING(200),
 			unique: false
 		},
 		brand: {
-			allowNull: true,
 			type: DataTypes.STRING(200),
 			unique: false
 		},
@@ -33,18 +26,20 @@ module.exports = (sequelize) => {
 			type: DataTypes.STRING(200),
 			unique: false
 		},
-		price: {
+		quantity: {
 			allowNull: false,
-			type: DataTypes.STRING(200),
-			unique: false
+			type: DataTypes.INTEGER
 		},
-		vendor_id: {
-			allowNull: true,
-			type: DataTypes.INTEGER,
-			unique: false
+    price: {
+			allowNull: false,
+			type: DataTypes.DECIMAL
+		},
+    supplier_id: {
+			allowNull: false,
+			type: DataTypes.INTEGER
 		},
 	}, {
-		tableName: 'vendor_product'
+		tableName: 'stock'
 	});
-	return vendorProduct;
+	return stock;
 };
