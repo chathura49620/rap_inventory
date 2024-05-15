@@ -8,6 +8,9 @@ import { SidebarData } from "./SidebarData";
 import SubMenu from "./SubMenu";
 import { IconContext } from "react-icons/lib";
 
+//import Nav from 'react-bootstrap/Nav';
+//import Navbar from 'react-bootstrap/Navbar';
+
 const Nav = styled.div`
   background: #1976d2;
   height: 80px;
@@ -89,7 +92,23 @@ const Sidebar = () => {
             <FaIcons.FaBars onClick={showSidebar} />
           </NavIcon>
           <span id="portal_title" style={{ color: "#fff" , marginLeft: "15px" }}>User Management</span>
+          <div>Login</div>
+          <div>Signup</div>
         </Nav>
+
+
+        {/* <Navbar bg="primary" data-bs-theme="dark">
+        <Container>
+          <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+          <Nav className="me-auto">
+            <Nav.Link href="#home">Home</Nav.Link>
+            <Nav.Link href="#features">Features</Nav.Link>
+            <Nav.Link href="#pricing">Pricing</Nav.Link>
+          </Nav>
+        </Container>
+        </Navbar> */}
+
+
         <SidebarNav sidebar={sidebar}>
           <SidebarWrap>
             <NavIcon to="#">

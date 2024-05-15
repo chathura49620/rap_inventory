@@ -22,9 +22,10 @@ db.Sequelize = Sequelize;
 db.vendor = require("./vendor.model.js")(Sequelize, Sequelize);
 db.vendorProduct = require("./vendorProduct.model.js")(Sequelize, Sequelize);
 
+
 //user
 db.user = require("./user.model.js")(Sequelize, Sequelize);
-db.invitation = require("./user.model.js")(Sequelize, Sequelize);
+db.invitation = require("./invitation.model.js")(Sequelize, Sequelize);
 
 //relationships
 db.vendor.hasMany(db.vendorProduct, { foreignKey: 'vendor_id', as: 'vendorProduct', onDelete: 'RESTRICT' });

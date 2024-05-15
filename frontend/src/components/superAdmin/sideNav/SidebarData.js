@@ -13,42 +13,42 @@ export const SidebarData = [
     iconOpened: <RiIcons.RiArrowUpSFill />,
   },
   {
-    title: 'Vendor Catalog',
-    path: '/vendor-product',
+    title: 'Invitations',
+    path: '/userinvitations',
     icon: <AiIcons.AiFillHome />,
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,
   },
-  {
-    title: 'Inventory Requests',
-    icon: <IoIcons.IoIosPaper />,
+  // {
+  //   title: 'Inventory Requests',
+  //   icon: <IoIcons.IoIosPaper />,
 
-    iconClosed: <RiIcons.RiArrowDownSFill />,
-    iconOpened: <RiIcons.RiArrowUpSFill />,
+  //   iconClosed: <RiIcons.RiArrowDownSFill />,
+  //   iconOpened: <RiIcons.RiArrowUpSFill />,
 
-    subNav: [
-      {
-        title: 'Requests List',
-        path: '/request-list',
-        icon: <IoIcons.IoIosPaper />,
-        cName: 'sub-nav'
-      },
-      {
-        title: 'Track Delivery',
-        path: '/track-inventory',
-        icon: <IoIcons.IoIosPaper />,
-        cName: 'sub-nav'
-      },
-    ]
-  },
+  //   subNav: [
+  //     {
+  //       title: 'Requests List',
+  //       path: '/request-list',
+  //       icon: <IoIcons.IoIosPaper />,
+  //       cName: 'sub-nav'
+  //     },
+  //     {
+  //       title: 'Track Delivery',
+  //       path: '/track-inventory',
+  //       icon: <IoIcons.IoIosPaper />,
+  //       cName: 'sub-nav'
+  //     },
+  //   ]
+  // },
   {
     title: 'Invoice',
     path: '/invoice',
     icon: <FaIcons.FaCartPlus />
   },
   {
-    title: 'Sales Report',
-    path: '/sales-reports',
+    title: 'User Report',
+    path: '/userreports',
     icon: <FaIcons.FaEnvelopeOpenText />,
   },
   {

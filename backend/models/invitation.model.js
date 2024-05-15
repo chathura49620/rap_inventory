@@ -11,17 +11,22 @@ module.exports = (sequelize) => {
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
+      subject: {
+        allowNull: true,
+        type: DataTypes.STRING(200),
+        unique: false,
+      },
       message: {
         allowNull: true,
         type: DataTypes.STRING(200),
         unique: false,
       },
-      sender: {
+      receiver: {
         allowNull: true,
         type: DataTypes.STRING(200),
         unique: false,
       },
-      receiver: {
+      sender: {
         allowNull: true,
         type: DataTypes.STRING(200),
         unique: false,

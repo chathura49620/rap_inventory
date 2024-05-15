@@ -6,7 +6,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import './common.css';
 
 
-const BasicTable = (props) => {
+const InvitationBasicTable = (props) => {
   const { headers, rows, preview, edit, deleteFunc } = props;
   return (
     <TableContainer class="table1" component={Paper}>
@@ -30,12 +30,10 @@ const BasicTable = (props) => {
                 {row.name}
               </TableCell> */}
               <TableCell align="center">{row.id}</TableCell>
-              <TableCell align="center">{row.f_name}</TableCell>
-              <TableCell align="center">{row.l_name}</TableCell>
-              <TableCell align="center">{row.phone}</TableCell>
-              <TableCell align="center">{row.email}</TableCell>
-              <TableCell align="center">{row.address}</TableCell>
-              <TableCell align="center">{row.role}</TableCell>
+              <TableCell align="center">{row.subject}</TableCell>
+              <TableCell align="center">{row.message}</TableCell>
+              <TableCell align="center">{row.receiver}</TableCell>
+              <TableCell align="center">{row.sender}</TableCell>
               <TableCell align="center">
                 <IconButton onClick={() => preview(row)} aria-label="preview">
                   <PreviewIcon />
@@ -55,4 +53,4 @@ const BasicTable = (props) => {
   );
 }
 
-export default BasicTable;
+export default InvitationBasicTable;

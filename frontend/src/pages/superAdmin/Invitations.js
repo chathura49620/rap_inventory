@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { AppBar, Button, Toolbar, Typography } from '@mui/material';
-import BasicTable from '../common/UserBasicTable';
+import InvitationBasicTable from '../common/InvitationBasicTable';
 //import Notifications from './Notifications';
 import axios from 'axios';
-import AddEditPreview from './UserAddEditPreview';
+import AddEditPreview from './InvitationAddEditPreview';
 import ConfirmDelete from './ConfirmDelete';
 import SideNav from '../../components/superAdmin/sideNav/Sidebar'
 
@@ -20,7 +20,7 @@ const User = () => {
     const [delId, setDelId] = useState();
 
     useEffect(() => {
-        setHeaders(["ID", "First Name", "Last Name", "Phone", "Email", "Address","Role", ""]);
+        setHeaders(["ID", "Subject", "Message", "Receiver", "Sender", ""]);
         // setNotifyList([
         //     createData2(1, 'Item #2 requires more stock!', 'Item #2 requires more stock!', true),
         //     createData2(2, 'Message from vendor Maliban', ' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.', false),
@@ -31,7 +31,7 @@ const User = () => {
     }, []);
 
     useEffect(() => {
-        axios.get('http://localhost:8080/api/v1/user').then((res) => {
+        axios.get('http://localhost:8080/api/v1/invitation').then((res) => {
             console.log(res.data);
             setStocks(res?.data?.data);
         }).catch(err => {
@@ -75,14 +75,14 @@ const User = () => {
 
     const handleAddOrEdit = (type, data) => {
         if (type === 'add') {
-            axios.post('http://localhost:8080/api/v1/user', data).then((res) => {
+            axios.post('http://localhost:8080/api/v1/invitation', data).then((res) => {
                 console.log(res.data);
                 setRefreshTable(prev => !prev);
             }).catch(err => {
                 console.error(err);
             });
         } else {
-            axios.put('http://localhost:8080/api/v1/user', data).then((res) => {
+            axios.put('http://localhost:8080/api/v1/invitation', data).then((res) => {
                 console.log(res.data);
                 setRefreshTable(prev => !prev);
             }).catch(err => {
@@ -93,7 +93,7 @@ const User = () => {
 
     const deleteProduct = () => {
         console.log(delId)
-        axios.delete(`http://localhost:8080/api/v1/user/${delId}`).then((res) => {
+        axios.delete(`http://localhost:8080/api/v1/invitation/${delId}`).then((res) => {
             console.log(res.data);
             setRefreshTable(prev => !prev);
         }).catch(err => {
@@ -112,9 +112,9 @@ const User = () => {
                     </Typography>
                 </Toolbar>
             </AppBar> */}
-                <Button style={{ margin: 25, marginBottom: 0 }} onClick={handleAdd}>+ Add New User</Button> 
+                <Button style={{ margin: 25, marginBottom: 0 }} onClick={handleAdd}>+ Add New Invitation</Button> 
         <div className='stock-body'>   
-                <BasicTable
+                <InvitationBasicTable
                     headers={headers}
                     rows={stocks}
                     preview={handlePreview}
