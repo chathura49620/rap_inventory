@@ -1,4 +1,5 @@
 var db = require("../models/index");
+const { Op } = require('sequelize');
 
 // create and save new customer oder
 exports.create = async (req, res) => {
@@ -51,6 +52,45 @@ exports.trackOrder = async function (req, res) {
       res
         .status(200)
         .json({ message: "Successful", data: userData[0] });
+    } else {
+      res.status(200).json({ message: "No Data to Retrive", data: [] });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error });
+  }
+};
+
+exports.getFilteredOrders = async function (req, res) {
+  try {
+    const orderStatus = req.query.order_status
+    const startDate = req.query.start_date
+    const endDate = req.query.end_date
+
+    const customerOrders = await db.customerOrder.findAll({
+      where: {
+        order_status: orderStatus,
+        "createdAt": {
+          [Op.and]: {
+            [Op.gte]: startDate,
+            [Op.lte]: endDate
+          }
+        }
+      },
+      include: [{
+        model: db.orderItem,
+        as: 'orderItem',
+        include: [{
+          model: db.stockView,
+          as: 'stockItem',
+          attributes: ['name', 'brand', 'type', 'color', 'price'],
+        }],
+      }],
+    });
+
+    if (customerOrders.length > 0) {
+      res
+        .status(200)
+        .json({ message: "Successfull", data: customerOrders });
     } else {
       res.status(200).json({ message: "No Data to Retrive", data: [] });
     }

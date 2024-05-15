@@ -40,7 +40,10 @@ db.customer.hasMany(db.orderItem, { foreignKey: 'customer_id', as: 'orderItem', 
 db.orderItem.belongsTo(db.customer, { foreignKey: 'customer_id', as: 'customer', onDelete: 'RESTRICT' });
 
 db.customerOrder.hasMany(db.orderItem, { foreignKey: 'order_id', as: 'orderItem', onDelete: 'RESTRICT' });
-db.orderItem.belongsTo(db.customerOrder, { foreignKey: 'order_id', as: 'cucustomerOrderstomer', onDelete: 'RESTRICT' });
+db.orderItem.belongsTo(db.customerOrder, { foreignKey: 'order_id', as: 'customerOrders', onDelete: 'RESTRICT' });
+
+db.stockView.hasOne(db.orderItem, { foreignKey: 'stock_id', as: 'orderItem', onDelete: 'RESTRICT' });
+db.orderItem.belongsTo(db.stockView, { foreignKey: 'stock_id', as: 'stockItem', onDelete: 'RESTRICT' });
 
 module.exports = db;
 

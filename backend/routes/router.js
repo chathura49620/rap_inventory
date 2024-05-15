@@ -16,6 +16,7 @@ route.get('/api/v1/customers', contoller.customer.find);
 route.post('/api/v1/customer-order', contoller.customerOrder.create);
 route.get('/api/v1/customer-order', contoller.customerOrder.find);
 route.get('/api/v1/track-order', contoller.customerOrder.trackOrder);
+route.get('/api/v1/customer-order-report', contoller.customerOrder.getFilteredOrders);
 route.patch('/api/v1/mark-order-as-complete', contoller.customerOrder.updateOrderStatus);
 route.post('/api/v1/stocks', contoller.stockView.create);
 route.get('/api/v1/stocks', contoller.stockView.find);

@@ -7,6 +7,7 @@ import BillingInfo from './pages/customer/billingInfo';
 import ViewStock from './pages/customer/viewStock';
 import Notifications from './pages/customer/NotificationsPg';
 import Tracking from './pages/customer/Tracking';
+import CustomerReports from './pages/customer/CustomerReports';
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Container } from '@mui/material';
@@ -26,6 +27,7 @@ function App() {
             <Route path="/view-Stock" element={<ViewStock />} />
             <Route path="notifications" element={<Notifications />} />
             <Route path="/tracking" element={<Tracking />} />
+            <Route path="/customer-reports" element={<CustomerReports />} />
           </Routes>
         </Router>
       </Container>
