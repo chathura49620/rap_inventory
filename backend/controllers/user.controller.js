@@ -1,4 +1,5 @@
 var db = require("../models/index");
+const userService = require("../services/user");
 
 // create and save new user
 exports.create = async (req, res) => {
@@ -9,7 +10,7 @@ exports.create = async (req, res) => {
   }
   const data = req.body;
   try {
-    const book = await db.user.create(data);
+    const book = await userService.user.create(data);
     res.send(book);
   } catch (err) {
     res.send(err);

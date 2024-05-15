@@ -41,6 +41,11 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING(200),
         unique: false,
       },
+      password: {
+        allowNull: true,
+        type: DataTypes.STRING(200),
+        unique: false,
+      },
     },
     {
       tableName: "user",
