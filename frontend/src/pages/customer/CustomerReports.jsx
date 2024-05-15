@@ -4,7 +4,6 @@ import { Box, MenuItem, InputLabel, FormControl, Select, TextField, Button } fro
 import Typography from '@mui/material/Typography';
 import { useEffect } from 'react';
 import { useGet } from "./../../hooks/useFetch";
-import { useNavigate } from "react-router-dom";
 import { jsPDF } from 'jspdf'
 import autoTable from 'jspdf-autotable'
 
@@ -16,61 +15,62 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
+function createData(id, name, brand, type, color, price, quantity, date) {
+  return { id, name, brand, type, color, price, quantity, date };
 }
 
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
-
-const BasicTable = () => {
+const BasicTable = (props) => {
+  const { rows } = props
+  const oDownloadReport = () => {
+    const doc = new jsPDF()
+    autoTable(doc, { html: '#report-table' })
+    const fileName = Date.now()   
+    doc.save(`${fileName}.pdf`)
+  }
   return (
-    <TableContainer style={{ marginTop: 32 }} component={Paper}>
-      <Table aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Item name</TableCell>
-            <TableCell align="right">Brand</TableCell>
-            <TableCell align="right">type</TableCell>
-            <TableCell align="right">price</TableCell>
-            <TableCell align="right">quantity</TableCell>
-            <TableCell align="right">quantity</TableCell>
-            <TableCell align="right">date</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow
-              key={row.name}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                {row.name}
-              </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
+    <>
+      <TableContainer style={{ marginTop: 32 }} component={Paper}>
+        <Table id="report-table" aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell>Item name</TableCell>
+              <TableCell>Brand</TableCell>
+              <TableCell>Type</TableCell>
+              <TableCell>Color</TableCell>
+              <TableCell align="right">Price</TableCell>
+              <TableCell align="right">Quantity</TableCell>
+              <TableCell align="right">Date</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {rows.map((row) => (
+              <TableRow key={row.name} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                <TableCell component="th" scope="row">{row.name}</TableCell>
+                <TableCell>{row.brand}</TableCell>
+                <TableCell>{row.type}</TableCell>
+                <TableCell>{row.color}</TableCell>
+                <TableCell align="right">{row.price}</TableCell>
+                <TableCell align="right">{row.quantity}</TableCell>
+                <TableCell align="right">{row.date}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', width: '100%', marginBottom: 32, marginTop: 32 }}>
+        <Button variant="contained" color="success" onClick={() => oDownloadReport()}>Download report</Button>
+      </div>
+    </>
   );
 }
 
 const CustomerReports = () => {
-  const navigate = useNavigate();
-  const { data: currentUserData, fetchData: fetchCustomer } = useGet();
-  const { fetchData: fetchReport, isPending: isReportPending, data: reportData } = useGet();
+  const { fetchData: fetchCustomer } = useGet();
+  const { fetchData: fetchReport, data: reportData } = useGet();
   const currentUserId = 1;
   const [startDate, setStartDate] = useState('')
   const [endtDate, setEndDate] = useState('')
+  const [rows, setRows] = useState([]);
 
   useEffect(() => {
     fetchCustomer(`customer?id=${currentUserId}`);
@@ -89,31 +89,24 @@ const CustomerReports = () => {
     if (reportData?.data?.length > 0) {
       const mappedReportData = []
       reportData.data.forEach((customerOrder) => {
-        const orderItem = customerOrder?.orderItem?.map((item) => {
-          return {
-            ...item,
-            order_id: item.id,
-            name: item.stockItem.name,
-            brand: item.stockItem.brand,
-            color: item.stockItem.color,
-            price: item.stockItem.price,
-            type: item.stockItem.type
-          }
+        customerOrder?.orderItem?.forEach((item) => {
+          let dateStr = new Date(item.createdAt)
+          dateStr = dateStr.toLocaleDateString()
+          const createdData = createData(
+            item.id,
+            item.stockItem.name,
+            item.stockItem.brand,
+            item.stockItem.type,
+            item.stockItem.color,
+            item.stockItem.price,
+            item.quantity,
+            dateStr
+          )
+          mappedReportData.push(createdData)
         })
-        mappedReportData.push(orderItem)
       })
 
-      console.log(mappedReportData);
-
-      const doc = new jsPDF()
-      autoTable(doc, {
-        head: [['Item name', 'Brand', 'type', 'price', 'quantity', 'date']],
-        body: [
-          ['David', 'david@example.com', 'Sweden'],
-          ['Castille', 'castille@example.com', 'Spain'],
-        ],
-      })
-      doc.save('table.pdf')
+      if (mappedReportData?.length > 0) setRows(mappedReportData)
     }
   }, [reportData])
 
@@ -124,8 +117,6 @@ const CustomerReports = () => {
         <Typography gutterBottom variant="h3" style={{ display: 'flex', alignContent: 'center', margin: 0, marginRight: 16 }}>
           Reports
         </Typography>
-        {/* Added a dropdown to select report type */}
-
       </div>
       <Box sx={{ display: 'flex' }}>
         <TextField id="outlined-basic" label="Start Date" variant="outlined" sx={{ marginRight: 10 }} onChange={(e) => setStartDate(e.target.value)} placeholder="YYYY-MM-DD" />
@@ -146,8 +137,9 @@ const CustomerReports = () => {
         </FormControl>
         <Button variant="contained" onClick={() => onGenerateReport()}>Generate report</Button>
       </Box>
-
-      {/* <BasicTable /> */}
+      {
+        rows?.length > 0 && <BasicTable rows={rows} />
+      }
     </>
   );
 };

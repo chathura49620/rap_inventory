@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link, Container, MenuItem, Tooltip, Button, Avatar, Menu, Typography, IconButton, Toolbar, Box, AppBar } from '@mui/material';
+import { Link, Container, MenuItem, Tooltip, Button, Avatar, Menu, Typography, IconButton, Toolbar, Box, AppBar, Badge } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import AdbIcon from '@mui/icons-material/Adb';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
@@ -11,6 +11,12 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 function Header() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [notifications, setNotifications] = React.useState([])
+
+  const lsNotifications = JSON.parse(localStorage.getItem('notifications')) || []
+  React.useEffect(() => {
+    if (lsNotifications) setNotifications(lsNotifications)
+  }, [lsNotifications])
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -116,7 +122,9 @@ function Header() {
             <Tooltip title="Open notifications">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp">
-                  <NotificationsActiveIcon />
+                  <Badge badgeContent={notifications?.length || 0} color="secondary">
+                    <NotificationsActiveIcon />
+                  </Badge>
                 </Avatar>
               </IconButton>
             </Tooltip>

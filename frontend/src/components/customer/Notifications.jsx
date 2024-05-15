@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Accordion, AccordionSummary, AccordionDetails, Typography, Fade } from '@mui/material';
+import { useState, useEffect } from 'react';
+import { Link, Accordion, AccordionSummary, AccordionDetails, Typography, Fade } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const NotificationElm = (props) => {
@@ -27,7 +27,9 @@ const NotificationElm = (props) => {
     </AccordionSummary>
     <AccordionDetails>
       <Typography>
-        {notification.description}
+        <Link href={notification.url}>
+          {notification.description}
+        </Link>
       </Typography>
     </AccordionDetails>
   </Accordion>
@@ -35,28 +37,12 @@ const NotificationElm = (props) => {
 
 export default function AccordionTransition(props) {
   const { expandAll } = props
-  const notifications = [
-    {
-      id: 1,
-      title: 'Your order #2459154 has been arrived',
-      description: 'Shipment arrived to the given post office (Baththaramulla Main Post Office) at 15:23 p.m'
-    },
-    {
-      id: 2,
-      title: 'Your order #2459154 has been shipped',
-      description: 'Shipment picked up from the pickup location (Colombo) by Amal Perera at 09:34 a.m'
-    },
-    {
-      id: 3,
-      title: 'Your order #4945684 has been shipped',
-      description: 'Shipment picked up from the pickup location (Jaffna) by Kamal at 14:03 p.m'
-    },
-    {
-      id: 4,
-      title: 'Your order #4945684 has been booked',
-      description: 'You have succesfully placed your order at 08.37 a.m'
-    }
-  ]
+  const lsNotifications = JSON.parse(localStorage.getItem('notifications')) || []
+  const [notifications, setNotifications] = useState([])
+
+  useEffect(() => {
+    if (lsNotifications) setNotifications(lsNotifications)
+  }, [lsNotifications])
 
   return (
     <div>

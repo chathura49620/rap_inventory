@@ -42,7 +42,7 @@ const bull = (
 const BillingInfo = () => {
   const navigate = useNavigate()
   const { data: currentUserData, fetchData: fetchCustomer } = useGet();
-  const { postData } = usePost();
+  const { data: customerOrderResponse, postData: postCustomerOrder } = usePost();
   const currentUserId = 1
   useEffect(() => {
     fetchCustomer(`customer?id=${currentUserId}`)
@@ -75,8 +75,25 @@ const BillingInfo = () => {
     customer_id: currentUserId
   }
   const onPlaceOrder = () => {
-    postData('customer-order', orderObject)
+    postCustomerOrder('customer-order', orderObject)
+    setTimeout(() => {
+      navigate("/view-Stock")
+    }, 500);
   }
+  useEffect(() => {
+    if (customerOrderResponse?.length > 0) {
+      const notifications = JSON.parse(localStorage.getItem('notifications')) || []
+      const orderId = customerOrderResponse[0].order_id
+      const notification = {
+        id: Date.now(),
+        title: 'Your order has been placed',
+        description: `Order #${orderId} can be tracked here`,
+        url: `tracking?id=${orderId}`
+      }
+      notifications.push(notification)
+      localStorage.setItem('notifications', JSON.stringify(notifications))
+    }
+  }, [customerOrderResponse])
 
   return (
     <>
@@ -96,7 +113,7 @@ const BillingInfo = () => {
           <Typography gutterBottom variant="h6" style={{ margin: 0, marginRight: 16 }}>
             <b>{subtotal} LKR</b>
           </Typography>
-          <Button variant="contained" color="success" size="small" onClick={() => onPlaceOrder()}>Place Order</Button>
+          <Button variant="contained" color="success" size="small" onClick={onPlaceOrder}>Place Order</Button>
         </div>
       </div>
 
