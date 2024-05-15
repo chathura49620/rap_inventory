@@ -7,6 +7,8 @@ import { TextField } from '@mui/material';
 import Button from '@mui/material/Button';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function useQuery() {
     return new URLSearchParams(useLocation().search);
@@ -16,8 +18,8 @@ const RequestProduct = () => {
     const query = useQuery();
     const id = query.get('id');
 
-    const [selectedVendor, setSelectedVendor] = useState(null);
-    const [selectedProduct, setSelectedProduct] = useState(null);
+    const [selectedVendor, setSelectedVendor] = useState('');
+    const [selectedProduct, setSelectedProduct] = useState('');
     const [quantity, setQuantity] = useState(0);
 
     const [vendorList, setVendorList] = useState([]);
@@ -26,14 +28,12 @@ const RequestProduct = () => {
 
     useEffect(() => {
         axios.get('http://localhost:8080/api/v1/vendor').then((res) => {
-            // console.log(res.data);
             setVendorList(res.data.data);
         }).catch(err => {
             console.error(err);
         });
 
         axios.get('http://localhost:8080/api/v1/vendor-product').then((res) => {
-            // console.log(res.data);
             setVendorProducts(res.data.data);
         }).catch(err => {
             console.error(err);
@@ -42,8 +42,12 @@ const RequestProduct = () => {
 
     useEffect(() => {
         if (vendorProducts?.length > 0 && id) {
-            setSelectedVendor(vendorProducts.find((product) => product.id === parseInt(id)).vendor_id);
-            setTimeout(() => { setSelectedProduct(id); }, 250);
+            const product = vendorProducts.find((product) => product.id === parseInt(id));
+            if (product) {
+                setSelectedVendor(product.vendor_id);
+                setProductList(vendorProducts.filter((p) => p.vendor_id === product.vendor_id));
+                setSelectedProduct(product.product_id);
+            }
         }
     }, [vendorProducts]);
 
@@ -58,7 +62,10 @@ const RequestProduct = () => {
     }
 
     const requestProduct = () => {
-        console.log(selectedVendor, selectedProduct, quantity);
+        if (quantity <= 0) {
+            toast.error('Quantity should be greater than 0');
+            return;
+        }
 
         let obj = {
             "product_id": selectedProduct,
@@ -70,7 +77,7 @@ const RequestProduct = () => {
         }
 
         axios.post('http://localhost:8080/api/v1/requested-items', obj).then((res) => {
-            console.log(res.data);
+            toast.success('Product Requested Successfully');
         }).catch(err => {
             console.error(err);
         });
@@ -78,8 +85,9 @@ const RequestProduct = () => {
 
     return (
         <div style={{ display: 'flex', alignItems: 'center' }}>
+            <ToastContainer />
             <FormControl style={{ width: 250, margin: 10 }}>
-                <InputLabel id="vendor-label">Vendor</InputLabel>
+                <InputLabel shrink id="vendor-label">Vendor</InputLabel>
                 <Select
                     labelId="vendor-label"
                     id="vendor-select"
@@ -94,7 +102,7 @@ const RequestProduct = () => {
             </FormControl>
 
             <FormControl style={{ width: 250, margin: 10 }}>
-                <InputLabel id="product-label">Product</InputLabel>
+                <InputLabel shrink id="product-label">Product</InputLabel>
                 <Select
                     labelId="product-label"
                     id="product-select"

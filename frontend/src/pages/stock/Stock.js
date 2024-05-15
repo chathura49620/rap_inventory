@@ -20,6 +20,7 @@ const Stock = () => {
 
     useEffect(() => {
         setHeaders(["ID", "Name", "Brand", "Color", "Type", "Quantity", "Price", "Supplier ID", ""]);
+        refreshNotifications();
     }, []);
 
     useEffect(() => {
@@ -120,7 +121,7 @@ const Stock = () => {
     return (
         <div>
             <div className='add-new-stock'>
-                <Button onClick={handleAdd}>+ Add New Product</Button>
+                <Button variant='outlined' onClick={handleAdd}>+ Add New Product</Button>
             </div>
 
             <div className='stock-body'>

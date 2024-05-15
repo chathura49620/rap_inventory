@@ -5,8 +5,8 @@
 }
 
 .add-new-stock {
-    padding-left: 25px !important;
-    margin-bottom: 0;
+    padding: 25px !important;
+    padding-bottom: 0 !important;
 }
 
 .stock-body {
