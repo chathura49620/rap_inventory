@@ -1,4 +1,4 @@
-const { DataTypes, sequelize } = require('sequelize');
+const { DataTypes, Sequelize } = require('sequelize');
 
 // This function will automatically receive as parameter the Sequelize connection object.
 module.exports = (sequelize) => {

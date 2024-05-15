@@ -5,3 +5,5 @@ exports.stock= require('./stock.controller');
 exports.requestedItems= require('./InventoryRequestHandling.controller');
 exports.deliveryItems= require('./deliveryItemsList.controller');
 exports.vendorInvoice= require('./vendorInvoice.controller');
+exports.user = require('./user.controller');
+exports.invitation = require("./invitation.controller");

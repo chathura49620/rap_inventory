@@ -19,7 +19,7 @@ exports.create = async (req, res) => {
 //retrive and return all vendorProducts/retive a single vendorProduct'
 exports.find = async function (req, res) {
   try {
-    console.log("athule");
+    console.log(".....");
     const userData = await db.vendorProduct.findAll();
 
     if (userData.length > 0) {

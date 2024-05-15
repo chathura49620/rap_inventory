@@ -1,5 +1,12 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import "./App.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import SignIn from "./pages/login/login";
+import Register from "./pages/register/register";
+import Users from "./pages/superAdmin/User";
+import Invitations from "./pages/superAdmin/Invitations";
+import UserProfile from "./pages/userprofile/userProfile";
 import Dashboard from "./Dashboard";
 import Stock from "./pages/stock/Stock";
 import RequestProduct from "./pages/stock/RequestProduct";
@@ -32,6 +39,11 @@ function App() {
             <Route path="/invoice" element={<Invoice />} />
             <Route path="/sales-reports" element={<SalesReports />} />
             <Route path="/delivery-reports" element={<DeliveryReport />} />
+            <Route path="/login" element={<SignIn />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/users" element={<Users />} />
+            <Route path="/userprofile" element={<UserProfile />} />
+            <Route path="/userinvitations" element={<Invitations />} />
           </Routes>
         </div>
       </div>
