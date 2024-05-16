@@ -5,13 +5,13 @@ import './common.css';
 
 
 const BasicTableSalesReport = (props) => {
-  const { headers, rows } = props;
+  const { headers, rows , totalReport } = props;
 
 
   
   return (
     <>
-    Total Sales :- Rs. 25,000
+    <h3><center>Total Sales :- Rs. ${totalReport}</center></h3>
     <TableContainer class="table1" component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>

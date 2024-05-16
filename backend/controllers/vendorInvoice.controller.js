@@ -45,7 +45,19 @@ exports.create = async (req, res) => {
 exports.find = async function (req, res) {
   try {
     console.log("athule");
-    const userData = await db.vendorInvoice.findAll();
+    let userData = null;
+    if(req.query.status == "SENT TO CLIENT"){
+      userData = await db.vendorInvoice.findAll(
+        { where: { status: 'SENT TO CLIENT'} }
+      );
+    }else if(req.query.status == "PAYMENT DONE"){
+      userData = await db.vendorInvoice.findAll(
+        { where: { status: 'PAYMENT DONE'} }
+      );
+    }else{
+      userData =  await db.vendorInvoice.findAll();
+    }
+    
 
     if (userData.length > 0) {
       res

@@ -10,16 +10,22 @@ import 'jspdf-autotable';
 const SalesReports = () => {
     const [invoice, setInvoice] = useState([]);
     const [headers, setHeaders] = useState([]);
-    const [status, setStatus] = useState('');
+    const [status, setStatus] = useState('SENT TO CLIENT');
+    const [totalReport, setTotalReport] = useState('');
 
     useEffect(() => {
         setHeaders(["ID", "Product Request Id", "Invoice Total", "Status"]);
     }, []);
 
     useEffect(() => {
-        axios.get('http://localhost:8080/api/v1/vendor-invoice').then((res) => {
+        axios.get(`http://localhost:8080/api/v1/vendor-invoice?status=${status}`).then((res) => {
             console.log(res.data);
             setInvoice(res.data.data);
+            let total = 0;
+            res.data.data.forEach(element => {
+                total += Number(element.total)
+            });
+            setTotalReport(total);
         }).catch(err => {
             console.error(err);
         });
@@ -33,7 +39,7 @@ const SalesReports = () => {
         const doc = new jsPDF();
     
         // Set the document title
-        doc.text('Table Data', 10, 10);
+        doc.text('Sales Report Data', 10, 10);
     
         // Convert the table data to an array of arrays
         let data = []
@@ -64,9 +70,11 @@ const SalesReports = () => {
         <div style={{display: "block"}}>
             <SideNav />
             <div className='stock-body' style={{display: "block"}}>
-            <center>
+                <h1><center>Sales Report</center></h1>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginLeft:"400px" , marginTop: "15px" }}>
+                  
                  <Select
-                    style={{marginTop: "15px"}}
+                    style={{ display: "flex", alignItems: "center" }}
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     value={status}
@@ -76,12 +84,16 @@ const SalesReports = () => {
                         <MenuItem value="SENT TO CLIENT">SENT TO CLIENT</MenuItem>
                         <MenuItem value="PAYMENT DONE">PAYMENT DONE</MenuItem>
                   
-                </Select><br />
-                <button onClick={(e) => generatePDF(e)}>Generate PDF</button> <br />
-                </center>
+                </Select>
+                
+            
+                <button className='btn btn-warning'  style={{ display: "flex", justifyContent: "flex-end" }} onClick={(e) => generatePDF(e)}>Generate PDF</button> <br />
+           
+                </div>
                 <BasicTableSalesReport
                     headers={headers}
                     rows={invoice}
+                    totalReport={totalReport}
                 />
                
             </div>

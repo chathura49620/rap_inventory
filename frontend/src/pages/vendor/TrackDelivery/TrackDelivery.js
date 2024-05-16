@@ -85,9 +85,9 @@ const TrackDelivery = () => {
         </Box>
           : ""}
          { deliveryItems[0]?.delivery_status  === 'PENDING' ?
-          <Button variant="success" onClick={() => handleOnGoingDeliveryChange(trackId)}>Change to On Going Delivery</Button> : 
+          <button variant="success" className="btn btn-success" onClick={() => handleOnGoingDeliveryChange(trackId)}>Change to On Going Delivery</button> : 
           deliveryItems[0]?.delivery_status  === 'ON GOING DELIVERY' ?
-          <Button variant="success" onClick={() => handleDeliveryCompleteChange(trackId)}>Change to Delivery Completed</Button> : "" }
+          <button variant="success" className="btn btn-success" onClick={() => handleDeliveryCompleteChange(trackId)}>Change to Delivery Completed</button> : "" }
         </center>
       </div>
     </div>

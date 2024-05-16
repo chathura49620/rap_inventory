@@ -53,8 +53,8 @@ const AddEditPreviewInvoice = (props) => {
     const handleSubmit = () => {
         let data1 = {
             id: (type !== 'add') ? data.id : undefined,
-            request_Id: productId,
-            total: productName,
+            request_Id: requestItemId,
+            total: total,
             invoiced_date: new Date(),
             due_date: date,
             status: "SENT TO CLIENT",
@@ -84,6 +84,7 @@ const AddEditPreviewInvoice = (props) => {
 
     useEffect(() => {
         axios.get(`http://localhost:8080/api/v1/requested-items/${requestItemId}`).then((res) => {
+            setRequestItemId(requestItemId);
             setQuantity(res.data.data[0].quantity);
             seTtotal(res.data.data[0].quantity * 100);
         }).catch(err => {

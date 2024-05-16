@@ -55,7 +55,7 @@ const BasicTableInvoice = (props) => {
               <TableCell align="center">{row.supplier_id}</TableCell> */}
               <TableCell align="center">
                 {row.status !== "PAYMENT DONE" &&
-                <Button variant="success" onClick={() => handlePaymentRecived(row.id)}>Payment Received</Button>
+                <button variant="success" className='btn btn-success' onClick={() => handlePaymentRecived(row.id)}>Payment Received</button>
                 }
               </TableCell>
             </TableRow>

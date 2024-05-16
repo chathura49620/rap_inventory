@@ -56,8 +56,12 @@ const BasicTableRequestedItems = (props) => {
               <TableCell align="center">{row.quantity}</TableCell>
               <TableCell align="center">{row.request_status}</TableCell>
               <TableCell align="center">
-                <Button variant="success" onClick={() => handleApprove(row)}>Approve</Button>
-                <Button variant="danger" onClick={() => handleReject(row.id)}>Reject</Button>
+                {row.request_status === "PENDING" && 
+                  <>
+                  <Button variant="success" onClick={() => handleApprove(row)}>Approve</Button>
+                  <Button variant="danger" onClick={() => handleReject(row.id)}>Reject</Button>
+                  </>
+               }
               </TableCell>
             </TableRow>
           ))}

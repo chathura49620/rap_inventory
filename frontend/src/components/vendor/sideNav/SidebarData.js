@@ -60,12 +60,6 @@ export const SidebarData = [
         icon: <IoIcons.IoIosPaper />,
         cName: 'sub-nav'
       },
-      {
-        title: 'Delivery Report',
-        path: '/delivery-reports',
-        icon: <IoIcons.IoIosPaper />,
-        cName: 'sub-nav'
-      },
     ]
   },
   {
