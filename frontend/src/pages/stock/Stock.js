@@ -127,6 +127,10 @@ const Stock = () => {
         }
     }
 
+    const isNameExists = (name) => {
+        return stocks.some(stock => stock.name.toLowerCase() === name.toLowerCase());
+    }
+
     return (
         <>
             <Sidebar />
@@ -153,6 +157,7 @@ const Stock = () => {
                         data={previewData}
                         handleAddOrEdit={handleAddOrEdit}
                         vendors={vendorList}
+                        isNameExists={isNameExists}
                     />
 
                     <ConfirmDelete
