@@ -80,7 +80,7 @@ exports.getFilteredOrders = async function (req, res) {
         model: db.orderItem,
         as: 'orderItem',
         include: [{
-          model: db.stockView,
+          model: db.stock,
           as: 'stockItem',
           attributes: ['name', 'brand', 'type', 'color', 'price'],
         }],

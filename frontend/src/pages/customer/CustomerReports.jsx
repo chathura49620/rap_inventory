@@ -25,13 +25,11 @@ const BasicTable = (props) => {
   const oDownloadReport = () => {
     const doc = new jsPDF()
     autoTable(doc, { html: '#report-table' })
-    const fileName = Date.now()   
+    const fileName = Date.now()
     doc.save(`${fileName}.pdf`)
   }
   return (
     <>
-     <Header />
-    <Container maxWidth="md" style={{ marginTop: 20 }}>
       <TableContainer style={{ marginTop: 32 }} component={Paper}>
         <Table id="report-table" aria-label="simple table">
           <TableHead>
@@ -63,7 +61,6 @@ const BasicTable = (props) => {
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', width: '100%', marginBottom: 32, marginTop: 32 }}>
         <Button variant="contained" color="success" onClick={() => oDownloadReport()}>Download report</Button>
       </div>
-      </Container>
     </>
   );
 }
@@ -116,34 +113,37 @@ const CustomerReports = () => {
 
   return (
     <>
-      <table id="my-table"></table>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 32, marginTop: 32 }}>
-        <Typography gutterBottom variant="h3" style={{ display: 'flex', alignContent: 'center', margin: 0, marginRight: 16 }}>
-          Reports
-        </Typography>
-      </div>
-      <Box sx={{ display: 'flex' }}>
-        <TextField id="outlined-basic" label="Start Date" variant="outlined" sx={{ marginRight: 10 }} onChange={(e) => setStartDate(e.target.value)} placeholder="YYYY-MM-DD" />
-        <TextField id="outlined-basic" label="End Date" variant="outlined" sx={{ marginRight: 10 }} onChange={(e) => setEndDate(e.target.value)} placeholder="YYYY-MM-DD" />
-        <FormControl sx={{ minWidth: 120, marginRight: 10 }}>
-          <InputLabel id="report-type-select-label">Order Status</InputLabel>
-          <Select
-            labelId="report-type-select-label"
-            id="report-type-select"
-            value={reportType}
-            label="Report Type"
-            onChange={handleReportTypeChange}
-          >
-            <MenuItem value="1">Order Pending</MenuItem>
-            <MenuItem value="2">Order Deliver</MenuItem>
-            <MenuItem value="3">Order Completed</MenuItem>
-          </Select>
-        </FormControl>
-        <Button variant="contained" onClick={() => onGenerateReport()}>Generate report</Button>
-      </Box>
-      {
-        rows?.length > 0 && <BasicTable rows={rows} />
-      }
+      <Header />
+      <Container maxWidth="md" style={{ marginTop: 20 }}>
+        <table id="my-table"></table>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 32, marginTop: 32 }}>
+          <Typography gutterBottom variant="h3" style={{ display: 'flex', alignContent: 'center', margin: 0, marginRight: 16 }}>
+            Reports
+          </Typography>
+        </div>
+        <Box sx={{ display: 'flex' }}>
+          <TextField id="outlined-basic" label="Start Date" variant="outlined" sx={{ marginRight: 10 }} onChange={(e) => setStartDate(e.target.value)} placeholder="YYYY-MM-DD" />
+          <TextField id="outlined-basic" label="End Date" variant="outlined" sx={{ marginRight: 10 }} onChange={(e) => setEndDate(e.target.value)} placeholder="YYYY-MM-DD" />
+          <FormControl sx={{ minWidth: 120, marginRight: 10 }}>
+            <InputLabel id="report-type-select-label">Order Status</InputLabel>
+            <Select
+              labelId="report-type-select-label"
+              id="report-type-select"
+              value={reportType}
+              label="Report Type"
+              onChange={handleReportTypeChange}
+            >
+              <MenuItem value="1">Order Pending</MenuItem>
+              <MenuItem value="2">Order Deliver</MenuItem>
+              <MenuItem value="3">Order Completed</MenuItem>
+            </Select>
+          </FormControl>
+          <Button variant="contained" onClick={() => onGenerateReport()}>Generate report</Button>
+        </Box>
+        {
+          rows?.length > 0 && <BasicTable rows={rows} />
+        }
+      </Container>
     </>
   );
 };
