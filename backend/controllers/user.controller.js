@@ -10,7 +10,7 @@ exports.create = async (req, res) => {
   }
   const data = req.body;
   try {
-    const book = await userService.user.create(data);
+    const book = await db.user.create(data);
     res.send(book);
   } catch (err) {
     res.send(err);

@@ -11,7 +11,7 @@ async function createUser(userData){
         email,
         address,
         role,
-        hashPassword
+        hashPassword,
     });
 
     const savedUser = await createduser.save();
