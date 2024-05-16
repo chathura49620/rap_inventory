@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { AppBar, Button, Toolbar, Typography } from '@mui/material';
+import { Button } from '@mui/material';
 import InvitationBasicTable from '../common/InvitationBasicTable';
 //import Notifications from './Notifications';
 import axios from 'axios';
@@ -112,8 +112,9 @@ const User = () => {
                     </Typography>
                 </Toolbar>
             </AppBar> */}
-                <Button style={{ margin: 25, marginBottom: 0 }} onClick={handleAdd}>+ Add New Invitation</Button> 
-        <div className='stock-body'>   
+                
+        <div className='stock-body' style={{display:"block"}}> 
+        <Button style={{ margin: 25, marginBottom: 0 }} onClick={handleAdd}>+ Add New Invitation</Button>   
                 <InvitationBasicTable
                     headers={headers}
                     rows={stocks}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { AppBar, Button, Toolbar, Typography } from '@mui/material';
+import { Button } from '@mui/material';
 import BasicTable from '../common/UserBasicTable';
 //import Notifications from './Notifications';
 import axios from 'axios';
@@ -45,9 +45,9 @@ const User = () => {
     //     return { id, name, brand, color, type, quantity, price, supplier_id };
     // }
 
-    function createData2(id, header, details, request) {
-        return { id, header, details, request };
-    }
+    // function createData2(id, header, details, request) {
+    //     return { id, header, details, request };
+    // }
 
     const handleAdd = () => {
         setPreviewType('add')
@@ -114,7 +114,7 @@ const User = () => {
             </AppBar> */}
                 
         <div className='stock-body' style={{display:"block"}}>   
-        <Button  style={{ margin: 25, marginBottom: 0 }} onClick={handleAdd}>+ Add New User</Button> 
+        <Button style={{ margin: 25, marginBottom: 0 }} onClick={handleAdd}>+ Add New User</Button> 
                 <BasicTable
                     headers={headers}
                     rows={stocks}

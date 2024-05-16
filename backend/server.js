@@ -2,7 +2,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require('cors');
 var Sequelize = require("sequelize");
-const { dbConfig } = require("./models/index");
+const {dbConfig} = require("./models/index");
+const createSuperAdmin = require("./scripts/superAdmin")
 
 const app = express();
 // app.use(dbConfig)
@@ -19,6 +20,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/", require("./routes/router"));
+
+createSuperAdmin();
 
 //simple route
 app.get("/", (req, res) => {

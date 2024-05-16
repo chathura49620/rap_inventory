@@ -41,11 +41,11 @@ export const SidebarData = [
   //     },
   //   ]
   // },
-  {
-    title: 'Invoice',
-    path: '/invoice',
-    icon: <FaIcons.FaCartPlus />
-  },
+  // {
+  //   title: 'Invoice',
+  //   path: '/invoice',
+  //   icon: <FaIcons.FaCartPlus />
+  // },
   {
     title: 'User Report',
     path: '/userreports',

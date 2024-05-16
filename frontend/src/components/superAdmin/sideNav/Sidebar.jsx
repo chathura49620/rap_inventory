@@ -1,15 +1,12 @@
 import React, { useState , useEffect } from 'react';
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { Card, Row, Col, Container, Image, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
 import { SidebarData } from "./SidebarData";
 import SubMenu from "./SubMenu";
 import { IconContext } from "react-icons/lib";
-
-//import Nav from 'react-bootstrap/Nav';
-//import Navbar from 'react-bootstrap/Navbar';
 
 const Nav = styled.div`
   background: #1976d2;
@@ -87,18 +84,7 @@ const Sidebar = () => {
   return (
     <>
       <IconContext.Provider value={{ color: "#fff" }}>
-        {/* <Nav>
-          <NavIcon to="#">
-            <FaIcons.FaBars onClick={showSidebar} />
-          </NavIcon>
-          <span id="portal_title" style={{ color: "#fff" , marginLeft: "15px" }}>User Management</span>
-          <div>
-            <Button>Login</Button>
-            <Button>Signup</Button>
-          </div>
-        </Nav> */}
-
-        <Nav style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+      <Nav style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div style={{ display: "flex", alignItems: "center" }}>
             <NavIcon to="#">
               <FaIcons.FaBars onClick={showSidebar} />
@@ -110,20 +96,6 @@ const Sidebar = () => {
             <Button>Signup</Button>
           </div>
         </Nav>
-
-
-        {/* <Navbar bg="primary" data-bs-theme="dark">
-        <Container>
-          <Navbar.Brand href="#home">Navbar</Navbar.Brand>
-          <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#features">Features</Nav.Link>
-            <Nav.Link href="#pricing">Pricing</Nav.Link>
-          </Nav>
-        </Container>
-        </Navbar> */}
-
-
         <SidebarNav sidebar={sidebar}>
           <SidebarWrap>
             <NavIcon to="#">

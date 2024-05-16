@@ -1,4 +1,5 @@
 var db = require("../models/index");
+const userService = require("../services/user");
 
 // create and save new user
 exports.create = async (req, res) => {
