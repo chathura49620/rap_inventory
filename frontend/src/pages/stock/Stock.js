@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button} from '@mui/material';
+import { Button } from '@mui/material';
 import BasicTable from '../common/BasicTable';
 import Notifications from './Notifications';
 import axios from 'axios';
@@ -19,10 +19,17 @@ const Stock = () => {
     const [refreshTable, setRefreshTable] = useState(false);
     const [deleteOpen, setDeleteOpen] = useState(false);
     const [delId, setDelId] = useState();
+    const [vendorList, setVendorList] = useState([]);
 
     useEffect(() => {
         setHeaders(["ID", "Name", "Brand", "Color", "Type", "Quantity", "Price", "Vendor ID", ""]);
         refreshNotifications();
+
+        axios.get('http://localhost:8080/api/v1/vendor').then((res) => {
+            setVendorList(res.data.data);
+        }).catch(err => {
+            console.error(err);
+        });
     }, []);
 
     useEffect(() => {
@@ -122,39 +129,40 @@ const Stock = () => {
 
     return (
         <>
-        <Sidebar />
-        <div>
-            <div className='add-new-stock'>
-                <Button variant='outlined' onClick={handleAdd}>+ Add New Product</Button>
+            <Sidebar />
+            <div>
+                <div className='add-new-stock'>
+                    <Button variant='outlined' onClick={handleAdd}>+ Add New Product</Button>
+                </div>
+
+                <div className='stock-body'>
+                    <BasicTable
+                        headers={headers}
+                        rows={stocks}
+                        preview={handlePreview}
+                        edit={handleEdit}
+                        deleteFunc={handleDelete}
+                    />
+
+                    <Notifications list={notifyList} refresh={refreshNotifications} />
+
+                    <AddEditPreview
+                        type={previewType}
+                        open={openPreview}
+                        setOpen={setOpenPreview}
+                        data={previewData}
+                        handleAddOrEdit={handleAddOrEdit}
+                        vendors={vendorList}
+                    />
+
+                    <ConfirmDelete
+                        open={deleteOpen}
+                        setOpen={setDeleteOpen}
+                        delete1={deleteProduct}
+                        data={deleteData}
+                    />
+                </div>
             </div>
-
-            <div className='stock-body'>
-                <BasicTable
-                    headers={headers}
-                    rows={stocks}
-                    preview={handlePreview}
-                    edit={handleEdit}
-                    deleteFunc={handleDelete}
-                />
-
-                <Notifications list={notifyList} refresh={refreshNotifications} />
-
-                <AddEditPreview
-                    type={previewType}
-                    open={openPreview}
-                    setOpen={setOpenPreview}
-                    data={previewData}
-                    handleAddOrEdit={handleAddOrEdit}
-                />
-
-                <ConfirmDelete
-                    open={deleteOpen}
-                    setOpen={setDeleteOpen}
-                    delete1={deleteProduct}
-                    data={deleteData}
-                />
-            </div>
-        </div>
         </>
     )
 }
