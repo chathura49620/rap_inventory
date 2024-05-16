@@ -5,7 +5,7 @@ import AdbIcon from '@mui/icons-material/Adb';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import Notifications from "./../../components/customer/Notifications"
 
-const pages = [{ title: 'Products', url: 'view-stock' }]
+const pages = [{ title: 'Products', url: 'view-stock' }, { title: 'Order Tracking', url: 'tracking' }, { title: 'Reports', url: 'customer-reports' }]
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function Header() {
