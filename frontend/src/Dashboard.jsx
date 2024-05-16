@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 
@@ -6,12 +6,12 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 class Dashboard extends Component {
     constructor(props) {
-        super(props);   
+        super(props);
         this.state = {
             superAdmin: false
         }
-        this.renderSideNavigation = this.renderSideNavigation.bind(this);
-        this.renderDashboard = this.renderDashboard.bind(this);
+        // this.renderSideNavigation = this.renderSideNavigation.bind(this);
+        // this.renderDashboard = this.renderDashboard.bind(this);
     }
 
     // renderSideNavigation(){
@@ -22,26 +22,26 @@ class Dashboard extends Component {
     //     }else{
     //         if(user_role == 'employee'){
     //             return (
-                     
+
     //             );
     //         }
     //         if(user_role == 'stock member'){
     //             return (
-                    
+
     //             );
     //         }
     //         if(user_role == 'production team member'){
     //             return (
-                   
+
     //             );
     //         }
     //         if(user_role == 'Super Admin'){
     //             return (
-                    
+
     //             );
     //         }if(user_role == 'finance team member'){
     //             return (
-                     
+
     //             );
     //         }else{
     //             return false;
@@ -70,19 +70,19 @@ class Dashboard extends Component {
     //         }if(user_role == 'vendor'){
     //             return (
     //                 <div>
-                       
+
     //                 </div>
     //             );
     //             }if(user_role == 'cutomer'){
     //                 return (
     //                     <div>
-                           
+
     //                     </div>
     //                 );
     //             }if(user_role == 'super Admin'){
     //                 return (
     //                     <div>
-                           
+
     //                     </div>
     //                 );
     //             }else{
@@ -91,14 +91,19 @@ class Dashboard extends Component {
     //     }
     // }
 
-    render(){
-       return(
-           <div>
-            Dashboard Renderd
-                 {/* {this.renderSideNavigation()}
-                 {this.renderDashboard()} */}
-           </div> 
-       );
+    render() {
+        return (
+            <div style={{ padding: 20 }}>
+                <h1>Welcome to IMS Dashboard</h1>
+                <br />
+                <ul>
+                    <li><a href="/stock">Stock Management</a></li>
+                    <li><a href="/vendor-product">Vendor Management</a></li>
+                    <li><a href="/view-Stock">Customer Management</a></li>
+                    <li><a href="/users">User Management</a></li>
+                </ul>
+            </div>
+        );
     }
 }
 
