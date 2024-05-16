@@ -99,7 +99,7 @@ class Dashboard extends Component {
                 <ul>
                     <li><a href="/stock" target="_blank" rel="noopener noreferrer">Stock Management</a></li>
                     <li><a href="/vendor-product" target="_blank" rel="noopener noreferrer">Vendor Management</a></li>
-                    <li><a href="/customer" target="_blank" rel="noopener noreferrer">Customer Management</a></li>
+                    <li><a href="/view-Stock" target="_blank" rel="noopener noreferrer">Customer Management</a></li>
                     <li><a href="/users" target="_blank" rel="noopener noreferrer">User Management</a></li>
                 </ul>
             </div>

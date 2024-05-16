@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { useState } from 'react';
-import { Box, Grid, Stepper, Step, StepLabel, TextField, Button, Avatar } from '@mui/material';
+import { useState } from "react";
+import { Box, Stepper, Step, StepLabel, TextField, Button, Avatar } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { useEffect } from 'react';
 import { useGet, usePatch } from "./../../hooks/useFetch";
-import { useNavigate } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import Header from '../../components/customer/Header';
 import { Container } from '@mui/material';
 
@@ -24,18 +24,23 @@ const bull = (
 );
 
 const Tracking = () => {
-  const navigate = useNavigate()
-  const { data: currentUserData, fetchData: fetchCustomer } = useGet();
+  const { fetchData: fetchCustomer } = useGet();
   const { isPending: isMarkingAsComplete, postData: postMarkAsComplete } = usePatch();
   const { fetchData: fetchTrackOrder, isPending: isTracking, data: trackedOrder } = useGet();
   const currentUserId = 1
+  const [queryParameters] = useSearchParams()
+  const trackingIdParam = queryParameters.get("id")
   useEffect(() => {
     fetchCustomer(`customer?id=${currentUserId}`)
+    if (trackingIdParam) {
+      setTrackingNumber(trackingIdParam)
+      onTrackOrder(trackingIdParam)
+    }
   }, [])
 
   const [trackingNumber, setTrackingNumber] = useState();
-  const onTrackOrder = () => {
-    fetchTrackOrder(`track-order?id=${trackingNumber}`)
+  const onTrackOrder = (id) => {
+    fetchTrackOrder(`track-order?id=${id || trackingNumber}`)
   }
   const onMarkAsComplete = () => {
     postMarkAsComplete(`mark-order-as-complete?id=${trackedOrder?.data?.id}`).then(() => {
@@ -54,7 +59,7 @@ const Tracking = () => {
       </div>
       <div>
         <div style={{ display: 'flex', alignItems: 'center', marginBottom: 32, marginTop: 32 }}>
-          <TextField id="outlined-basic" variant="outlined" size="small" onChange={e => setTrackingNumber(e.target.value)} />
+          <TextField id="outlined-basic" variant="outlined" size="small" value={trackingNumber} onChange={e => setTrackingNumber(e.target.value)} />
           <Button variant="contained" color="success" size="large" disabled={!!!trackingNumber} style={{ marginLeft: 32 }} onClick={() => onTrackOrder()}>{isTracking ? 'Tracking...' : 'Track order'}</Button>
           {trackedOrder?.data?.order_status == 2 && <Button variant="outlined" size="large" style={{ marginLeft: 32 }} onClick={() => onMarkAsComplete()}>{isMarkingAsComplete ? 'Completing...' : 'Mark as complete'}</Button>}
         </div>
