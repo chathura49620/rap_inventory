@@ -10,7 +10,7 @@ import { ToastContainer, toast } from 'react-toastify';
 
 
 const AddEditPreview = (props) => {
-    const { type, open, setOpen, data, handleAddOrEdit, vendors } = props;
+    const { type, open, setOpen, data, handleAddOrEdit, vendors, isNameExists } = props;
 
     const [name, setName] = React.useState('');
     const [brand, setBrand] = React.useState('');
@@ -43,6 +43,11 @@ const AddEditPreview = (props) => {
     const handleSubmit = () => {
         if (name === '' || brand === '' || color === '' || type1 === '' || selectedVendor === '') {
             toast.error('Please fill all the fields');
+            return;
+        }
+
+        if (type == 'add' && isNameExists(name)) {
+            toast.error('Name exists already');
             return;
         }
 

@@ -97,10 +97,10 @@ class Dashboard extends Component {
                 <h1>Welcome to IMS Dashboard</h1>
                 <br />
                 <ul>
-                    <li><a href="/stock" target="_blank" rel="noopener noreferrer">Stock Management</a></li>
-                    <li><a href="/vendor-product" target="_blank" rel="noopener noreferrer">Vendor Management</a></li>
-                    <li><a href="/view-Stock" target="_blank" rel="noopener noreferrer">Customer Management</a></li>
-                    <li><a href="/users" target="_blank" rel="noopener noreferrer">User Management</a></li>
+                    <li><a href="/stock">Stock Management</a></li>
+                    <li><a href="/vendor-product">Vendor Management</a></li>
+                    <li><a href="/view-Stock">Customer Management</a></li>
+                    <li><a href="/users">User Management</a></li>
                 </ul>
             </div>
         );
