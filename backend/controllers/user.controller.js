@@ -1,5 +1,5 @@
 var db = require("../models/index");
-const userService = require("../services/user");
+const userService = require("../services/register");
 
 // create and save new user
 exports.create = async (req, res) => {
@@ -91,3 +91,13 @@ exports.delete = (req, res) => {
       res.status(500).send({ message: err });
     });
 };
+
+// async function getUsers(req, res) {
+//   try {
+//     const users = await userService.getUsers();
+//     res.json(users);
+//   } catch (error) {
+//     res.status(500).json({messag: error})
+//   }
+// }
+// module.exports = { getUsers };

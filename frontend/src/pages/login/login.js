@@ -4,14 +4,11 @@ import { Form, Button } from 'react-bootstrap'
 import "./login.css";
 import { useNavigate } from 'react-router-dom';
 
-const Register = () => {
+const Login = () => {
 
   const navigate = useNavigate();
 
   const[formData, setFormData] = useState({
-    f_name:'',
-    l_name:'',
-    phone:'',
     email:'',
     password:'',
   })
@@ -27,7 +24,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:8080/api/v1/user", {
+      const response = await fetch("http://localhost:8080/login", {
         method: "POST",
         headers: {
           "Content-Type":"application/json"
@@ -35,6 +32,7 @@ const Register = () => {
         body: JSON.stringify(formData)
       })
       const result = await response.json();
+      localStorage.setItem("token",result.token)
       console.log(result);
       navigate("/login")
     } catch (error) {
@@ -80,10 +78,10 @@ const Register = () => {
           />
         </Form.Group>
         <Button varient="primary" type="submit" className="w-100">
-          Register
+          Login
         </Button>
       </Form>
     </div>
   );
 }
-export default Register;
+export default Login;

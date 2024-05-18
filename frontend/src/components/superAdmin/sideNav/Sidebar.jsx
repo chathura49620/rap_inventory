@@ -1,6 +1,6 @@
 import React, { useState , useEffect } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
@@ -81,6 +81,14 @@ const Sidebar = () => {
     setSidebar(!sidebar)
   };
 
+const token = localStorage.getItem("token");
+const navigate = useNavigate();
+
+const handleLogOut = () => {
+  localStorage.removeItem("token");
+  navigate("/");
+}
+
   return (
     <>
       <IconContext.Provider value={{ color: "#fff" }}>
@@ -92,8 +100,13 @@ const Sidebar = () => {
             <span id="portal_title" style={{ color: "#fff", marginLeft: "15px" }}>User Management</span>
           </div>
           <div id="button_wrapper" style={{ display: "flex", justifyContent: "flex-end" , marginRight: "15px" }}>
-            <Button>Login</Button>
-            <Button>Signup</Button>
+            { token ? (
+              <Button onClick={handleLogOut}>Logout</Button>
+            ) : (
+              <Button >login</Button>
+            )}
+            {/* <Button>{token ? "Login":"not-login"}</Button>
+            <Button>Signup</Button> */}
           </div>
         </Nav>
         <SidebarNav sidebar={sidebar}>

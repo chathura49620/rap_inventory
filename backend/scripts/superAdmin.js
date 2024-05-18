@@ -1,11 +1,12 @@
 const User = require("../models/user.model");
+var db = require("../models/index");
 const bcrypt = require("bcrypt");
 
 async function createSuperAdmin(){
     try {
-        const existingAdmin = await User.findAll({whrer:{email: "superAdmin@gmail.com"}});
+        const existingAdmin = await db.user.findAll({where:{email: "superAdmin@gmail.com"}});
         if (!existingAdmin) {
-            const newAdmin = new User({
+            const newAdmin = await db.user.create({
                 f_name: "admin",
                 l_name: "admin",
                 phone: "000",

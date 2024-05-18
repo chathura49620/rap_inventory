@@ -1,20 +1,7 @@
-const User = require("../models/user.model")
-const bcrypt = require("bcrypt");
+// const  User = require("../models/user");
 
-async function createUser(userData){
-    const {f_name, l_name, phone, email, address, role, password} = userData;
-    const hashPassword = await bcrypt.hash(password, 10);
-    const createduser = new User({
-        f_name,
-        l_name,
-        phone,
-        email,
-        address,
-        role,
-        hashPassword,
-    });
+// async function getUsers(){
+//     const  Users = await User.find({});
+// };
 
-    const savedUser = await createduser.save();
-    return savedUser;
-}
-module.exports = {createUser}
+// module.exports = {getUsers};
