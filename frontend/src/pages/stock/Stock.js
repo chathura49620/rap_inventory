@@ -26,7 +26,7 @@ const Stock = () => {
         refreshNotifications();
 
         axios.get('http://localhost:8080/api/v1/vendor').then((res) => {
-            setVendorList(res.data.data);
+            setVendorList(res.data);
         }).catch(err => {
             console.error(err);
         });
@@ -35,7 +35,7 @@ const Stock = () => {
     useEffect(() => {
         axios.get('http://localhost:8080/api/v1/stock').then((res) => {
             console.log(res.data);
-            setStocks(res.data.data);
+            setStocks(res.data);
         }).catch(err => {
             console.error(err);
         });
@@ -105,11 +105,11 @@ const Stock = () => {
             let tempRequests = [];
 
             const stockResponse = await axios.get('http://localhost:8080/api/v1/stock');
-            tempStocks = stockResponse.data.data;
+            tempStocks = stockResponse.data;
             tempStocks = tempStocks.filter(stock => stock.quantity < 100);
 
             const requestsResponse = await axios.get('http://localhost:8080/api/v1/requested-items');
-            tempRequests = requestsResponse.data.data;
+            tempRequests = requestsResponse.data;
             tempRequests = tempRequests.filter(req => req.request_status.toLowerCase() !== 'requested');
 
             let tempList = [];
