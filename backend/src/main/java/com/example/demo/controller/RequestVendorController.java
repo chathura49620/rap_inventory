@@ -1,8 +1,8 @@
 package com.example.demo.controller;
 
-import com.example.demo.data.RequestedItemDB;
+import com.example.demo.data.RequestVendorDB;
 import com.example.demo.data.StockDB;
-import com.example.demo.model.RequestedItem;
+import com.example.demo.model.RequestVendor;
 import com.example.demo.model.Stock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,19 +12,18 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1/requested-items")
-public class RequestedItemController {
+@RequestMapping("/api/v1/request-vendor")
+public class RequestVendorController {
 
     @Autowired
-    private RequestedItemDB requestedItemDB;
+    private RequestVendorDB requestedVendorDB;
 
     @Autowired
-    private StockDB stockDB;  // Assuming you have StockDB for stock management
+    private StockDB stockDB;
 
-    // Retrieve and return all requested items
     @GetMapping
     public ResponseEntity<?> findAll() {
-        List<RequestedItem> requestedItems = requestedItemDB.getAllRequestedItems();
+        List<RequestVendor> requestedItems = requestedVendorDB.getAllRequestedItems();
         if (!requestedItems.isEmpty()) {
             return ResponseEntity.ok().body(requestedItems);
         } else {
@@ -32,20 +31,18 @@ public class RequestedItemController {
         }
     }
 
-    // Create a new requested item
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody RequestedItem requestedItem) {
+    public ResponseEntity<?> create(@RequestBody RequestVendor requestedItem) {
         if (requestedItem == null) {
             return ResponseEntity.badRequest().body("Request body is empty");
         }
-        requestedItemDB.addRequestedItem(requestedItem);
+        requestedVendorDB.addRequestedItem(requestedItem);
         return ResponseEntity.ok().body("Requested item created successfully");
     }
 
-    // Retrieve a single requested item by id with APPROVED status
     @GetMapping("/{id}")
     public ResponseEntity<?> findOne(@PathVariable int id) {
-        Optional<RequestedItem> requestedItem = requestedItemDB.getRequestedItemByIdAndStatus(id, "APPROVED");
+        Optional<RequestVendor> requestedItem = requestedVendorDB.getRequestedItemByIdAndStatus(id, "APPROVED");
         if (requestedItem.isPresent()) {
             return ResponseEntity.ok().body(requestedItem.get());
         } else {
@@ -53,17 +50,16 @@ public class RequestedItemController {
         }
     }
 
-    // Update a requested item by id
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable int id, @RequestBody RequestedItem updatedItem) {
+    public ResponseEntity<?> update(@PathVariable int id, @RequestBody RequestVendor updatedItem) {
         if (updatedItem == null) {
             return ResponseEntity.badRequest().body("Data to update cannot be empty");
         }
 
-        Optional<RequestedItem> existingItem = requestedItemDB.getRequestedItemById(id);
+        Optional<RequestVendor> existingItem = requestedVendorDB.getRequestedItemById(id);
 
         if (existingItem.isPresent()) {
-            RequestedItem itemToUpdate = existingItem.get();
+            RequestVendor itemToUpdate = existingItem.get();
 
             // Update the existing item's details
             itemToUpdate.setProductId(updatedItem.getProductId());
@@ -79,7 +75,7 @@ public class RequestedItemController {
 
                 if (stockItemOpt.isPresent()) {
                     Stock stockItem = stockItemOpt.get();
-                    stockItem.setQuantity(stockItem.getQuantity() + Integer.parseInt(updatedItem.getQuantity()));
+                    stockItem.setQuantity(stockItem.getQuantity() + updatedItem.getQuantity());
                     stockDB.updateStock(stockItem.getId(), stockItem);
                     return ResponseEntity.ok().body("Requested item APPROVED and stock updated successfully.");
                 } else {
@@ -89,7 +85,7 @@ public class RequestedItemController {
                 }
             }
 
-            requestedItemDB.updateRequestedItem(id, itemToUpdate);
+            requestedVendorDB.updateRequestedItem(id, itemToUpdate);
             return ResponseEntity.ok().body("Requested item updated successfully.");
         } else {
             return ResponseEntity.status(404).body("Requested item not found");
@@ -99,7 +95,7 @@ public class RequestedItemController {
     // Delete a requested item by id
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable int id) {
-        boolean isDeleted = requestedItemDB.deleteRequestedItem(id);
+        boolean isDeleted = requestedVendorDB.deleteRequestedItem(id);
         if (isDeleted) {
             return ResponseEntity.ok().body("Requested item deleted successfully");
         } else {

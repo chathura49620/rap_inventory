@@ -1,20 +1,20 @@
 package com.example.demo.model;
 
-import java.util.UUID;
+public class RequestVendor {
 
-public class RequestedItem {
+    private static int idCounter = 1; // Static counter for auto-increment
 
     private int id;
-    private int productId;
-    private int vendorId;
-    private String quantity;
+    private String productId;
+    private String vendorId;
+    private int quantity;
     private String requestStatus;
     private String deliveryStatus;
     private String deliveryDate;
 
     // Constructor with parameters
-    public RequestedItem(int id, int productId, int vendorId, String quantity, String requestStatus, String deliveryStatus, String deliveryDate) {
-        this.id = id;
+    public RequestVendor(int id, String productId, String vendorId, int quantity, String requestStatus, String deliveryStatus, String deliveryDate) {
+        this.id = (id != -1) ? id : idCounter++;
         this.productId = productId;
         this.vendorId = vendorId;
         this.quantity = quantity;
@@ -24,7 +24,7 @@ public class RequestedItem {
     }
 
     // Default constructor
-    public RequestedItem() {}
+    public RequestVendor() {}
 
     // Getters and Setters
     public int getId() {
@@ -32,30 +32,30 @@ public class RequestedItem {
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.id = (id != -1) ? id : idCounter++;
     }
 
-    public int getProductId() {
+    public String getProductId() {
         return productId;
     }
 
-    public void setProductId(int productId) {
+    public void setProductId(String productId) {
         this.productId = productId;
     }
 
-    public int getVendorId() {
+    public String getVendorId() {
         return vendorId;
     }
 
-    public void setVendorId(int vendorId) {
+    public void setVendorId(String vendorId) {
         this.vendorId = vendorId;
     }
 
-    public String getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(String quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 

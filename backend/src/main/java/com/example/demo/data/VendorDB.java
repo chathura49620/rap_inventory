@@ -17,11 +17,11 @@ public class VendorDB {
         vendors = new ArrayList<>();
 
         // Adding 5 sample vendor objects
-        vendors.add(new Vendor(101, "John", "Electronics vendor", "john@example.com"));
-        vendors.add(new Vendor(102, "Alice", "Footwear vendor", "alice@example.com"));
-        vendors.add(new Vendor(103, "Robert", "Apparel vendor", "robert@example.com"));
-        vendors.add(new Vendor(104, "Sophia", "Accessories vendor", "sophia@example.com"));
-        vendors.add(new Vendor(105, "Michael", "General vendor", "michael@example.com"));
+        vendors.add(new Vendor("J01", "John", "Electronics vendor", "john@example.com"));
+        vendors.add(new Vendor("A01", "Alice", "Footwear vendor", "alice@example.com"));
+        vendors.add(new Vendor("R01", "Robert", "Apparel vendor", "robert@example.com"));
+        vendors.add(new Vendor("S01", "Sophia", "Accessories vendor", "sophia@example.com"));
+        vendors.add(new Vendor("M01", "Michael", "General vendor", "michael@example.com"));
     }
 
     // Method to return all vendors
@@ -36,8 +36,8 @@ public class VendorDB {
     }
 
     // Method to update an existing vendor by id
-    public Vendor updateVendor(int id, Vendor updatedVendor) {
-        Optional<Vendor> vendorOpt = vendors.stream().filter(v -> v.getId() == id).findFirst();
+    public Vendor updateVendor(String id, Vendor updatedVendor) {
+        Optional<Vendor> vendorOpt = vendors.stream().filter(v -> v.getId().equals(id)).findFirst();
 
         if (vendorOpt.isPresent()) {
             Vendor vendor = vendorOpt.get();
@@ -52,8 +52,8 @@ public class VendorDB {
     }
 
     // Method to delete a vendor by id
-    public boolean deleteVendor(int id) {
-        return vendors.removeIf(vendor -> vendor.getId() == id);
+    public boolean deleteVendor(String id) {
+        return vendors.removeIf(vendor -> vendor.getId().equals(id));
     }
 }
 

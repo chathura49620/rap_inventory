@@ -1,23 +1,23 @@
 package com.example.demo.model;
 
 public class Vendor {
-    private int id;
+    private String id;
     private String firstName;
     private String description;
     private String email;
 
-    public Vendor(int id, String firstName, String description, String email) {
+    public Vendor(String id, String firstName, String description, String email) {
         this.id = id;
         this.firstName = firstName;
         this.description = description;
         this.email = email;
     }
     
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

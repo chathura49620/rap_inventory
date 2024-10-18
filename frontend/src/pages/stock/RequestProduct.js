@@ -29,13 +29,13 @@ const RequestProduct = () => {
 
     useEffect(() => {
         axios.get('http://localhost:8080/api/v1/vendor').then((res) => {
-            setVendorList(res.data.data);
+            setVendorList(res.data);
         }).catch(err => {
             console.error(err);
         });
 
         axios.get('http://localhost:8080/api/v1/vendor-product').then((res) => {
-            setVendorProducts(res.data.data);
+            setVendorProducts(res.data);
         }).catch(err => {
             console.error(err);
         });
@@ -77,15 +77,15 @@ const RequestProduct = () => {
         }
 
         let obj = {
-            "product_id": selectedProduct,
-            "vendor_id": selectedVendor,
+            "productId": selectedProduct,
+            "vendorId": selectedVendor,
             "quantity": quantity,
-            "request_status": "REQUESTED",
-            "delivery_status": "PENDING",
-            "delivery_date": ""
+            "requestStatus": "REQUESTED",
+            "deliveryStatus": "PENDING",
+            "deliveryDate": ""
         }
 
-        axios.post('http://localhost:8080/api/v1/requested-items', obj).then((res) => {
+        axios.post('http://localhost:8080/api/v1/request-vendor', obj).then((res) => {
             toast.success('Product Requested Successfully');
         }).catch(err => {
             console.error(err);

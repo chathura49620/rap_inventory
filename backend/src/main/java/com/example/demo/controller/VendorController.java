@@ -31,22 +31,18 @@ public class VendorController {
     // Add a new vendor (auto-increment id)
     @PostMapping
     public Vendor addVendor(@RequestBody Vendor vendor) {
-        if (vendor.getId() == 0) {
-            currentId++; // Increment the id if no id is provided
-            vendor.setId(currentId);
-        }
         return vendorDB.addVendor(vendor);
     }
 
     // Update an existing vendor
     @PutMapping("/{id}")
-    public Vendor updateVendor(@PathVariable int id, @RequestBody Vendor vendor) {
+    public Vendor updateVendor(@PathVariable String id, @RequestBody Vendor vendor) {
         return vendorDB.updateVendor(id, vendor);
     }
 
     // Delete a vendor
     @DeleteMapping("/{id}")
-    public boolean deleteVendor(@PathVariable int id) {
+    public boolean deleteVendor(@PathVariable String id) {
         return vendorDB.deleteVendor(id);
     }
 }

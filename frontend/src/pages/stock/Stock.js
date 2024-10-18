@@ -108,9 +108,9 @@ const Stock = () => {
             tempStocks = stockResponse.data;
             tempStocks = tempStocks.filter(stock => stock.quantity < 100);
 
-            const requestsResponse = await axios.get('http://localhost:8080/api/v1/requested-items');
+            const requestsResponse = await axios.get('http://localhost:8080/api/v1/request-vendor');
             tempRequests = requestsResponse.data;
-            tempRequests = tempRequests.filter(req => req.request_status.toLowerCase() !== 'requested');
+            tempRequests = tempRequests.filter(req => req.requestStatus?.toLowerCase() !== 'requested');
 
             let tempList = [];
             tempStocks.forEach(stock => {

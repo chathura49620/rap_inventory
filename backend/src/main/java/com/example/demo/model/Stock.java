@@ -1,73 +1,19 @@
 package com.example.demo.model;
 
-public class Stock {
-    private static int idCounter = 0; // Static counter for auto-increment
-    private int id;
-    private String name;
-    private String brand;
-    private String type;
-    private String color;
+public class Stock extends Product {
+    private static int idCounter = 1; // Static counter for auto-increment
     private int quantity;
-    private double price;
-    private int vendorId;
 
     public Stock() {}
 
-    public Stock(Integer id, String name, String brand, String type, String color, int quantity, double price, int vendorId) {
-        if (id == null) {
-            this.id = ++idCounter;
-        } else {
-            this.id = id;
-            idCounter = Math.max(idCounter, id);
-        }
-        this.name = name;
-        this.brand = brand;
-        this.type = type;
-        this.color = color;
+    public Stock(int id, String productId, String name, String brand, String type, String color, int quantity, double price, String vendorId) {
+        super((id != -1) ? id : idCounter++, productId, name, brand, type, color, price, vendorId);
         this.quantity = quantity;
-        this.price = price;
-        this.vendorId = vendorId;
     }
 
-    public int getId() {
-        return id;
-    }
-
+    @Override
     public void setId(int id) {
-        this.id = id;
-        idCounter = Math.max(idCounter, id);
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getBrand() {
-        return brand;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
+        super.setId((id != -1) ? id : idCounter++);
     }
 
     public int getQuantity() {
@@ -76,21 +22,5 @@ public class Stock {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public int getVendorId() {
-        return vendorId;
-    }
-
-    public void setVendorId(int vendorId) {
-        this.vendorId = vendorId;
     }
 }
