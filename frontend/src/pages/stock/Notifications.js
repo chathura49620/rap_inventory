@@ -31,7 +31,7 @@ const Notifications = (props) => {
                             {data.details}
                         </Typography>
                         {data.request &&
-                            <Button variant='outlined' onClick={() => window.location.href = `/request-vendor?id=${data}`}>Request More</Button>
+                            <Button variant='outlined' onClick={() => window.location.href = `/request-products?id=${data.id}`}>Request More</Button>
                         }
                     </AccordionDetails>
                 </Accordion>

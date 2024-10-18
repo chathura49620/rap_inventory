@@ -28,6 +28,7 @@ const BasicTable = (props) => {
                 {row.name}
               </TableCell> */}
               <TableCell align="center">{row.id}</TableCell>
+              <TableCell align="center">{row.productId}</TableCell>
               <TableCell align="center">{row.name}</TableCell>
               <TableCell align="center">{row.brand}</TableCell>
               <TableCell align="center">{row.color}</TableCell>

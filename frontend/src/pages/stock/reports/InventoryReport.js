@@ -10,9 +10,9 @@ const InventoryReport = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await axios.get("http://localhost:8080/api/v1/requested-items");
+            const response = await axios.get("http://localhost:8080/api/v1/request-vendor");
             // console.log(response.data)
-            const result = await response.data.data;
+            const result = await response.data;
 
             setData(result);
         };

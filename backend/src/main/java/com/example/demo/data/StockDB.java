@@ -14,15 +14,14 @@ import java.util.Optional;
 public class StockDB {
 
     private List<Stock> stocks;
-    private int currentId = 1005;
 
     public StockDB() {
         stocks = new ArrayList<>();
         stocks.add(new Stock(-1, "P001", "Laptop", "Dell", "Electronics", "Black", 50, 999.99, "J01"));
-        stocks.add(new Stock(-1, "P001", "Phone", "Samsung", "Electronics", "White", 100, 799.99, "A02"));
-        stocks.add(new Stock(-1, "P001", "Shoes", "Nike", "Footwear", "Red", 200, 119.99, "R01"));
-        stocks.add(new Stock(-1, "P001", "Shirt", "Adidas", "Apparel", "Blue", 150, 49.99, "S04"));
-        stocks.add(new Stock(-1, "P001", "Watch", "Apple", "Accessories", "Silver", 75, 399.99, "M01"));
+        stocks.add(new Stock(-1, "P002", "Phone", "Samsung", "Electronics", "White", 100, 799.99, "A02"));
+        stocks.add(new Stock(-1, "P003", "Shoes", "Nike", "Footwear", "Red", 200, 119.99, "R01"));
+        stocks.add(new Stock(-1, "P004", "Shirt", "Adidas", "Apparel", "Blue", 150, 49.99, "S04"));
+        stocks.add(new Stock(-1, "P005", "Watch", "Apple", "Accessories", "Silver", 75, 399.99, "M01"));
     }
 
     public List<Stock> getAllStocks() {
@@ -31,8 +30,7 @@ public class StockDB {
 
     // Method to add a new stock
     public Stock addStock(Stock stock) {
-        currentId++;
-        stock.setId(currentId);
+        stock.setId(-1);
         stocks.add(stock);
         return stock;
     }

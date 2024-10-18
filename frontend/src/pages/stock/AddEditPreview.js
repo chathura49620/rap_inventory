@@ -69,7 +69,7 @@ const AddEditPreview = (props) => {
             color: color,
             quantity: parseInt(qty),
             price: parseFloat(price),
-            vendorId: parseInt(selectedVendor)
+            vendorId: selectedVendor
         }
 
         handleAddOrEdit(type, data1);

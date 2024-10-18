@@ -22,7 +22,7 @@ const Stock = () => {
     const [vendorList, setVendorList] = useState([]);
 
     useEffect(() => {
-        setHeaders(["ID", "Name", "Brand", "Color", "Type", "Quantity", "Price", "Vendor ID", ""]);
+        setHeaders(["ID", "Product ID", "Name", "Brand", "Color", "Type", "Quantity", "Price", "Vendor ID", ""]);
         refreshNotifications();
 
         axios.get('http://localhost:8080/api/v1/vendor').then((res) => {
@@ -70,14 +70,12 @@ const Stock = () => {
     const handleAddOrEdit = (type, data) => {
         if (type === 'add') {
             axios.post('http://localhost:8080/api/v1/stock', data).then((res) => {
-                console.log(res.data);
                 setRefreshTable(prev => !prev);
             }).catch(err => {
                 console.error(err);
             });
         } else {
             axios.put('http://localhost:8080/api/v1/stock', data).then((res) => {
-                console.log(res.data);
                 setRefreshTable(prev => !prev);
             }).catch(err => {
                 console.error(err);
@@ -86,7 +84,6 @@ const Stock = () => {
     }
 
     const deleteProduct = () => {
-        console.log(delId)
         axios.delete(`http://localhost:8080/api/v1/stock/${delId}`).then((res) => {
             console.log(res.data);
             setRefreshTable(prev => !prev);
@@ -114,11 +111,11 @@ const Stock = () => {
 
             let tempList = [];
             tempStocks.forEach(stock => {
-                tempList.push(createData2(stock.id, `Item #${stock.id} (${stock.name}) requires more stock!`, `Item #${stock.id} (${stock.brand} ${stock.name} ${stock.type}) currently have only ${stock.quantity} stocks.`, true));
+                tempList.push(createData2(stock.productId, `Item #${stock.id} (${stock.name}) requires more stock!`, `Item #${stock.id} (${stock.brand} ${stock.name} ${stock.type}) currently have only ${stock.quantity} stocks.`, true));
             });
 
             tempRequests.forEach(req => {
-                tempList.push(createData2(req.product_id, `Request status of #${req.id}`, `Request for item #${req.product_id} has been ${req.request_status}!`, false));
+                tempList.push(createData2(req.productId, `Request status of #${req.id}`, `Request for item #${req.productId} has been ${req.requestStatus}!`, false));
             });
 
             setNotifyList(tempList);

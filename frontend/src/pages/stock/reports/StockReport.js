@@ -12,7 +12,7 @@ const StockReport = () => {
         const fetchData = async () => {
             try {
                 const response = await axios.get("http://localhost:8080/api/v1/stock");
-                const result = response.data.data;
+                const result = response.data;
                 setData(result);
             } catch (error) {
                 console.error("Error fetching the stock data", error);
@@ -62,6 +62,7 @@ const StockReport = () => {
                 <thead>
                     <tr>
                         <th onClick={() => sortData('id')} className={getClassNamesFor('id')}>ID</th>
+                        <th onClick={() => sortData('productId')} className={getClassNamesFor('id')}>Product ID</th>
                         <th onClick={() => sortData('name')} className={getClassNamesFor('name')}>Name</th>
                         <th onClick={() => sortData('brand')} className={getClassNamesFor('brand')}>Brand</th>
                         <th onClick={() => sortData('type')} className={getClassNamesFor('type')}>Type</th>
@@ -77,6 +78,7 @@ const StockReport = () => {
                     {sortedData.map((item) => (
                         <tr key={item.id}>
                             <td>{item.id}</td>
+                            <td>{item.productId}</td>
                             <td>{item.name}</td>
                             <td>{item.brand}</td>
                             <td>{item.type}</td>
@@ -84,8 +86,8 @@ const StockReport = () => {
                             <td>{item.quantity}</td>
                             <td>{item.price}</td>
                             <td>{item.vendorId}</td>
-                            <td>{new Date(item.updatedAt).toLocaleString()}</td>
-                            <td>{new Date(item.createdAt).toLocaleString()}</td>
+                            <td>{new Date(item.updatedAt).toLocaleString('en-CA')}</td>
+                            <td>{new Date(item.createdAt).toLocaleString('en-CA')}</td>
                         </tr>
                     ))}
                 </tbody>

@@ -43,11 +43,11 @@ const RequestProduct = () => {
 
     useEffect(() => {
         if (vendorProducts?.length > 0 && id) {
-            const product = vendorProducts.find((product) => product.product_id === id);
+            const product = vendorProducts.find((product) => product.productId === id);
             if (product) {
                 setSelectedVendor(product.vendorId);
                 setProductList(vendorProducts.filter((p) => p.vendorId === product.vendorId));
-                setSelectedProduct(product.product_id);
+                setSelectedProduct(product.productId);
             }
         }
     }, [vendorProducts]);
@@ -123,7 +123,7 @@ const RequestProduct = () => {
                         disabled={!selectedVendor} // Disable until a vendor is selected
                     >
                         {productList.map((product) => (
-                            <MenuItem key={product.productId} value={product.productId}>{product.productName}</MenuItem>
+                            <MenuItem key={product.productId} value={product.productId}>{product.name}</MenuItem>
                         ))}
                     </Select>
                 </FormControl>
