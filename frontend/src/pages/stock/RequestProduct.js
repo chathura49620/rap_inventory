@@ -45,8 +45,8 @@ const RequestProduct = () => {
         if (vendorProducts?.length > 0 && id) {
             const product = vendorProducts.find((product) => product.product_id === id);
             if (product) {
-                setSelectedVendor(product.vendor_id);
-                setProductList(vendorProducts.filter((p) => p.vendor_id === product.vendor_id));
+                setSelectedVendor(product.vendorId);
+                setProductList(vendorProducts.filter((p) => p.vendorId === product.vendorId));
                 setSelectedProduct(product.product_id);
             }
         }
@@ -54,7 +54,7 @@ const RequestProduct = () => {
 
     const handleVendor = (event) => {
         setSelectedVendor(event.target.value);
-        const products = vendorProducts.filter((product) => product.vendor_id === event.target.value);
+        const products = vendorProducts.filter((product) => product.vendorId === event.target.value);
         setProductList(products);
     }
 
@@ -107,7 +107,7 @@ const RequestProduct = () => {
                         onChange={handleVendor}
                     >
                         {vendorList.map((vendor) => (
-                            <MenuItem key={vendor.id} value={vendor.id}>{vendor.first_name}</MenuItem>
+                            <MenuItem key={vendor.id} value={vendor.id}>{vendor.firstName}</MenuItem>
                         ))}
                     </Select>
                 </FormControl>
@@ -123,7 +123,7 @@ const RequestProduct = () => {
                         disabled={!selectedVendor} // Disable until a vendor is selected
                     >
                         {productList.map((product) => (
-                            <MenuItem key={product.product_id} value={product.product_id}>{product.product_name}</MenuItem>
+                            <MenuItem key={product.productId} value={product.productId}>{product.productName}</MenuItem>
                         ))}
                     </Select>
                 </FormControl>

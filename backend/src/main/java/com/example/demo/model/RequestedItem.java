@@ -5,15 +5,15 @@ import java.util.UUID;
 public class RequestedItem {
 
     private int id;
-    private String productId;
-    private String vendorId;
+    private int productId;
+    private int vendorId;
     private String quantity;
     private String requestStatus;
     private String deliveryStatus;
     private String deliveryDate;
 
     // Constructor with parameters
-    public RequestedItem(int id, String productId, String vendorId, String quantity, String requestStatus, String deliveryStatus, String deliveryDate) {
+    public RequestedItem(int id, int productId, int vendorId, String quantity, String requestStatus, String deliveryStatus, String deliveryDate) {
         this.id = id;
         this.productId = productId;
         this.vendorId = vendorId;
@@ -35,19 +35,19 @@ public class RequestedItem {
         this.id = id;
     }
 
-    public String getProductId() {
+    public int getProductId() {
         return productId;
     }
 
-    public void setProductId(String productId) {
+    public void setProductId(int productId) {
         this.productId = productId;
     }
 
-    public String getVendorId() {
+    public int getVendorId() {
         return vendorId;
     }
 
-    public void setVendorId(String vendorId) {
+    public void setVendorId(int vendorId) {
         this.vendorId = vendorId;
     }
 

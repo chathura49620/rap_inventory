@@ -60,12 +60,12 @@ const InventoryReport = () => {
                 <thead>
                     <tr>
                         <th onClick={() => sortData('id')} className={getClassNamesFor('id')}>ID</th>
-                        <th onClick={() => sortData('product_id')} className={getClassNamesFor('product_id')}>Product ID</th>
-                        <th onClick={() => sortData('vendor_id')} className={getClassNamesFor('vendor_id')}>Vendor ID</th>
+                        <th onClick={() => sortData('productId')} className={getClassNamesFor('productId')}>Product ID</th>
+                        <th onClick={() => sortData('vendorId')} className={getClassNamesFor('vendorId')}>Vendor ID</th>
                         <th onClick={() => sortData('quantity')} className={getClassNamesFor('quantity')}>Quantity</th>
-                        <th onClick={() => sortData('request_status')} className={getClassNamesFor('request_status')}>Request Status</th>
-                        <th onClick={() => sortData('delivery_status')} className={getClassNamesFor('delivery_status')}>Delivery Status</th>
-                        <th onClick={() => sortData('delivery_date')} className={getClassNamesFor('delivery_date')}>Delivery Date</th>
+                        <th onClick={() => sortData('requestStatus')} className={getClassNamesFor('requestStatus')}>Request Status</th>
+                        <th onClick={() => sortData('deliveryStatus')} className={getClassNamesFor('deliveryStatus')}>Delivery Status</th>
+                        <th onClick={() => sortData('deliveryDate')} className={getClassNamesFor('deliveryDate')}>Delivery Date</th>
                         <th onClick={() => sortData('updatedAt')} className={getClassNamesFor('updatedAt')}>Updated At</th>
                         <th onClick={() => sortData('createdAt')} className={getClassNamesFor('createdAt')}>Created At</th>
                     </tr>
@@ -74,12 +74,12 @@ const InventoryReport = () => {
                     {sortedData.map((item) => (
                         <tr key={item.id}>
                             <td>{item.id}</td>
-                            <td>{item.product_id}</td>
-                            <td>{item.vendor_id}</td>
+                            <td>{item.productId}</td>
+                            <td>{item.vendorId}</td>
                             <td>{item.quantity}</td>
-                            <td>{item.request_status}</td>
-                            <td>{item.delivery_status}</td>
-                            <td>{item.delivery_date}</td>
+                            <td>{item.requestStatus}</td>
+                            <td>{item.deliveryStatus}</td>
+                            <td>{item.deliveryDate}</td>
                             <td>{new Date(item.updatedAt).toLocaleString()}</td>
                             <td>{new Date(item.createdAt).toLocaleString()}</td>
                         </tr>

@@ -34,7 +34,7 @@ const BasicTable = (props) => {
               <TableCell align="center">{row.type}</TableCell>
               <TableCell align="center">{row.quantity}</TableCell>
               <TableCell align="center">{row.price}</TableCell>
-              <TableCell align="center">{row.vendor_id}</TableCell>
+              <TableCell align="center">{row.vendorId}</TableCell>
               <TableCell align="center">
                 <IconButton onClick={() => preview(row)} aria-label="preview">
                   <PreviewIcon />

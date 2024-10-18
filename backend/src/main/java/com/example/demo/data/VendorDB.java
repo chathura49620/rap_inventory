@@ -17,11 +17,11 @@ public class VendorDB {
         vendors = new ArrayList<>();
 
         // Adding 5 sample vendor objects
-        vendors.add(new Vendor(1, "John", "Electronics vendor", "john@example.com"));
-        vendors.add(new Vendor(2, "Alice", "Footwear vendor", "alice@example.com"));
-        vendors.add(new Vendor(3, "Robert", "Apparel vendor", "robert@example.com"));
-        vendors.add(new Vendor(4, "Sophia", "Accessories vendor", "sophia@example.com"));
-        vendors.add(new Vendor(5, "Michael", "General vendor", "michael@example.com"));
+        vendors.add(new Vendor(101, "John", "Electronics vendor", "john@example.com"));
+        vendors.add(new Vendor(102, "Alice", "Footwear vendor", "alice@example.com"));
+        vendors.add(new Vendor(103, "Robert", "Apparel vendor", "robert@example.com"));
+        vendors.add(new Vendor(104, "Sophia", "Accessories vendor", "sophia@example.com"));
+        vendors.add(new Vendor(105, "Michael", "General vendor", "michael@example.com"));
     }
 
     // Method to return all vendors

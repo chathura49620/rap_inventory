@@ -26,7 +26,7 @@ const AddEditPreview = (props) => {
             setBrand(data.brand);
             setColor(data.color);
             setType1(data.type);
-            setSelectedVendor(data.vendor_id);
+            setSelectedVendor(data.vendorId);
         } else {
             setProductId('');
             setProductName('');
@@ -46,7 +46,7 @@ const AddEditPreview = (props) => {
             type: type1,
             color: color,
             price: parseFloat(price),
-            vendor_id: parseInt(selectedVendor)
+            vendorId: parseInt(selectedVendor)
         }
 
         handleAddOrEdit(type, data1);
@@ -90,7 +90,7 @@ const AddEditPreview = (props) => {
                             onChange={handleVendor}
                         >
                             {vendors.map((vendor) => (
-                                <MenuItem key={vendor.id} value={vendor.id}>{vendor.first_name}</MenuItem>
+                                <MenuItem key={vendor.id} value={vendor.id}>{vendor.firstName}</MenuItem>
                             ))}
                         </Select>
                     </FormControl>

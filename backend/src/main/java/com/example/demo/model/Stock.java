@@ -9,11 +9,11 @@ public class Stock {
     private String color;
     private int quantity;
     private double price;
-    private String vendorId;
+    private int vendorId;
 
     public Stock() {}
 
-    public Stock(Integer id, String name, String brand, String type, String color, int quantity, double price, String vendorId) {
+    public Stock(Integer id, String name, String brand, String type, String color, int quantity, double price, int vendorId) {
         if (id == null) {
             this.id = ++idCounter;
         } else {
@@ -86,11 +86,11 @@ public class Stock {
         this.price = price;
     }
 
-    public String getVendorId() {
+    public int getVendorId() {
         return vendorId;
     }
 
-    public void setVendorId(String vendorId) {
+    public void setVendorId(int vendorId) {
         this.vendorId = vendorId;
     }
 }

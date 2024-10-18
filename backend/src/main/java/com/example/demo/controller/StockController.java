@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1/stocks")
+@RequestMapping("/api/v1/stock")
 public class StockController {
 
     @Autowired
@@ -38,13 +38,13 @@ public class StockController {
     }
 
     // Update an existing stock by id
-    @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable int id, @RequestBody Stock updatedStock) {
+    @PutMapping
+    public ResponseEntity<?> update(@RequestBody Stock updatedStock) {
         if (updatedStock == null) {
             return ResponseEntity.badRequest().body("Data to update cannot be empty");
         }
 
-        Optional<Stock> existingStockOpt = stockDB.getStockById(id);
+        Optional<Stock> existingStockOpt = stockDB.getStockById(updatedStock.getId());
 
         if (existingStockOpt.isPresent()) {
             Stock existingStock = existingStockOpt.get();
@@ -56,7 +56,7 @@ public class StockController {
             existingStock.setPrice(updatedStock.getPrice());
             existingStock.setVendorId(updatedStock.getVendorId());
 
-            stockDB.updateStock(id, existingStock);
+            stockDB.updateStock(updatedStock.getId(), existingStock);
             return ResponseEntity.ok().body("Stock item was updated successfully");
         } else {
             return ResponseEntity.status(404).body("Stock item not found");

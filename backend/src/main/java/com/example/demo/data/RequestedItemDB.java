@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Component
 public class RequestedItemDB {
@@ -18,11 +17,11 @@ public class RequestedItemDB {
         requestedItems = new ArrayList<>();
 
         // Adding some sample requested item objects
-        requestedItems.add(new RequestedItem(1, UUID.randomUUID().toString(), "V001", "10", "PENDING", "NOT_DELIVERED", "2024-10-20"));
-        requestedItems.add(new RequestedItem(2, UUID.randomUUID().toString(), "V002", "20", "APPROVED", "DELIVERED", "2024-10-15"));
-        requestedItems.add(new RequestedItem(3, UUID.randomUUID().toString(), "V003", "30", "REJECTED", "NOT_DELIVERED", "2024-10-18"));
-        requestedItems.add(new RequestedItem(4, UUID.randomUUID().toString(), "V004", "40", "PENDING", "NOT_DELIVERED", "2024-10-25"));
-        requestedItems.add(new RequestedItem(5, UUID.randomUUID().toString(), "V005", "50", "APPROVED", "DELIVERED", "2024-10-22"));
+        requestedItems.add(new RequestedItem(1, 1001, 101, "10", "PENDING", "NOT_DELIVERED", "2024-10-20"));
+        requestedItems.add(new RequestedItem(2, 1002, 102, "20", "APPROVED", "DELIVERED", "2024-10-15"));
+        requestedItems.add(new RequestedItem(3, 1003, 103, "30", "REJECTED", "NOT_DELIVERED", "2024-10-18"));
+        requestedItems.add(new RequestedItem(4, 1004, 104, "40", "PENDING", "NOT_DELIVERED", "2024-10-25"));
+        requestedItems.add(new RequestedItem(5, 1005, 105, "50", "APPROVED", "DELIVERED", "2024-10-22"));
     }
 
     // Method to return all requested items

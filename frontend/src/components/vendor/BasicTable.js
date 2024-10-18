@@ -25,12 +25,12 @@ const BasicTable = (props) => {
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell align="center">{row.id}</TableCell>
-              <TableCell align="center">{row.product_id}</TableCell>
-              <TableCell align="center">{row.product_name}</TableCell>
+              <TableCell align="center">{row.productId}</TableCell>
+              <TableCell align="center">{row.productName}</TableCell>
               <TableCell align="center">{row.brand}</TableCell>
               <TableCell align="center">{row.color}</TableCell>
               <TableCell align="center">{row.type}</TableCell>
-              <TableCell align="center">{row.vendor_id}</TableCell>
+              <TableCell align="center">{row.vendorId}</TableCell>
               <TableCell align="center">
                 <IconButton onClick={() => preview(row)} aria-label="preview">
                   <PreviewIcon />
