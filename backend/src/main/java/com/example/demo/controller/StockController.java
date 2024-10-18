@@ -1,53 +1,77 @@
 package com.example.demo.controller;
 
-import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.data.StockDB;
 import com.example.demo.model.Stock;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1/stock")
+@RequestMapping("/api/v1/stocks")
 public class StockController {
 
     @Autowired
     private StockDB stockDB;
 
-    private int currentId = 5; // Initial ID value based on existing stock items
-
-    // Get all stocks
-    @GetMapping
-    public List<Stock> getAllStocks() {
-        return stockDB.getAllStocks();
-    }
-
-    // Add a new stock (auto-increment id)
+    // Create and save a new stock
     @PostMapping
-    public Stock addStock(@RequestBody Stock stock) {
-        if (stock.getId() == 0) {
-            currentId++; // Increment the id if no id is provided
-            stock.setId(currentId);
+    public ResponseEntity<?> create(@RequestBody Stock stock) {
+        if (stock == null) {
+            return ResponseEntity.badRequest().body("Stock data is empty");
         }
-        return stockDB.addStock(stock);
+        stockDB.addStock(stock);
+        return ResponseEntity.ok().body("Stock item created successfully");
     }
 
-    // Update an existing stock
+    // Retrieve and return all stocks
+    @GetMapping
+    public ResponseEntity<?> findAll() {
+        List<Stock> stockItems = stockDB.getAllStocks();
+        if (!stockItems.isEmpty()) {
+            return ResponseEntity.ok().body(stockItems);
+        } else {
+            return ResponseEntity.ok().body("No Data to Retrieve");
+        }
+    }
+
+    // Update an existing stock by id
     @PutMapping("/{id}")
-    public Stock updateStock(@PathVariable int id, @RequestBody Stock stock) {
-        return stockDB.updateStock(id, stock);
+    public ResponseEntity<?> update(@PathVariable int id, @RequestBody Stock updatedStock) {
+        if (updatedStock == null) {
+            return ResponseEntity.badRequest().body("Data to update cannot be empty");
+        }
+
+        Optional<Stock> existingStockOpt = stockDB.getStockById(id);
+
+        if (existingStockOpt.isPresent()) {
+            Stock existingStock = existingStockOpt.get();
+            existingStock.setName(updatedStock.getName());
+            existingStock.setBrand(updatedStock.getBrand());
+            existingStock.setType(updatedStock.getType());
+            existingStock.setColor(updatedStock.getColor());
+            existingStock.setQuantity(updatedStock.getQuantity());
+            existingStock.setPrice(updatedStock.getPrice());
+            existingStock.setVendorId(updatedStock.getVendorId());
+
+            stockDB.updateStock(id, existingStock);
+            return ResponseEntity.ok().body("Stock item was updated successfully");
+        } else {
+            return ResponseEntity.status(404).body("Stock item not found");
+        }
     }
 
-    // Delete a stock
+    // Delete a stock by id
     @DeleteMapping("/{id}")
-    public boolean deleteStock(@PathVariable int id) {
-        return stockDB.deleteStock(id);
+    public ResponseEntity<?> delete(@PathVariable int id) {
+        boolean isDeleted = stockDB.deleteStock(id);
+
+        if (isDeleted) {
+            return ResponseEntity.ok().body("Stock item was deleted successfully");
+        } else {
+            return ResponseEntity.status(404).body("Stock item not found");
+        }
     }
 }
