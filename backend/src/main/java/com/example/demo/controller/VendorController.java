@@ -20,8 +20,6 @@ public class VendorController {
     @Autowired
     private VendorDB vendorDB;
 
-    private int currentId = 5; // Initial ID value based on existing vendor items
-
     // Get all vendors
     @GetMapping
     public List<Vendor> getAllVendors() {

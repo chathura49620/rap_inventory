@@ -2,7 +2,6 @@ package com.example.demo.service;
 
 import com.example.demo.data.StockDB;
 import com.example.demo.model.Stock;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +11,8 @@ import java.util.Optional;
 @Service
 public class StockService {
 
-    @Autowired
-    private StockDB stockDB;
+    // StockDB is a singleton
+    private StockDB stockDB = StockDB.getInstance();
 
     public ResponseEntity<?> create(Stock stock) {
         if (stock == null) {
@@ -37,7 +36,7 @@ public class StockService {
             return ResponseEntity.badRequest().body("Data to update cannot be empty");
         }
 
-        Optional<Stock> existingStockOpt = stockDB.getStockById(updatedStock.getId());
+        Optional<Stock> existingStockOpt = stockDB.getById(updatedStock.getId());
 
         if (existingStockOpt.isPresent()) {
             Stock existingStock = existingStockOpt.get();

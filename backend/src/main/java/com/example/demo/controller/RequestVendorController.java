@@ -18,8 +18,8 @@ public class RequestVendorController {
     @Autowired
     private RequestVendorDB requestedVendorDB;
 
-    @Autowired
-    private StockDB stockDB;
+    // StockDB is a singleton
+    private StockDB stockDB = StockDB.getInstance();
 
     @GetMapping
     public ResponseEntity<?> findAll() {
