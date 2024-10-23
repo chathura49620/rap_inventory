@@ -109,7 +109,7 @@ const AddEditPreview = (props) => {
                         <Select
                             labelId="vendor-label"
                             id="vendor-select"
-                            value={selectedVendor}
+                            value={selectedVendor || ''}
                             label="Select Vendor"
                             onChange={handleVendor}
                         >

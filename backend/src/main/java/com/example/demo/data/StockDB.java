@@ -18,9 +18,9 @@ public class StockDB {
     public StockDB() {
         stocks = new ArrayList<>();
         stocks.add(new Stock(-1, "P001", "Laptop", "Dell", "Electronics", "Black", 50, 999.99, "J01"));
-        stocks.add(new Stock(-1, "P002", "Phone", "Samsung", "Electronics", "White", 100, 799.99, "A02"));
+        stocks.add(new Stock(-1, "P002", "Phone", "Samsung", "Electronics", "White", 100, 799.99, "A01"));
         stocks.add(new Stock(-1, "P003", "Shoes", "Nike", "Footwear", "Red", 200, 119.99, "R01"));
-        stocks.add(new Stock(-1, "P004", "Shirt", "Adidas", "Apparel", "Blue", 150, 49.99, "S04"));
+        stocks.add(new Stock(-1, "P004", "Shirt", "Adidas", "Apparel", "Blue", 150, 49.99, "S01"));
         stocks.add(new Stock(-1, "P005", "Watch", "Apple", "Accessories", "Silver", 75, 399.99, "M01"));
     }
 
@@ -66,12 +66,15 @@ public class StockDB {
 
     public Stock addNewStockFromRequestedItem(RequestVendor requestedItem) {
         VendorProduct product = VendorProductDB.vendorProducts.stream()
-            .filter(item -> item.getProductId().equals(requestedItem.getProductId()) && item.getVendorId().equals(requestedItem.getVendorId()))
-            .findFirst()
-            .orElse(null);
+                .filter(item -> item.getProductId().equals(requestedItem.getProductId())
+                        && item.getVendorId().equals(requestedItem.getVendorId()))
+                .findFirst()
+                .orElse(null);
 
         if (product != null) {
-            Stock newStock = new Stock(-1, product.getProductId(), product.getName(), product.getBrand(), product.getType(), product.getColor(), requestedItem.getQuantity(), product.getPrice(), product.getVendorId());
+            Stock newStock = new Stock(-1, product.getProductId(), product.getName(), product.getBrand(),
+                    product.getType(), product.getColor(), requestedItem.getQuantity(), product.getPrice(),
+                    product.getVendorId());
 
             stocks.add(newStock);
             return newStock;
