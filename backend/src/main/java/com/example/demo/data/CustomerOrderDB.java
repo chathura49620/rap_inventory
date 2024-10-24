@@ -55,7 +55,6 @@ public class CustomerOrderDB extends AbstractDB<CustomerOrder> {
 
     @Override
     public Optional<CustomerOrder> getById(int id) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getById'");
     }
 }

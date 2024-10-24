@@ -48,19 +48,16 @@ public class OrderItemController implements CrudController<OrderItem> {
 
     @Override
     public Optional<OrderItem> findOne(int id) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'findOne'");
     }
 
     @Override
     public ResponseEntity<?> update(OrderItem entity) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'update'");
     }
 
     @Override
     public ResponseEntity<?> delete(int id) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'delete'");
     }
 }

@@ -13,11 +13,7 @@ public class VendorInvoiceDB extends AbstractDB<VendorInvoice> {
     // Private constructor to prevent instantiation from other classes
     private VendorInvoiceDB() {
         super();
-        items.add(new VendorInvoice(01,"Req 01","3500","2024-10-24","2024-10-31","SENT TO CLIENT")); 
-        // items.add(new VendorInvoice());
-        // items.add(new VendorInvoice());
-        // items.add(new VendorInvoice());
-        // items.add(new VendorInvoice());
+        items.add(new VendorInvoice(01,"Req 01","3500","2024-10-24","2024-10-31","SENT TO CLIENT"));
     }
 
     // Public static method to provide access to the single instance

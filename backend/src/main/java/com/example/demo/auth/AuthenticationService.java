@@ -5,7 +5,6 @@ import com.example.demo.model.UserData;
 import com.example.demo.token.Token;
 import com.example.demo.token.TokenRepository;
 import com.example.demo.token.TokenType;
-// import com.example.demo.user.Role;
 import com.example.demo.user.User;
 import com.example.demo.user.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -135,17 +134,6 @@ public class AuthenticationService {
                 null
         ));
     }
-
-    // // Create a new user
-    // public void createUser(UserData user) {
-    //     String sql = "INSERT INTO user (email, firstname, lastname, role, password) VALUES (?, ?, ?, ?, ?)";
-    //     jdbcTemplate.update(sql,
-    //             user.getEmail(),
-    //             user.getFirstname(),
-    //             user.getLastname(),
-    //             user.getRole(),
-    //             user.getPassword());
-    // }
 
     // Update an existing user
     public void updateUser(Long id, UserData user) {

@@ -16,13 +16,6 @@ public class VendorDB extends AbstractDB<Vendor> {
     // Constructor to initialize with 5 vendor objects
     public VendorDB() {
         super();
-        // items.add(new Vendor(01, "John", "Electronics vendor", "john@example.com"));
-        // items.add(new Vendor(02, "Alice", "Footwear vendor", "alice@example.com"));
-        // items.add(new Vendor(03, "Robert", "Apparel vendor", "robert@example.com"));
-        // items.add(new Vendor(04, "Sophia", "Accessories vendor", "sophia@example.com"));
-        // items.add(new Vendor(05, "Michael", "General vendor", "michael@example.com"));
-
-
         items.add(new Vendor("J01", "John", "Electronics vendor", "john@example.com"));
         items.add(new Vendor("A01", "Alice", "Footwear vendor", "alice@example.com"));
         items.add(new Vendor("R01", "Robert", "Apparel vendor", "robert@example.com"));

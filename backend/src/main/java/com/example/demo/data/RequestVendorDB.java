@@ -1,7 +1,6 @@
 package com.example.demo.data;
 
 import com.example.demo.model.RequestVendor;
-
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -10,7 +9,6 @@ import java.util.Optional;
 @Component
 public class RequestVendorDB extends AbstractDB<RequestVendor> {
 
-    // private List<RequestVendor> requestedItems;
     private static RequestVendorDB instance;
 
     private RequestVendorDB() {
