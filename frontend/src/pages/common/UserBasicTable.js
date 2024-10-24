@@ -30,11 +30,9 @@ const UserBasicTable = (props) => {
                 {row.name}
               </TableCell> */}
               <TableCell align="center">{row.id}</TableCell>
-              <TableCell align="center">{row.f_name}</TableCell>
-              <TableCell align="center">{row.l_name}</TableCell>
-              <TableCell align="center">{row.phone}</TableCell>
+              <TableCell align="center">{row.firstname}</TableCell>
+              <TableCell align="center">{row.lastname}</TableCell>
               <TableCell align="center">{row.email}</TableCell>
-              <TableCell align="center">{row.address}</TableCell>
               <TableCell align="center">{row.role}</TableCell>
               <TableCell align="center">
                 <IconButton onClick={() => preview(row)} aria-label="preview">

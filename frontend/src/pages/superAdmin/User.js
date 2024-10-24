@@ -20,7 +20,7 @@ const User = () => {
     const [delId, setDelId] = useState();
 
     useEffect(() => {
-        setHeaders(["ID", "First Name", "Last Name", "Phone", "Email", "Address","Role", ""]);
+        setHeaders(["ID", "First Name", "Last Name", "Email", "Role", ""]);
         // setNotifyList([
         //     createData2(1, 'Item #2 requires more stock!', 'Item #2 requires more stock!', true),
         //     createData2(2, 'Message from vendor Maliban', ' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.', false),
@@ -31,9 +31,9 @@ const User = () => {
     }, []);
 
     useEffect(() => {
-        axios.get('http://localhost:8080/api/v1/user').then((res) => {
+        axios.get('http://localhost:8080/api/v1/auth/users').then((res) => {
             console.log(res.data);
-            setStocks(res?.data?.data);
+            setStocks(res?.data);
         }).catch(err => {
             console.error(err);
         });

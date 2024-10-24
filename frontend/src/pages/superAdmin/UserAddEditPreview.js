@@ -19,12 +19,12 @@ const AddEditPreview = (props) => {
 
   React.useEffect(() => {
     if (type !== "add") {
-      setFname(data.f_name);
-      setLname(data.l_name);
-      setPhone(data.phone);
-      setType1(data.type);
+      setFname(data.firstname);
+      setLname(data.lastname);
+      // setPhone(data.phone);
+      // setType1(data.type);
       setEmail(data.email);
-      setAddress(data.address);
+      // setAddress(data.address);
       setRole(data.role);
     } else {
       setFname("");
@@ -94,15 +94,15 @@ const AddEditPreview = (props) => {
             disabled={type === "preview"}
           />{" "}
           <br />
-          <TextField
+          {/* <TextField
             id="Phone"
             label="Phone"
             variant="outlined"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             disabled={type === "preview"}
-          />{" "}
-          <br />
+          />{" "} */}
+          {/* <br /> */}
           <TextField
             id="Email"
             label="Email"
@@ -112,7 +112,7 @@ const AddEditPreview = (props) => {
             disabled={type === "preview"}
           />{" "}
           <br />
-          <TextField
+          {/* <TextField
             id="Address"
             label="Address"
             variant="outlined"
@@ -120,7 +120,7 @@ const AddEditPreview = (props) => {
             onChange={(e) => setAddress(e.target.value)}
             disabled={type === "preview"}
           />{" "}
-          <br />
+          <br /> */}
           <TextField
             id="Role"
             label="Role"
