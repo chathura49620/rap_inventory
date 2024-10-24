@@ -1,43 +1,54 @@
 package com.example.demo.data;
 
 import com.example.demo.model.RequestVendor;
+
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Component
-public class RequestVendorDB {
+public class RequestVendorDB extends AbstractDB<RequestVendor> {
 
-    private List<RequestVendor> requestedItems;
+    // private List<RequestVendor> requestedItems;
+    private static RequestVendorDB instance;
 
-    public RequestVendorDB() {
-        requestedItems = new ArrayList<>();
+    private RequestVendorDB() {
+        super();
+        items.add(new RequestVendor(-1, "P001", "Laptop", "J01", 10, "PENDING", "NOT_DELIVERED", "2024-10-20"));
+        items.add(new RequestVendor(-1, "P002","Phone", "A02", 20, "APPROVED", "DELIVERED", "2024-10-15"));
+        items.add(new RequestVendor(-1, "P003","Shoes", "R03", 30, "REJECTED", "NOT_DELIVERED", "2024-10-18"));
+        items.add(new RequestVendor(-1, "P004", "Shirt", "S04", 40, "PENDING", "NOT_DELIVERED", "2024-10-25"));
+        items.add(new RequestVendor(-1, "P005","Watch", "M05", 50, "APPROVED", "DELIVERED", "2024-10-22"));
+    }
 
-        requestedItems.add(new RequestVendor(-1, "P001", "J01", 10, "PENDING", "NOT_DELIVERED", "2024-10-20"));
-        requestedItems.add(new RequestVendor(-1, "P002", "A02", 20, "APPROVED", "DELIVERED", "2024-10-15"));
-        requestedItems.add(new RequestVendor(-1, "P003", "R03", 30, "REJECTED", "NOT_DELIVERED", "2024-10-18"));
-        requestedItems.add(new RequestVendor(-1, "P004", "S04", 40, "PENDING", "NOT_DELIVERED", "2024-10-25"));
-        requestedItems.add(new RequestVendor(-1, "P005", "M05", 50, "APPROVED", "DELIVERED", "2024-10-22"));
+    public static RequestVendorDB getInstance() {
+        if (instance == null) {
+            synchronized (RequestVendorDB.class) {
+                if (instance == null) {
+                    instance = new RequestVendorDB();
+                }
+            }
+        }
+        return instance;
     }
 
     public List<RequestVendor> getAllRequestedItems() {
-        return requestedItems;
+        return items;
     }
 
     public RequestVendor addRequestedItem(RequestVendor requestedItem) {
         requestedItem.setId(-1);
-        requestedItems.add(requestedItem);
+        items.add(requestedItem);
         return requestedItem;
     }
 
     public Optional<RequestVendor> getRequestedItemById(int id) {
-        return requestedItems.stream().filter(item -> item.getId() == id).findFirst();
+        return items.stream().filter(item -> item.getId() == id).findFirst();
     }
 
     public Optional<RequestVendor> getRequestedItemByIdAndStatus(int id, String status) {
-        return requestedItems.stream()
+        return items.stream()
                 .filter(item -> item.getId() == id && status.equals(item.getRequestStatus()))
                 .findFirst();
     }
@@ -61,7 +72,13 @@ public class RequestVendorDB {
     }
 
     public boolean deleteRequestedItem(int id) {
-        return requestedItems.removeIf(item -> item.getId() == id);
+        return items.removeIf(item -> item.getId() == id);
     }
+
+    @Override
+    public Optional<RequestVendor> getById(int id) {
+        throw new UnsupportedOperationException("Unimplemented method 'getById'");
+    }
+
 }
 

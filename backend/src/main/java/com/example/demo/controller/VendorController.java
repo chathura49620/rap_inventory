@@ -1,48 +1,46 @@
 package com.example.demo.controller;
 
 import org.springframework.web.bind.annotation.RestController;
-import com.example.demo.data.VendorDB;
 import com.example.demo.model.Vendor;
-import java.util.List;
+import com.example.demo.service.VendorService;
+
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 @RequestMapping("/api/v1/vendor")
-public class VendorController {
+public class VendorController implements CrudController<Vendor> {
 
     @Autowired
-    private VendorDB vendorDB;
+    private VendorService vendorService;
 
-    private int currentId = 5; // Initial ID value based on existing vendor items
-
-    // Get all vendors
-    @GetMapping
-    public List<Vendor> getAllVendors() {
-        return vendorDB.getAllVendors();
+    @Override
+    public ResponseEntity<?> create(@RequestBody Vendor vendor) {
+        return vendorService.create(vendor);
     }
 
-    // Add a new vendor (auto-increment id)
-    @PostMapping
-    public Vendor addVendor(@RequestBody Vendor vendor) {
-        return vendorDB.addVendor(vendor);
+    @Override
+    public ResponseEntity<?> findAll() {
+        return vendorService.findAll();
     }
 
-    // Update an existing vendor
-    @PutMapping("/{id}")
-    public Vendor updateVendor(@PathVariable String id, @RequestBody Vendor vendor) {
-        return vendorDB.updateVendor(id, vendor);
+    @Override
+    public ResponseEntity<?> update(@RequestBody Vendor updatedVendor) {
+        return vendorService.update(updatedVendor);
     }
 
-    // Delete a vendor
-    @DeleteMapping("/{id}")
-    public boolean deleteVendor(@PathVariable String id) {
-        return vendorDB.deleteVendor(id);
+    @Override
+    public ResponseEntity<?> delete(@PathVariable int id) {
+        return vendorService.delete(id);
+    }
+
+    @Override
+    public Optional<Vendor> findOne(int id) {
+        throw new UnsupportedOperationException("Unimplemented method 'findOne'");
     }
 }

@@ -12,9 +12,9 @@ const RequestedItems = () => {
     }, []);
 
     useEffect(() => {
-        axios.get('http://localhost:8080/api/v1/requested-items').then((res) => {
+        axios.get('http://localhost:8080/api/v1/request-vendor').then((res) => {
             console.log(res.data);
-            setStocks(res.data.data);
+            setStocks(res.data);
         }).catch(err => {
             console.error(err);
         });

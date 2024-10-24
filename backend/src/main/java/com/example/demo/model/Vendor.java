@@ -12,7 +12,7 @@ public class Vendor {
         this.description = description;
         this.email = email;
     }
-    
+     
     public String getId() {
         return id;
     }

@@ -11,30 +11,6 @@ exports.create = async (req, res) => {
   const data = req.body;
   try {
     const book = await db.vendorInvoice.create(data);
-
-    var transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: 'chapra902@gmail.com',
-        pass: 'Cha0703091504*'
-      }
-    });
-    
-    var mailOptions = {
-      from: 'chapra902@gmail.com',
-      to: 'chathuraprabath49620@gmail.com',
-      subject: 'Sending Email using Node.js',
-      text: 'That was easy!'
-    };
-    
-    transporter.sendMail(mailOptions, function(error, info){
-      if (error) {
-        console.log(error);
-      } else {
-        console.log('Email sent: ' + info.response);
-      }
-    }); 
-
     res.send(book);
   } catch (err) {
     res.send(err);

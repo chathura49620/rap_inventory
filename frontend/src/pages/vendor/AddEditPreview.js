@@ -26,27 +26,27 @@ const AddEditPreview = (props) => {
             setBrand(data.brand);
             setColor(data.color);
             setType1(data.type);
-            setSelectedVendor(data.vendorId);
+            // setSelectedVendor(data.vendorId);
         } else {
             setProductId('');
             setProductName('');
             setBrand('');
             setColor('');
             setType1('');
-            setSelectedVendor('');
+            // setSelectedVendor(data.vendorId);
         }
     }, [data]);
 
     const handleSubmit = () => {
         let data1 = {
             id: (type !== 'add') ? data.id : undefined,
-            product_id: productId,
-            product_name: productName,
+            productId: productId,
+            name: productName,
             brand: brand,
             type: type1,
             color: color,
             price: parseFloat(price),
-            vendorId: parseInt(selectedVendor)
+            vendorId: "J01"
         }
 
         handleAddOrEdit(type, data1);
@@ -80,7 +80,7 @@ const AddEditPreview = (props) => {
                     <TextField id="Color" label="Color" variant="outlined" value={color} onChange={(e) => setColor(e.target.value)} disabled={type === 'preview'} /> <br />
                     <TextField id="Type" label="Type" variant="outlined" value={type1} onChange={(e) => setType1(e.target.value)} disabled={type === 'preview'} /> <br />
                     <TextField id="Price" label="Price" variant="outlined" value={price} onChange={(e) => setPrice(e.target.value)} disabled={type === 'preview'} /> <br />
-                    <FormControl fullWidth disabled={type === 'preview'}>
+                    {/* <FormControl fullWidth disabled={type === 'preview'}>
                         <InputLabel shrink id="vendor-label">Vendor</InputLabel>
                         <Select
                             labelId="vendor-label"
@@ -93,7 +93,7 @@ const AddEditPreview = (props) => {
                                 <MenuItem key={vendor.id} value={vendor.id}>{vendor.firstName}</MenuItem>
                             ))}
                         </Select>
-                    </FormControl>
+                    </FormControl> */}
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Close</Button>

@@ -11,9 +11,13 @@ import {Button} from '@mui/material';
 const BasicTableInvoice = (props) => {
   const { headers, rows, preview, edit, deleteFunc } = props;
 
-  const handlePaymentRecived = (id) => {
+  const handlePaymentRecived = (id , requestId , total , invoicedDate , dueDate) => {
     let data = {
       id: id,
+      requestId: requestId,
+      invoicedDate: invoicedDate,
+      dueDate: dueDate,
+      total: total,
       status: "PAYMENT DONE"
     }
     axios.put('http://localhost:8080/api/v1/vendor-invoice', data).then((res) => {
@@ -37,25 +41,21 @@ const BasicTableInvoice = (props) => {
         <TableBody>
           {rows.map((row) => (
             <TableRow
-              key={row.name}
+              key={row.id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               {/* <TableCell component="th" scope="row">
                 {row.name}
               </TableCell> */}
               <TableCell align="center">{row.id}</TableCell>
-              <TableCell align="center">{row.request_Id}</TableCell>
+              <TableCell align="center">{row.requestId}</TableCell>
               <TableCell align="center">{row.total}</TableCell>
-              <TableCell align="center">{row.invoiced_date}</TableCell>
-              <TableCell align="center">{row.due_date}</TableCell>
+              <TableCell align="center">{row.invoicedDate}</TableCell>
+              <TableCell align="center">{row.dueDate}</TableCell>
               <TableCell align="center">{row.status}</TableCell>
-              {/* <TableCell align="center">{row.due_date}</TableCell>
-              <TableCell align="center">{row.status}</TableCell>
-              <TableCell align="center">{row.price}</TableCell>
-              <TableCell align="center">{row.supplier_id}</TableCell> */}
               <TableCell align="center">
                 {row.status !== "PAYMENT DONE" &&
-                <button variant="success" className='btn btn-success' onClick={() => handlePaymentRecived(row.id)}>Payment Received</button>
+                <button variant="success" className='btn btn-success' onClick={(e) => handlePaymentRecived(row.id, row.requestId , row.total , row.invoicedDate , row.dueDate)}>Payment Received</button>
                 }
               </TableCell>
             </TableRow>
