@@ -108,7 +108,7 @@ const Cart = () => {
                                     </div>
                                 </TableCell>
                                 <TableCell align="right">
-                                    <span>{cartItem.price * cartItem.qty}</span>
+                                    <span>{(cartItem.price * cartItem.qty).toFixed(2)}</span>
                                 </TableCell>
                                 <TableCell align="right">
                                     <IconButton aria-label="remove" size="small" onClick={() => removeItem(cartItem.id)}>

@@ -86,7 +86,6 @@ const BillingInfo = () => {
   }
   useEffect(() => {
     if (customerOrderResponse?.length > 0) {
-      debugger
       const notifications = JSON.parse(localStorage.getItem('notifications')) || []
       const orderId = customerOrderResponse[0].orderId
       const notification = {
