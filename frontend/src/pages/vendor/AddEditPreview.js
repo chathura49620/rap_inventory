@@ -21,19 +21,19 @@ const AddEditPreview = (props) => {
 
     React.useEffect(() => {
         if (type !== 'add') {
-            setProductId(data.product_id);
-            setProductName(data.product_name);
+            setProductId(data.productId);
+            setProductName(data.name);
             setBrand(data.brand);
             setColor(data.color);
             setType1(data.type);
-            // setSelectedVendor(data.vendorId);
+            setPrice(data.price);
         } else {
             setProductId('');
             setProductName('');
             setBrand('');
             setColor('');
             setType1('');
-            // setSelectedVendor(data.vendorId);
+            setPrice('');
         }
     }, [data]);
 

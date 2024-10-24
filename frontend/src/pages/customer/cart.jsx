@@ -108,7 +108,7 @@ const Cart = () => {
                                     </div>
                                 </TableCell>
                                 <TableCell align="right">
-                                    <span>{cartItem.price * cartItem.qty}</span>
+                                    <span>{(cartItem.price * cartItem.qty).toFixed(2)}</span>
                                 </TableCell>
                                 <TableCell align="right">
                                     <IconButton aria-label="remove" size="small" onClick={() => removeItem(cartItem.id)}>
@@ -123,7 +123,7 @@ const Cart = () => {
                             <TableCell align="right"></TableCell>
                             <TableCell align="right"></TableCell>
                             <TableCell align="right"><Typography variant="h6" gutterBottom>
-                                Sub Total &nbsp;&nbsp;{subtotal}
+                                Sub Total &nbsp;&nbsp;{subtotal?.toFixed(2)}
                             </Typography></TableCell>
                             <TableCell align="right"></TableCell>
                             {/* <TableCell align="right">{(cartItem.price * cartItem.qty)}</TableCell> */}

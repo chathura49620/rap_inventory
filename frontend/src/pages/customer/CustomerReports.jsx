@@ -84,27 +84,25 @@ const CustomerReports = () => {
   };
 
   const onGenerateReport = () => {
-    fetchReport(`customer-order-report?start_date=${startDate}&end_date=${endtDate}&order_status=${reportType}`)
+    fetchReport(`customer-order/filter?startDate=${startDate}&endDate=${endtDate}&orderStatus=${reportType}`)
   }
   useEffect(() => {
     if (reportData?.data?.length > 0) {
       const mappedReportData = []
-      reportData.data.forEach((customerOrder) => {
-        customerOrder?.orderItem?.forEach((item) => {
-          let dateStr = new Date(item.createdAt)
+      reportData.data.forEach((item) => {
+          let dateStr = new Date(item.date)
           dateStr = dateStr.toLocaleDateString()
           const createdData = createData(
             item.id,
-            item.stockItem.name,
-            item.stockItem.brand,
-            item.stockItem.type,
-            item.stockItem.color,
-            item.stockItem.price,
+            item.itemName,
+            item.brand,
+            item.type,
+            item.color,
+            item.price,
             item.quantity,
             dateStr
           )
           mappedReportData.push(createdData)
-        })
       })
 
       if (mappedReportData?.length > 0) setRows(mappedReportData)
@@ -122,8 +120,8 @@ const CustomerReports = () => {
           </Typography>
         </div>
         <Box sx={{ display: 'flex' }}>
-          <TextField id="outlined-basic" label="Start Date" variant="outlined" sx={{ marginRight: 10 }} onChange={(e) => setStartDate(e.target.value)} placeholder="YYYY-MM-DD" />
-          <TextField id="outlined-basic" label="End Date" variant="outlined" sx={{ marginRight: 10 }} onChange={(e) => setEndDate(e.target.value)} placeholder="YYYY-MM-DD" />
+          <TextField id="outlined-basic" name="startDate" label="Start Date" variant="outlined" sx={{ marginRight: 10 }} onChange={(e) => setStartDate(e.target.value)} placeholder="YYYY-MM-DD" />
+          <TextField id="outlined-basic" name="endDate" label="End Date" variant="outlined" sx={{ marginRight: 10 }} onChange={(e) => setEndDate(e.target.value)} placeholder="YYYY-MM-DD" />
           <FormControl sx={{ minWidth: 120, marginRight: 10 }}>
             <InputLabel id="report-type-select-label">Order Status</InputLabel>
             <Select
@@ -133,9 +131,9 @@ const CustomerReports = () => {
               label="Report Type"
               onChange={handleReportTypeChange}
             >
-              <MenuItem value="1">Order Pending</MenuItem>
-              <MenuItem value="2">Order Deliver</MenuItem>
-              <MenuItem value="3">Order Completed</MenuItem>
+              <MenuItem value="pending">Order Pending</MenuItem>
+              <MenuItem value="deliver">Order Deliver</MenuItem>
+              <MenuItem value="completed">Order Completed</MenuItem>
             </Select>
           </FormControl>
           <Button variant="contained" onClick={() => onGenerateReport()}>Generate report</Button>

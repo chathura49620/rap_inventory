@@ -80,7 +80,7 @@ const AddEditPreviewInvoice = (props) => {
     }, []);
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/api/v1/request-vendor/${requestItemId}`).then((res) => { 
+        axios.get(`http://localhost:8080/api/v1/request-vendor${requestItemId ? "/" + requestItemId : "" }`).then((res) => { 
             setRequestItemId(requestItemId);
             setQuantity(res.data.data[0].quantity);
             seTtotal(res.data.data[0].quantity * 100);
