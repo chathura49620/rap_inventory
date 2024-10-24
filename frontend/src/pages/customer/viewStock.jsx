@@ -6,7 +6,7 @@ import Header from '../../components/customer/Header';
 import { Container } from '@mui/material';
 const ViewStock = () => {
   const { data, fetchData } = useGet();
-  const [stocks, setStocks] = useState(null);
+  const [stocks, setStocks] = useState([]);
   const [stocksWithQty, setStocksWithQty] = useState([]);
   const [cartItemCount, setCartItemCount] = useState(0);
 
@@ -18,17 +18,17 @@ const ViewStock = () => {
   }, [stocksWithQty])
 
   useEffect(() => {
-    if (!stocks) {
-      fetchData('stocks')
-    }
     if (data) {
       setStocks(data.data)
+    }
+    if (stocks?.length === 0) {
+      fetchData('stock')
     }
   }, [data])
 
   useEffect(() => {
     if (!stocks) {
-      fetchData('stocks')
+      fetchData('stock')
     }
     if (stocks) {
       const lsCartItemsJson = localStorage.getItem('cart-items')
@@ -101,7 +101,7 @@ const ViewStock = () => {
       <Grid container spacing={1}>
         {(stocksWithQty || []).map((stock) => {
           return (
-            <Grid md={3} xs={4}>
+            <Grid md={3} xs={4} key={stock.id}>
               <Paper style={{ padding: 8 }} elevation={0}>
                 <Card key={stock.id}>
                   <CardMedia

@@ -29,7 +29,7 @@ export const useGet = () => {
         try {
             const result = await axios.get(`http://localhost:8080/api/v1/${url}`);
             setIsPending(false);
-            setData(result.data);
+            setData(result);
         } catch (error) {
             console.error('error', error);
             setIsPending(false);

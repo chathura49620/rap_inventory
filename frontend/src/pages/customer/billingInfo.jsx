@@ -69,11 +69,14 @@ const BillingInfo = () => {
   const orderObject = {
     items: cartItems.map(item => {
       return {
-        stock_id: item.id,
+        stockId: item.id,
         quantity: item.qty,
+        customerId: currentUserId
       }
     }),
-    customer_id: currentUserId
+    customerId: currentUserId,
+    orderStatus: 'pending',
+    createdAt: new Date()
   }
   const onPlaceOrder = () => {
     postCustomerOrder('customer-order', orderObject)
@@ -83,8 +86,9 @@ const BillingInfo = () => {
   }
   useEffect(() => {
     if (customerOrderResponse?.length > 0) {
+      debugger
       const notifications = JSON.parse(localStorage.getItem('notifications')) || []
-      const orderId = customerOrderResponse[0].order_id
+      const orderId = customerOrderResponse[0].orderId
       const notification = {
         id: Date.now(),
         title: 'Your order has been placed',
@@ -114,7 +118,7 @@ const BillingInfo = () => {
             Order Total
           </Typography>
           <Typography gutterBottom variant="h6" style={{ margin: 0, marginRight: 16 }}>
-            <b>{subtotal} LKR</b>
+            <b>LKR {subtotal.toFixed(2)}</b>
           </Typography>
           <Button variant="contained" color="success" size="small" onClick={onPlaceOrder}>Place Order</Button>
         </div>

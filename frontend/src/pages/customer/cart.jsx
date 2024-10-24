@@ -123,7 +123,7 @@ const Cart = () => {
                             <TableCell align="right"></TableCell>
                             <TableCell align="right"></TableCell>
                             <TableCell align="right"><Typography variant="h6" gutterBottom>
-                                Sub Total &nbsp;&nbsp;{subtotal}
+                                Sub Total &nbsp;&nbsp;{subtotal?.toFixed(2)}
                             </Typography></TableCell>
                             <TableCell align="right"></TableCell>
                             {/* <TableCell align="right">{(cartItem.price * cartItem.qty)}</TableCell> */}

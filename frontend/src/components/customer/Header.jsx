@@ -16,7 +16,7 @@ function Header() {
   const lsNotifications = JSON.parse(localStorage.getItem('notifications')) || []
   React.useEffect(() => {
     if (lsNotifications) setNotifications(lsNotifications)
-  }, [lsNotifications])
+  }, [])
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);

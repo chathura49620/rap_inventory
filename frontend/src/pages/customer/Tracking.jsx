@@ -40,10 +40,10 @@ const Tracking = () => {
 
   const [trackingNumber, setTrackingNumber] = useState();
   const onTrackOrder = (id) => {
-    fetchTrackOrder(`track-order?id=${id || trackingNumber}`)
+    fetchTrackOrder(`customer-order/track-order?id=${id || trackingNumber}`)
   }
   const onMarkAsComplete = () => {
-    postMarkAsComplete(`mark-order-as-complete?id=${trackedOrder?.data?.id}`).then(() => {
+    postMarkAsComplete(`customer-order/update-status?id=${trackedOrder?.data?.id}`).then(() => {
       onTrackOrder()
     })
   }

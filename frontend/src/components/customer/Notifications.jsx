@@ -41,8 +41,10 @@ export default function AccordionTransition(props) {
   const [notifications, setNotifications] = useState([])
 
   useEffect(() => {
-    if (lsNotifications) setNotifications(lsNotifications)
-  }, [lsNotifications])
+    if (lsNotifications) {
+      setNotifications(lsNotifications) 
+    }
+  }, [])
 
   return (
     <div>
