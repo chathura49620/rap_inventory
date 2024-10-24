@@ -1,22 +1,32 @@
 package com.example.demo.controller;
 
 import com.example.demo.data.CustomerOrderDB;
+import com.example.demo.data.StockDB;
 import com.example.demo.model.CustomerOrder;
 import com.example.demo.model.OrderItem;
+import com.example.demo.model.Stock;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
+import com.example.demo.model.ReportRow;
 
 @RestController
 @RequestMapping("/api/v1/customer-order")
-public class CustomerOrderController {
+public class CustomerOrderController implements CrudController<CustomerOrder> {
 
     @Autowired
     private CustomerOrderDB customerOrderDB;
+
+    private final StockDB stockDB = StockDB.getInstance(); // Singleton instance of StockDB
 
     // Create and save a new customer order
     @PostMapping
@@ -34,6 +44,7 @@ public class CustomerOrderController {
                 orderItem.setStatus(savedOrder.getOrderStatus());
                 orderItem.setStockId(item.getStockId());
                 orderItem.setQuantity(item.getQuantity());
+                orderItem.setStatus(item.getStatus());
                 orderItem.setCustomerId(data.getCustomerId());
                 return orderItem;
             }).toList();
@@ -82,11 +93,37 @@ public class CustomerOrderController {
             // Retrieve filtered orders from the DB
             List<CustomerOrder> orders = customerOrderDB.getFilteredOrders(orderStatus, start, end);
 
-            if (!orders.isEmpty()) {
-                return ResponseEntity.ok(orders);
-            } else {
-                return ResponseEntity.ok(orders);
-            }
+            // Build the report data by joining orders with their items and stock information
+            List<ReportRow> reportRows = orders.stream()
+                    .flatMap(order -> order.getItems().stream()  // Flatten the order items
+                            .map(item -> {
+                                // Fetch the stock information using stockId from OrderItem
+                                Optional<Stock> stockOpt = stockDB.getStockByProductId(item.getStockId());
+
+                                if (stockOpt.isPresent()) {
+                                    Stock stock = stockOpt.get();
+                                    // Parse the order's createdAt timestamp
+                                    LocalDateTime createdAt = LocalDateTime.parse(
+                                            order.getCreatedAt(), DateTimeFormatter.ISO_DATE_TIME);
+
+                                    // Create and return a ReportRow object with all necessary details
+                                    return new ReportRow(
+                                            stock.getName(),
+                                            stock.getBrand(),
+                                            stock.getType(),
+                                            stock.getColor(),
+                                            stock.getPrice(),
+                                            item.getQuantity(),
+                                            createdAt
+                                    );
+                                }
+                                return null; // If stock not found, return null
+                            }))
+                    .filter(row -> row != null) // Remove null rows (if stock data is missing)
+                    .collect(Collectors.toList());
+
+            // Return the report data
+            return ResponseEntity.ok(reportRows);
         } catch (Exception e) {
             return ResponseEntity.status(500).body(e.getMessage());
         }
@@ -101,5 +138,23 @@ public class CustomerOrderController {
         } catch (Exception e) {
             return ResponseEntity.status(500).body(e.getMessage());
         }
+    }
+
+    @Override
+    public Optional<CustomerOrder> findOne(int id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'findOne'");
+    }
+
+    @Override
+    public ResponseEntity<?> update(CustomerOrder entity) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'update'");
+    }
+
+    @Override
+    public ResponseEntity<?> delete(int id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'delete'");
     }
 }

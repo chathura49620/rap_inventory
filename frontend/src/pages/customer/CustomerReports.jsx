@@ -89,13 +89,12 @@ const CustomerReports = () => {
   useEffect(() => {
     if (reportData?.data?.length > 0) {
       const mappedReportData = []
-      reportData.data.forEach((order) => {
-        order?.items?.forEach((item) => {
-          let dateStr = new Date(item.createdAt)
+      reportData.data.forEach((item) => {
+          let dateStr = new Date(item.date)
           dateStr = dateStr.toLocaleDateString()
           const createdData = createData(
             item.id,
-            item.name,
+            item.itemName,
             item.brand,
             item.type,
             item.color,
@@ -104,7 +103,6 @@ const CustomerReports = () => {
             dateStr
           )
           mappedReportData.push(createdData)
-        })
       })
 
       if (mappedReportData?.length > 0) setRows(mappedReportData)
