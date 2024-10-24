@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import axios from "axios";
 
-
-
+const token = localStorage.getItem("accessToken");
+if (token) {
+  axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  axios.defaults.headers.common["Content-Type"] = "application/json";
+}
 
 class Dashboard extends Component {
     constructor(props) {
