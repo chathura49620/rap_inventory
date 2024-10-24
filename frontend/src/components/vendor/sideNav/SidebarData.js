@@ -56,9 +56,9 @@ export const SidebarData = [
       },
     ]
   },
-  {
-    title: 'My Profile',
-    path: '/profile',
-    icon: <IoIcons.IoMdHelpCircle />
-  }
+  // {
+  //   title: 'My Profile',
+  //   path: '/profile',
+  //   icon: <IoIcons.IoMdHelpCircle />
+  // }
 ];

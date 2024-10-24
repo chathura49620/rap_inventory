@@ -51,9 +51,9 @@ export const SidebarData = [
     path: '/userreports',
     icon: <FaIcons.FaEnvelopeOpenText />,
   },
-  {
-    title: 'My Profile',
-    path: '/profile',
-    icon: <IoIcons.IoMdHelpCircle />
-  }
+  // {
+  //   title: 'My Profile',
+  //   path: '/profile',
+  //   icon: <IoIcons.IoMdHelpCircle />
+  // }
 ];

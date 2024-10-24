@@ -1,11 +1,11 @@
 package com.example.demo.auth;
 
 import com.example.demo.config.JwtService;
-import com.example.demo.model.UserResponse;
+import com.example.demo.model.UserData;
 import com.example.demo.token.Token;
 import com.example.demo.token.TokenRepository;
 import com.example.demo.token.TokenType;
-import com.example.demo.user.Role;
+// import com.example.demo.user.Role;
 import com.example.demo.user.User;
 import com.example.demo.user.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -124,15 +124,43 @@ public class AuthenticationService {
         }
     }
 
-    public List<UserResponse> getAllUsers() {
+    public List<UserData> getAllUsers() {
         String sql = "SELECT id, email, firstname, lastname, role FROM user";
-        return jdbcTemplate.query(sql, (rs, rowNum) -> new UserResponse(
+        return jdbcTemplate.query(sql, (rs, rowNum) -> new UserData(
                 rs.getLong("id"),
                 rs.getString("email"),
                 rs.getString("firstname"),
                 rs.getString("lastname"),
-                rs.getString("role")
+                rs.getString("role"),
+                null
         ));
     }
-    
+
+    // // Create a new user
+    // public void createUser(UserData user) {
+    //     String sql = "INSERT INTO user (email, firstname, lastname, role, password) VALUES (?, ?, ?, ?, ?)";
+    //     jdbcTemplate.update(sql,
+    //             user.getEmail(),
+    //             user.getFirstname(),
+    //             user.getLastname(),
+    //             user.getRole(),
+    //             user.getPassword());
+    // }
+
+    // Update an existing user
+    public void updateUser(Long id, UserData user) {
+        String sql = "UPDATE user SET email = ?, firstname = ?, lastname = ?, role = ? WHERE id = ?";
+        jdbcTemplate.update(sql,
+                user.getEmail(),
+                user.getFirstname(),
+                user.getLastname(),
+                user.getRole(),
+                id);
+    }
+
+    // Delete a user by ID
+    public void deleteUser(String id) {
+        String sql = "DELETE FROM user WHERE id = ?";
+        jdbcTemplate.update(sql, id);
+    }
 }

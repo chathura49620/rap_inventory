@@ -5,48 +5,40 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
 const AddEditPreview = (props) => {
   const { type, open, setOpen, data, handleAddOrEdit } = props;
 
   const [fname, setFname] = React.useState("");
   const [lname, setLname] = React.useState("");
-  const [phone, setPhone] = React.useState("");
-  const [type1, setType1] = React.useState("");
   const [email, setEmail] = React.useState("");
-  const [address, setAddress] = React.useState("");
   const [role, setRole] = React.useState("");
+  const [password, setPassword] = React.useState("");
 
   React.useEffect(() => {
     if (type !== "add") {
       setFname(data.firstname);
       setLname(data.lastname);
-      // setPhone(data.phone);
-      // setType1(data.type);
       setEmail(data.email);
-      // setAddress(data.address);
       setRole(data.role);
     } else {
       setFname("");
       setLname("");
-      setPhone("");
-      setType1("");
       setEmail("");
-      setAddress("");
       setRole("");
+      setPassword("")
     }
   }, [data]);
 
   const handleSubmit = () => {
     let data1 = {
       id: (type !== 'add') ? data.id : undefined,
-      f_name: fname,
-      l_name: lname,
-      type: type1,
-      phone: phone,
+      firstname: fname,
+      lastname: lname,
       email: email,
-      address: address,
       role:role,
+      password: type == 'add' && password
     };
 
     handleAddOrEdit(type, data1);
@@ -94,15 +86,6 @@ const AddEditPreview = (props) => {
             disabled={type === "preview"}
           />{" "}
           <br />
-          {/* <TextField
-            id="Phone"
-            label="Phone"
-            variant="outlined"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            disabled={type === "preview"}
-          />{" "} */}
-          {/* <br /> */}
           <TextField
             id="Email"
             label="Email"
@@ -112,23 +95,33 @@ const AddEditPreview = (props) => {
             disabled={type === "preview"}
           />{" "}
           <br />
-          {/* <TextField
-            id="Address"
-            label="Address"
-            variant="outlined"
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-            disabled={type === "preview"}
-          />{" "}
-          <br /> */}
-          <TextField
-            id="Role"
-            label="Role"
-            variant="outlined"
-            value={role}
-            onChange={(e) => setRole(e.target.value)}
-            disabled={type === "preview"}
-          />{" "}
+          {type == 'add' &&
+            <>
+              <TextField
+                id="Password"
+                label="Password"
+                variant="outlined"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />{" "}
+              <br />
+            </>
+          }
+          <FormControl fullWidth variant="outlined">
+            <InputLabel id="role-label">Role</InputLabel>
+            <Select
+              labelId="role-label"
+              id="Role"
+              value={role}
+              onChange={(e) => setRole(e.target.value)}
+              label="Role"
+              disabled={type === 'preview'}
+            >
+              <MenuItem value="USER">USER</MenuItem>
+              <MenuItem value="MANAGER">MANAGER</MenuItem>
+              <MenuItem value="ADMIN">ADMIN</MenuItem>
+            </Select>
+          </FormControl>
           <br />
         </DialogContent>
         <DialogActions>

@@ -75,14 +75,14 @@ const User = () => {
 
     const handleAddOrEdit = (type, data) => {
         if (type === 'add') {
-            axios.post('http://localhost:8080/api/v1/user', data).then((res) => {
+            axios.post('http://localhost:8080/api/v1/auth/register', data).then((res) => {
                 console.log(res.data);
                 setRefreshTable(prev => !prev);
             }).catch(err => {
                 console.error(err);
             });
         } else {
-            axios.put('http://localhost:8080/api/v1/user', data).then((res) => {
+            axios.put('http://localhost:8080/api/v1/auth/users/' + data.id, data).then((res) => {
                 console.log(res.data);
                 setRefreshTable(prev => !prev);
             }).catch(err => {
@@ -93,7 +93,7 @@ const User = () => {
 
     const deleteProduct = () => {
         console.log(delId)
-        axios.delete(`http://localhost:8080/api/v1/user/${delId}`).then((res) => {
+        axios.delete(`http://localhost:8080/api/v1/auth/users/${delId}`).then((res) => {
             console.log(res.data);
             setRefreshTable(prev => !prev);
         }).catch(err => {

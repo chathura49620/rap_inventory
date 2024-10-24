@@ -34,7 +34,7 @@ const ConfirmDelete = (props) => {
                     <DialogContentText id="alert-dialog-description">
                         <p>Are you sure you want to delete this product?<br />
                             <ul>
-                                <li>{`${data.id} - ${data.brand} ${data.name} ${data.type} [${data.color} color]`}</li>
+                                <li>{`${data.id} - ${data.firstname} ${data.lastname} / ${data.role} (${data.email})`}</li>
                             </ul>
                         </p>
                     </DialogContentText>
