@@ -26,6 +26,9 @@ import ViewStock from './pages/customer/viewStock';
 import Notifications from './pages/customer/NotificationsPg';
 import Tracking from './pages/customer/Tracking';
 import CustomerReports from './pages/customer/CustomerReports';
+import axios from 'axios';
+axios.defaults.headers.common['Authorization'] = `Bearer ${"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyb290QGdtYWlsLmNvbSIsImlhdCI6MTcyOTc5MTM3MywiZXhwIjoxNzI5ODc3NzczfQ.X8om33oxHfXy2W7iV9amm5vdHD_s8W1q1pu0mcglv7c"}`;
+axios.defaults.headers.common['Content-Type'] = "application/json";
 
 
 function App() {
