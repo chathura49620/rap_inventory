@@ -11,6 +11,8 @@ public class StockDB extends AbstractDB<Stock> {
 
     // Static instance for Singleton
     private static StockDB instance;
+    // StockDB is a singleton
+    private VendorProductDB vendorProDB = VendorProductDB.getInstance();
 
     // Private constructor to prevent instantiation from other classes
     private StockDB() {
@@ -74,7 +76,7 @@ public class StockDB extends AbstractDB<Stock> {
     }
 
     public Stock addNewStockFromRequestedItem(RequestVendor requestedItem) {
-        VendorProduct product = VendorProductDB.vendorProducts.stream()
+        VendorProduct product = vendorProDB.getAllVendorProducts().stream()
                 .filter(item -> item.getProductId().equals(requestedItem.getProductId())
                         && item.getVendorId().equals(requestedItem.getVendorId()))
                 .findFirst()

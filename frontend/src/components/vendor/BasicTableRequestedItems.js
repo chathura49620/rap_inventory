@@ -51,12 +51,12 @@ const BasicTableRequestedItems = (props) => {
                 {row.name}
               </TableCell> */}
               <TableCell align="center">{row.id}</TableCell>
-              <TableCell align="center">{row.product_id}</TableCell>
-              <TableCell align="center">{row.product_name}</TableCell>
+              <TableCell align="center">{row.productId}</TableCell>
+              <TableCell align="center">{row.productName}</TableCell>
               <TableCell align="center">{row.quantity}</TableCell>
-              <TableCell align="center">{row.request_status}</TableCell>
+              <TableCell align="center">{row.requestStatus}</TableCell>
               <TableCell align="center">
-                {row.request_status === "REQUESTED" && 
+                {row.requestStatus === "PENDING" && 
                   <>
                   <Button variant="success" onClick={() => handleApprove(row)}>Approve</Button>
                   <Button variant="danger" onClick={() => handleReject(row.id)}>Reject</Button>

@@ -2,9 +2,8 @@ var db = require("../models/index");
 
 
 //retrive and return all vendorProducts/retive a single vendorProduct'
-exports.find = async function (req, res) {
+exports.find = async function (req, res) { 
   try {
-    console.log("athule");
     const userData = await db.requestedItems.findAll(
       { where: { request_status: 'APPROVED' , id : req.param("id") } }
     );

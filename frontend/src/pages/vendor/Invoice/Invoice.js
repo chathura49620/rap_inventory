@@ -20,7 +20,7 @@ const Invoice = () => {
     useEffect(() => {
         axios.get('http://localhost:8080/api/v1/vendor-invoice').then((res) => {
             console.log(res.data);
-            setInvoice(res.data.data);
+            setInvoice(res.data);
         }).catch(err => {
             console.error(err);
         });

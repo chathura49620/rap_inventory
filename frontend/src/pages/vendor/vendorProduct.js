@@ -30,8 +30,8 @@ const VendorProduct = () => {
 
     useEffect(() => {
         axios.get('http://localhost:8080/api/v1/vendor-product').then((res) => {
-            console.log(res.data);
-            setStocks(res.data.data);
+            console.log("Logging vendor PRoduct data" , res.data);
+            setStocks(res.data);
         }).catch(err => {
             console.error(err);
         });
@@ -46,6 +46,7 @@ const VendorProduct = () => {
     };
 
     const handlePreview = (data) => {
+        console.log("test data", data);
         setPreviewType('preview')
         setOpenPreview(true);
         setPreviewData(data);

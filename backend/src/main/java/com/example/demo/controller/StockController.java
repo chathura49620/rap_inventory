@@ -2,12 +2,15 @@ package com.example.demo.controller;
 
 import com.example.demo.model.Stock;
 import com.example.demo.service.StockService;
+
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/stock")
+@RequestMapping("/api/v1/stock") 
 public class StockController implements CrudController<Stock> {
 
     @Autowired
@@ -32,4 +35,10 @@ public class StockController implements CrudController<Stock> {
     public ResponseEntity<?> delete(@PathVariable int id) {
         return stockService.delete(id);
     }
+
+    @Override
+    public Optional<Stock> findOne(int id) {
+        throw new UnsupportedOperationException("Unimplemented method 'findOne'");
+    }
+
 }

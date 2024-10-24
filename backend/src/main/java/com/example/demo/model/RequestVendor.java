@@ -6,6 +6,7 @@ public class RequestVendor {
 
     private int id;
     private String productId;
+    private String productName;
     private String vendorId;
     private int quantity;
     private String requestStatus;
@@ -13,9 +14,10 @@ public class RequestVendor {
     private String deliveryDate;
 
     // Constructor with parameters
-    public RequestVendor(int id, String productId, String vendorId, int quantity, String requestStatus, String deliveryStatus, String deliveryDate) {
+    public RequestVendor(int id, String productId, String productName, String vendorId, int quantity, String requestStatus, String deliveryStatus, String deliveryDate ) {
         this.id = (id != -1) ? id : idCounter++;
         this.productId = productId;
+        this.productName = productName;
         this.vendorId = vendorId;
         this.quantity = quantity;
         this.requestStatus = requestStatus;
@@ -41,6 +43,14 @@ public class RequestVendor {
 
     public void setProductId(String productId) {
         this.productId = productId;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
     public String getVendorId() {

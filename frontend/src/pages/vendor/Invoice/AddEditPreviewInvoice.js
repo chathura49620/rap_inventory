@@ -52,15 +52,12 @@ const AddEditPreviewInvoice = (props) => {
 
     const handleSubmit = () => {
         let data1 = {
-            id: (type !== 'add') ? data.id : undefined,
-            request_Id: requestItemId,
+            id: (type !== 'add') ? data.id : Math.floor((Math.random() * 10) + 11),
+            requestId: requestItemId,
             total: total,
-            invoiced_date: new Date(),
-            due_date: date,
+            invoicedDate: new Date(),
+            dueDate: date,
             status: "SENT TO CLIENT",
-            // quantity: parseInt(qty),
-            // price: parseFloat(price),
-            // supplier_id: parseInt(supId)
         }
 
         handleAddOrEdit(type, data1);
@@ -72,9 +69,9 @@ const AddEditPreviewInvoice = (props) => {
     };
 
     useEffect(() => {
-        axios.get('http://localhost:8080/api/v1/requested-items').then((res) => {
+        axios.get('http://localhost:8080/api/v1/request-vendor').then((res) => {
             console.log(res.data);
-            setRequestItems(res.data.data);
+            setRequestItems(res.data);
         }).catch(err => {
             console.error(err);
         });
@@ -83,7 +80,7 @@ const AddEditPreviewInvoice = (props) => {
     }, []);
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/api/v1/requested-items/${requestItemId}`).then((res) => {
+        axios.get(`http://localhost:8080/api/v1/request-vendor/${requestItemId}`).then((res) => { 
             setRequestItemId(requestItemId);
             setQuantity(res.data.data[0].quantity);
             seTtotal(res.data.data[0].quantity * 100);
@@ -107,7 +104,7 @@ const AddEditPreviewInvoice = (props) => {
                     }
                 }}
             >
-                <DialogTitle>{type === 'add' ? 'Add New Vendor Catalog' : type === 'edit' ? 'Edit Vendor Catalog' : 'Preview Vendor Catalog'}</DialogTitle>
+                <DialogTitle>{type === 'add' ? 'Add New Invoice' : type === 'edit' ? 'Edit Invoice' : 'Preview Invoice'}</DialogTitle>
                 <DialogContent style={{ display: 'flex', flexDirection: 'column' }}>
 
                     <Select
@@ -122,23 +119,17 @@ const AddEditPreviewInvoice = (props) => {
                         ))}
                     </Select>
 
-                    <TextField id="quantity" label="quantity" variant="outlined" value={quantity} disabled={true} style={{ marginBottom: "10px", marginTop: "10px", borderRadius: "10px" }} /> <br />
-                    <TextField id="total" label="Invoice Total" variant="outlined" value={total} disabled={true} style={{ marginBottom: "10px" }} /> <br />
+                    <TextField id="quantity" label="quantity" variant="outlined" value={quantity} onChange={(e) => setQuantity(e.target.value)}  style={{ marginBottom: "10px", marginTop: "10px", borderRadius: "10px" }} /> <br />
+                    <TextField id="total" label="Invoice Total" variant="outlined" value={total} onChange={(e) => seTtotal(e.target.value)}  style={{ marginBottom: "10px" }} /> <br />
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DemoContainer components={['DatePicker']}>
-                            {/* <DatePicker label="Basic date picker" onChange={(e) => setDate(e.target.value)}/> */}
                             <DatePicker
-                                // defaultValue={dayjs('2022-04-17')}
                                 label="Controlled picker"
                                 value={date}
                                 onChange={(newValue) => setDate(newValue)}
                             />
                         </DemoContainer>
                     </LocalizationProvider>
-                    {/* <TextField id="Type" label="Type" variant="outlined" value={type1} onChange={(e) => setType1(e.target.value)} disabled={type === 'preview'} /> <br />
-                    <TextField id="Quantity" label="Quantity" variant="outlined" value={qty} onChange={(e) => setQty(e.target.value)} disabled={type === 'preview'} /> <br />
-                    <TextField id="Price" label="Price" variant="outlined" value={price} onChange={(e) => setPrice(e.target.value)} disabled={type === 'preview'} /> <br />
-                    <TextField id="Supplier" label="Supplier" variant="outlined" value={supId} onChange={(e) => setSupId(e.target.value)} disabled={type === 'preview'} /> <br /> */}
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Close</Button>

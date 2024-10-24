@@ -21,6 +21,8 @@ const RequestProduct = () => {
 
     const [selectedVendor, setSelectedVendor] = useState('');
     const [selectedProduct, setSelectedProduct] = useState('');
+    const [selectedProductName, setSelectedProductName] = useState('');
+    
     const [quantity, setQuantity] = useState(0);
 
     const [vendorList, setVendorList] = useState([]);
@@ -59,7 +61,9 @@ const RequestProduct = () => {
     }
 
     const handleProduct = (event) => {
+        console.log(event);
         setSelectedProduct(event.target.value);
+        setSelectedProductName(event.target.name);
     }
 
     const requestProduct = () => {
@@ -78,13 +82,14 @@ const RequestProduct = () => {
 
         let obj = {
             "productId": selectedProduct,
+            "productName": selectedProductName,
             "vendorId": selectedVendor,
             "quantity": quantity,
             "requestStatus": "REQUESTED",
             "deliveryStatus": "PENDING",
             "deliveryDate": ""
         }
-
+        console.log("test",obj)
         axios.post('http://localhost:8080/api/v1/request-vendor', obj).then((res) => {
             toast.success('Product Requested Successfully');
         }).catch(err => {
@@ -123,7 +128,7 @@ const RequestProduct = () => {
                         disabled={!selectedVendor} // Disable until a vendor is selected
                     >
                         {productList.map((product) => (
-                            <MenuItem key={product.productId} value={product.productId}>{product.name}</MenuItem>
+                            <MenuItem key={product.productId} value={product.productId} name={product.name}>{product.name}</MenuItem>
                         ))}
                     </Select>
                 </FormControl>
