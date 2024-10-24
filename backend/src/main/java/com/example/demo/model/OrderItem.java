@@ -2,7 +2,7 @@ package com.example.demo.model;
 
 public class OrderItem {
     private int orderId;
-    private int stockId;
+    private String stockId;
     private int quantity;
     private String customerId;
     private String createdAt;
@@ -12,7 +12,7 @@ public class OrderItem {
     public OrderItem() {}
 
     // Parameterized constructor
-    public OrderItem(int orderId, int stockId, int quantity, String customerId, String createdAt, String status) {
+    public OrderItem(int orderId, String stockId, int quantity, String customerId, String createdAt, String status) {
         this.orderId = orderId;
         this.stockId = stockId;
         this.quantity = quantity;
@@ -46,11 +46,11 @@ public class OrderItem {
         return status;
     }
 
-    public int getStockId() {
+    public String getStockId() {
         return stockId;
     }
 
-    public void setStockId(int stockId) {
+    public void setStockId(String stockId) {
         this.stockId = stockId;
     }
 

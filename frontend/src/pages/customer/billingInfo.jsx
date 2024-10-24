@@ -69,9 +69,11 @@ const BillingInfo = () => {
   const orderObject = {
     items: cartItems.map(item => {
       return {
-        stockId: item.id,
+        stockId: item.productId,
         quantity: item.qty,
-        customerId: currentUserId
+        customerId: currentUserId,
+        status: 'pending',
+        createdAt: new Date()
       }
     }),
     customerId: currentUserId,
