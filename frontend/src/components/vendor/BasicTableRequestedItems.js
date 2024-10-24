@@ -9,7 +9,7 @@ const BasicTableRequestedItems = (props) => {
 
   const handleApprove = (data) => {
     data.request_status = "APPROVED";
-    axios.put('http://localhost:8080/api/v1/requested-items', data).then((res) => {
+    axios.put('http://localhost:8080/api/v1/request-vendor', data).then((res) => {
       console.log(res.data);
       window.location.reload();
     }).catch(err => {
@@ -22,7 +22,7 @@ const BasicTableRequestedItems = (props) => {
       id: id,
       request_status: "REJECTED"
     }
-    axios.put('http://localhost:8080/api/v1/requested-items', data).then((res) => {
+    axios.put('http://localhost:8080/api/v1/request-vendor', data).then((res) => {
       console.log(res.data);
       window.location.reload();
     }).catch(err => {
