@@ -1,6 +1,7 @@
 package com.example.demo.data;
 
 import com.example.demo.model.Customer;
+
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -8,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-public class CustomerDB {
+public class CustomerDB extends AbstractDB<Customer> {
     private final List<Customer> customers;
 
     public CustomerDB() {
@@ -49,5 +50,11 @@ public class CustomerDB {
 
     public boolean deleteCustomer(int id) {
         return customers.removeIf(c -> c.getId() == id);
+    }
+
+    @Override
+    public Optional<Customer> getById(int id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getById'");
     }
 }

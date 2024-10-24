@@ -71,8 +71,21 @@ public class StockDB extends AbstractDB<Stock> {
         return removeItemByCondition(stock -> stock.getId() == id);
     }
 
-    public Optional<Stock> getStockByProductId(String productId) {
-        return items.stream().filter(stock -> stock.getProductId().equals(productId)).findFirst();
+    public Optional<Stock> getStockByProductId(Object productId) {
+        if (productId instanceof String) {
+            // Handle the case where productId is a String
+            return items.stream()
+                    .filter(stock -> stock.getProductId().equals(productId))
+                    .findFirst();
+        } else if (productId instanceof Integer) {
+            // Handle the case where productId is an Integer (e.g., stock ID)
+            return items.stream()
+                    .filter(stock -> stock.getId() == (int) productId)
+                    .findFirst();
+        } else {
+            // If productId is of an unsupported type, return an empty Optional
+            return Optional.empty();
+        }
     }
 
     public Stock addNewStockFromRequestedItem(RequestVendor requestedItem) {

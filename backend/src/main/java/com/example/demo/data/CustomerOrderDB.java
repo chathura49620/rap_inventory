@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @Component
-public class CustomerOrderDB {
+public class CustomerOrderDB extends AbstractDB<CustomerOrder> {
     private final List<CustomerOrder> orders = new ArrayList<>();
     private final List<OrderItem> orderItems = new ArrayList<>();
 
@@ -51,5 +51,11 @@ public class CustomerOrderDB {
 
     public void updateOrderStatus(int id, String status) {
         getOrderById(id).ifPresent(order -> order.setOrderStatus(status));
+    }
+
+    @Override
+    public Optional<CustomerOrder> getById(int id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getById'");
     }
 }
