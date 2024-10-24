@@ -1,7 +1,4 @@
-
 import React, { useState } from 'react';
-import axios from "axios";
-axios.defaults.headers.common["Content-Type"] = "application/json";
 import { Form, Button } from 'react-bootstrap'
 import "./login.css";
 import { useNavigate } from 'react-router-dom';
@@ -37,11 +34,8 @@ const Login = () => {
         }
       );
       const result = await response.json();
-      console.log(result);
-      axios.defaults.headers.common[
-        "Authorization"
-      ] = `Bearer ${result?.data?.access_token}`;
-      navigate("/login")
+      localStorage.setItem("accessToken", result?.access_token);
+      navigate("/home")
     } catch (error) {
         console.error(error.message);
     } finally {
