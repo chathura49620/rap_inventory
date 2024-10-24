@@ -1,17 +1,16 @@
 
 import React, { useState } from 'react';
+import axios from "axios";
+axios.defaults.headers.common["Content-Type"] = "application/json";
 import { Form, Button } from 'react-bootstrap'
 import "./login.css";
 import { useNavigate } from 'react-router-dom';
 
-const Register = () => {
+const Login = () => {
 
   const navigate = useNavigate();
 
   const[formData, setFormData] = useState({
-    f_name:'',
-    l_name:'',
-    phone:'',
     email:'',
     password:'',
   })
@@ -27,23 +26,26 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:8080/api/v1/user", {
-        method: "POST",
-        headers: {
-          "Content-Type":"application/json"
-        },
-        body: JSON.stringify(formData)
-      })
+      const response = await fetch(
+        "http://localhost:8080/api/v1/auth/authenticate",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
       const result = await response.json();
       console.log(result);
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${result?.data?.access_token}`;
       navigate("/login")
     } catch (error) {
         console.error(error.message);
     } finally {
         setFormData({
-          f_name:"",
-          l_name:"",
-          phone:"",
           email:"",
           password:"",
         })
@@ -80,10 +82,10 @@ const Register = () => {
           />
         </Form.Group>
         <Button varient="primary" type="submit" className="w-100">
-          Register
+          Login
         </Button>
       </Form>
     </div>
   );
 }
-export default Register;
+export default Login;
