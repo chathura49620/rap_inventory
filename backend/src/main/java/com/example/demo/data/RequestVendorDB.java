@@ -77,7 +77,7 @@ public class RequestVendorDB extends AbstractDB<RequestVendor> {
 
     @Override
     public Optional<RequestVendor> getById(int id) {
-        throw new UnsupportedOperationException("Unimplemented method 'getById'");
+        return items.stream().filter(requestVendor -> requestVendor.getId() == id).findFirst();
     }
 
 }

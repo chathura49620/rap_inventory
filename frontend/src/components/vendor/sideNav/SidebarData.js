@@ -33,12 +33,6 @@ export const SidebarData = [
         icon: <IoIcons.IoIosPaper />,
         cName: 'sub-nav'
       },
-      {
-        title: 'Track Delivery',
-        path: '/track-inventory',
-        icon: <IoIcons.IoIosPaper />,
-        cName: 'sub-nav'
-      },
     ]
   },
   {

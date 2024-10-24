@@ -18,11 +18,11 @@ const SalesReports = () => {
     }, []);
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/api/v1/vendor-invoice?status=${status}`).then((res) => {
+        axios.get(`http://localhost:8080/api/v1/vendor-invoice`).then((res) => {
             console.log(res.data);
-            setInvoice(res.data.data);
+            setInvoice(res.data);
             let total = 0;
-            res.data.data.forEach(element => {
+            res.data.forEach(element => {
                 total += Number(element.total)
             });
             setTotalReport(total);
@@ -44,7 +44,7 @@ const SalesReports = () => {
         // Convert the table data to an array of arrays
         let data = []
         invoice.forEach(element => {
-          let array = [element.id ,element.request_Id , element.total , element.status ] 
+          let array = [element.id ,element.requestId , element.total , element.status ] 
           data.push(array);
     
     
@@ -73,7 +73,7 @@ const SalesReports = () => {
                 <h1><center>Sales Report</center></h1>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginLeft:"400px" , marginTop: "15px" }}>
                   
-                 <Select
+                 {/* <Select
                     style={{ display: "flex", alignItems: "center" }}
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -84,7 +84,7 @@ const SalesReports = () => {
                         <MenuItem value="SENT TO CLIENT">SENT TO CLIENT</MenuItem>
                         <MenuItem value="PAYMENT DONE">PAYMENT DONE</MenuItem>
                   
-                </Select>
+                </Select> */}
                 
             
                 <button className='btn btn-warning'  style={{ display: "flex", justifyContent: "flex-end" }} onClick={(e) => generatePDF(e)}>Generate PDF</button> <br />

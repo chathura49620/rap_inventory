@@ -7,9 +7,21 @@ import axios from 'axios';
 const BasicTableRequestedItems = (props) => {
   const { headers, rows } = props;
 
-  const handleApprove = (data) => {
-    data.request_status = "APPROVED";
-    axios.put('http://localhost:8080/api/v1/requested-items', data).then((res) => {
+  const handleApprove = (dataapprove) => {
+    // event.preventDefult();
+    console.log("dataapprove",dataapprove);
+    let dataApprove = {
+      id: dataapprove.id,
+      deliveryDate: dataapprove.deliveryDate,
+      deliveryStatus: dataapprove.deliveryStatus,
+      productId: dataapprove.productId,
+      productName: dataapprove.productName,
+      quantity: dataapprove.quantity,
+      vendorId: dataapprove.vendorId,
+      requestStatus: "APPROVED"
+      
+    }
+    axios.put('http://localhost:8080/api/v1/request-vendor', dataApprove).then((res) => {
       console.log(res.data);
       window.location.reload();
     }).catch(err => {
@@ -17,12 +29,18 @@ const BasicTableRequestedItems = (props) => {
     });
   }
 
-  const handleReject = (id) => {
-    let data = {
-      id: id,
-      request_status: "REJECTED"
+  const handleReject = (dataReject) => {
+    let datareject = {
+      id: dataReject.id,
+      deliveryDate: dataReject.deliveryDate,
+      deliveryStatus: dataReject.deliveryStatus,
+      productId: dataReject.productId,
+      productName: dataReject.productName,
+      quantity: dataReject.quantity,
+      vendorId: dataReject.vendorId,
+      requestStatus: "REJECTED"
     }
-    axios.put('http://localhost:8080/api/v1/requested-items', data).then((res) => {
+    axios.put('http://localhost:8080/api/v1/request-vendor', datareject).then((res) => {
       console.log(res.data);
       window.location.reload();
     }).catch(err => {
@@ -59,7 +77,7 @@ const BasicTableRequestedItems = (props) => {
                 {row.requestStatus === "PENDING" && 
                   <>
                   <Button variant="success" onClick={() => handleApprove(row)}>Approve</Button>
-                  <Button variant="danger" onClick={() => handleReject(row.id)}>Reject</Button>
+                  <Button variant="danger" onClick={() => handleReject(row)}>Reject</Button>
                   </>
                }
               </TableCell>

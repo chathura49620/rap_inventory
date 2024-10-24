@@ -28,7 +28,7 @@ const BasicTableSalesReport = (props) => {
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell align="center">{row.id}</TableCell>
-              <TableCell align="center">{row.request_Id}</TableCell>
+              <TableCell align="center">{row.requestId}</TableCell>
               <TableCell align="center">{row.total}</TableCell>
               <TableCell align="center">{row.status}</TableCell>
             </TableRow>
